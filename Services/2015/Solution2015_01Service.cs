@@ -23,8 +23,28 @@ namespace AdventOfCode.Services
             return $"Santa's final floor: {floor}.";
         }
 
-        public string SecondHalf(){
-            return "Solution day 1 part 2";
+        public string SecondHalf(){            
+            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs\", "2015_01.txt"));
+
+            int floor = 0;
+            int position = 1;
+
+            foreach(char character in data){
+                if(character == '('){
+                    floor++;
+                }
+                else if(character == ')'){
+                    floor--;
+                }
+
+                if(floor == -1){
+                    break;
+                }
+
+                position++;
+            }
+
+            return $"Position that Santa enters the basement: {position}.";
         }
     }
 }
