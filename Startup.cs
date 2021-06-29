@@ -30,6 +30,7 @@ namespace AdventOfCode
             services.AddScoped<ISolutionService, SolutionService>();
             services.AddScoped<ISolutionDayService, Solution2015_01Service>();
             services.AddScoped<ISolutionDayService, Solution2015_02Service>();
+            services.AddScoped<ISolutionDayService, Solution2015_03Service>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
