@@ -12,10 +12,9 @@ namespace AdventOfCode.Services
             int total = 0;
 
             // Read file contents
-            string line;
-
-            StreamReader file = new StreamReader(Path.Combine(Environment.CurrentDirectory,@"Inputs\", "2015_02.txt"));  
-            while((line = file.ReadLine()) != null)  
+            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_02.txt"));
+            string[] lines = data.Split("\n");
+            foreach(string line in lines)  
             {
                 // Get dimensions of the box
                 List<int> dimensions = line.Split('x').Select(size => Int32.Parse(size)).ToList();
@@ -40,10 +39,9 @@ namespace AdventOfCode.Services
             int total = 0;
 
             // Read file contents
-            string line;
-
-            StreamReader file = new StreamReader(Path.Combine(Environment.CurrentDirectory,@"Inputs\", "2015_02.txt"));  
-            while((line = file.ReadLine()) != null)  
+            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_02.txt"));
+            string[] lines = data.Split("\n");
+            foreach(string line in lines)  
             {
                 // Get dimensions of the box
                 List<int> dimensions = line.Split('x').Select(size => Int32.Parse(size)).ToList();

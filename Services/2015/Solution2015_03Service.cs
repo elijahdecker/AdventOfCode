@@ -8,7 +8,7 @@ namespace AdventOfCode.Services
         public Solution2015_03Service(){}
 
         public string FirstHalf(){
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs\", "2015_03.txt"));
+            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_03.txt"));
 
             Tuple<int, int> currentLocation = new(0, 0);
             Dictionary<Tuple<int, int>, int> locationsVisited = new(){{currentLocation, 1}};
@@ -31,7 +31,7 @@ namespace AdventOfCode.Services
         }
 
         public string SecondHalf(){
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs\", "2015_03.txt"));
+            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_03.txt"));
 
             Tuple<int, int> currentLocation = new(0, 0);
             Tuple<int, int> robotsCurrentLocation = new(0, 0);

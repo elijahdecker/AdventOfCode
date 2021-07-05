@@ -8,7 +8,7 @@ namespace AdventOfCode.Services
         public Solution2019_12Service(){}
 
         public string FirstHalf(){
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs\", "2019_12.txt"));
+            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2019_12.txt"));
 
             foreach(char character in data){
                 
@@ -18,7 +18,7 @@ namespace AdventOfCode.Services
         }
 
         public string SecondHalf(){            
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs\", "2019_12.txt"));
+            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2019_12.txt"));
 
             foreach(char character in data){
 

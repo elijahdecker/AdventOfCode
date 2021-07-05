@@ -68,7 +68,7 @@ namespace AdventOfCode.Services
         public Solution{year}_{day.ToString("D2")}Service(){{}}
 
         public string FirstHalf(){{
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @""Inputs\"", ""{year}_{day.ToString("D2")}.txt""));
+            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @""Inputs"", ""{year}_{day.ToString("D2")}.txt""));
 
             foreach(char character in data){{
                 
