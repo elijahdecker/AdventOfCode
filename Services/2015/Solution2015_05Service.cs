@@ -1,6 +1,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 
 namespace AdventOfCode.Services
 {
@@ -9,12 +10,45 @@ namespace AdventOfCode.Services
 
         public string FirstHalf(){
             string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_05.txt"));
+            string[] lines = data.Split("\n");
+            char[] vowels = new char[]{'a', 'e', 'i', 'o', 'u'};
+            string[] invalidStrings = new string[]{"ab", "cd", "pq", "xy"};
 
-            foreach(char character in data){
-                
+            int niceCount = 0;
+
+            foreach(string line in lines){
+                // Check for 3 vowels
+                if(line.Count(c => vowels.Contains(c)) >= 3){
+                    // Check for 2 of the same char in a row
+                    char previousChar = ' ';
+                    bool duplicateFound = false;
+
+                    foreach(char currentChar in line){
+                        if(currentChar == previousChar){
+                            duplicateFound = true;
+                            break;
+                        }
+
+                        previousChar = currentChar;
+                    }
+
+                    if(duplicateFound){
+                        bool invalidStringFound = false;
+                        foreach(string invalidString in invalidStrings){
+                            if(line.Contains(invalidString)){
+                                invalidStringFound = true;
+                                break;
+                            }
+                        }
+
+                        if(!invalidStringFound){
+                            niceCount++;
+                        }
+                    }
+                }
             }
 
-            return $"";
+            return $"There are {niceCount} nice strings.";
         }
 
         public string SecondHalf(){            
