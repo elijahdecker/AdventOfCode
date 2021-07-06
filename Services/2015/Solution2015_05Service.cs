@@ -52,13 +52,44 @@ namespace AdventOfCode.Services
         }
 
         public string SecondHalf(){            
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_05.txt"));
+string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_05.txt"));
+            string[] lines = data.Split("\n");
 
-            foreach(char character in data){
+            int niceCount = 0;
 
+            foreach(string line in lines){
+                // Check for dupklicate letters spaced by 1
+                bool duplicateFound = false;
+                for(int i = 0; i < line.Length - 2; i++){
+                    if(line[i] == line[i+2]){
+                        duplicateFound = true;
+                        break;
+                    }
+                }
+
+                if(duplicateFound){
+                    bool duplicatePairFound = false;
+                    for(int i = 0; i < line.Length - 3; i++){
+                        string currentString = $"{line[i]}{line[i + 1]}";
+
+                        for(int j = i + 2; j < line.Length - 1; j++){
+                            string comparedString = $"{line[j]}{line[j + 1]}";
+
+                            if(currentString == comparedString){
+                                duplicatePairFound = true;
+                                break;
+                            }
+                        }
+
+                        if(duplicatePairFound){
+                            niceCount++;
+                            break;
+                        }
+                    }
+                }
             }
 
-            return $"";
+            return $"There are {niceCount} nice strings.";
         }
     }
 }
