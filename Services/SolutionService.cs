@@ -21,7 +21,7 @@ namespace AdventOfCode.Services
 
             // If the service was not found, throw an exception
             if(service == null){
-                throw new Exception($"No solutions found for day {day}/{year}.");
+                throw new SolutionNotFoundException($"No solutions found for day {day}/{year}.");
             }
 
             // Get the specific solutino

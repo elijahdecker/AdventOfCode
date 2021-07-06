@@ -20,7 +20,7 @@ namespace AdventOfCode.Controllers
             try{
                 return Ok(solutionService.GetSolution(year, day, secondHalf));
             }
-            catch(Exception e){
+            catch(SolutionNotFoundException e){
                 return NotFound(e.Message);
             }
         }
