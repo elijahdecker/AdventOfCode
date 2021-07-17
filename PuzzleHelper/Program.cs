@@ -58,8 +58,7 @@ namespace PuzzleHelper
                         // Initialize the new service file
                         using StreamWriter serviceFile = new(dayFilePath);
 
-                        await serviceFile.WriteAsync($@"
-using System;
+                        await serviceFile.WriteAsync($@"using System;
 using System.IO;
 
 namespace AdventOfCode.Services
