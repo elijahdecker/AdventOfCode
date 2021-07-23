@@ -34,7 +34,8 @@ namespace AdventOfCode.Services
                         lightArray[x, y] = operation switch {
                             "on" => true,
                             "off" => false,
-                            "toggle" => !lightArray[x, y]
+                            "toggle" => !lightArray[x, y],
+                            _ => false
                         };
                     }
                 }
@@ -81,7 +82,8 @@ namespace AdventOfCode.Services
                         lightArray[x, y] = operation switch {
                             "on" => lightArray[x,y] + 1,
                             "off" => Math.Max(lightArray[x,y] - 1, 0),
-                            "toggle" => lightArray[x,y] + 2
+                            "toggle" => lightArray[x,y] + 2,
+                            _ => 0
                         };
                     }
                 }

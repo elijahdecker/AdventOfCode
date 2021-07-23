@@ -87,7 +87,8 @@ namespace AdventOfCode.Services
                             "AND" => registerValues[registers[0]] & registerValues[registers[1]],
                             "OR" => registerValues[registers[0]] | registerValues[registers[1]],
                             "LSHIFT" => registerValues[registers[0]] << registerValues[registers[1]],
-                            "RSHIFT" => registerValues[registers[0]] >> registerValues[registers[1]]
+                            "RSHIFT" => registerValues[registers[0]] >> registerValues[registers[1]],
+                            _ => 0
                         });
 
                         knownRegisters.Add(pair.Value);
@@ -187,7 +188,8 @@ namespace AdventOfCode.Services
                             "AND" => registerValues[registers[0]] & registerValues[registers[1]],
                             "OR" => registerValues[registers[0]] | registerValues[registers[1]],
                             "LSHIFT" => registerValues[registers[0]] << registerValues[registers[1]],
-                            "RSHIFT" => registerValues[registers[0]] >> registerValues[registers[1]]
+                            "RSHIFT" => registerValues[registers[0]] >> registerValues[registers[1]],
+                            _ => 0
                         });
 
                         knownRegisters.Add(pair.Value);
