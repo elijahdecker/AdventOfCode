@@ -1,13 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
-
-namespace PuzzleHelper
+﻿namespace PuzzleHelper
 {
     class Program
     {
-
         static async Task Main()
         {
             // Server time is UTC-5
@@ -16,27 +10,32 @@ namespace PuzzleHelper
             int latestPuzzleDay = 25;
 
             // If we're in December, then the latest available puzzle is today
-            if(now.Month == 12){
+            if (now.Month == 12)
+            {
                 latestPuzzleYear = now.Year;
                 latestPuzzleDay = now.Day;
             }
 
             // Startup.cs
-            string startupFolderPath = Path.Combine(Environment.CurrentDirectory,"../Startup.cs");
+            string startupFolderPath = Path.Combine(Environment.CurrentDirectory, "../Startup.cs");
 
             // Create a folder for each year that is missing one
-            for(int year = 2015; year <= latestPuzzleYear; year++){
-                string yearFolderPath = Path.Combine(Environment.CurrentDirectory,$"../Services/{year}");
+            for (int year = 2015; year <= latestPuzzleYear; year++)
+            {
+                string yearFolderPath = Path.Combine(Environment.CurrentDirectory, $"../Services/{year}");
 
-                if(!Directory.Exists(yearFolderPath)){
+                if (!Directory.Exists(yearFolderPath))
+                {
                     Directory.CreateDirectory(yearFolderPath);
                 }
 
                 // Create/update files for each day that is missing one
-                for(int day = 1; day <= latestPuzzleDay; day++){
+                for (int day = 1; day <= latestPuzzleDay; day++)
+                {
                     string dayFilePath = Path.Combine(yearFolderPath, $"Solution{year}_{day:D2}Service.cs");
 
-                    if(!File.Exists(dayFilePath)){
+                    if (!File.Exists(dayFilePath))
+                    {
                         // Import the input file
                         string inputFilePath = Path.Combine(Environment.CurrentDirectory, $"../Inputs/{year}_{day:D2}.txt");
 
@@ -85,7 +84,8 @@ namespace AdventOfCode.Services
             }
         }
 
-        static async Task<string> ImportInput(int year, int day){
+        static async Task<string> ImportInput(int year, int day)
+        {
             Uri baseAddress = new("https://adventofcode.com");
             using (var handler = new HttpClientHandler { UseCookies = false })
             using (var client = new HttpClient(handler) { BaseAddress = baseAddress })
