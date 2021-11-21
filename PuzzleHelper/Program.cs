@@ -12,10 +12,10 @@ namespace PuzzleHelper
         {
             // Server time is UTC-5
             DateTime now = DateTime.UtcNow.AddHours(-5);
-            int latestPuzzleYear = now.Year - 1;
+            int latestPuzzleYear = now.Year - now.Month == 12 ? 0 : 1;
             int latestPuzzleDay = 25;
 
-            // IF we're in december, then the latest available puzzle is today
+            // If we're in December, then the latest available puzzle is today
             if(now.Month == 12){
                 latestPuzzleYear = now.Year;
                 latestPuzzleDay = now.Day;
@@ -34,11 +34,11 @@ namespace PuzzleHelper
 
                 // Create/update files for each day that is missing one
                 for(int day = 1; day <= latestPuzzleDay; day++){
-                    string dayFilePath = Path.Combine(yearFolderPath, $"Solution{year}_{day.ToString("D2")}Service.cs");
+                    string dayFilePath = Path.Combine(yearFolderPath, $"Solution{year}_{day:D2}Service.cs");
 
                     if(!File.Exists(dayFilePath)){
                         // Import the input file
-                        string inputFilePath = Path.Combine(Environment.CurrentDirectory, $"../Inputs/{year}_{day.ToString("D2")}.txt");
+                        string inputFilePath = Path.Combine(Environment.CurrentDirectory, $"../Inputs/{year}_{day:D2}.txt");
 
                         using StreamWriter inputFile = new(inputFilePath);
 
@@ -51,7 +51,7 @@ namespace PuzzleHelper
 
                         int insertMinIndex = startupFile.IndexOf("services.AddScoped<ISolutionService, SolutionService>();");
                         int insertIndex = startupFile.IndexOf("        }", insertMinIndex);
-                        startupFile = startupFile.Insert(insertIndex, $"            services.AddScoped<ISolutionDayService, Solution{year}_{day.ToString("D2")}Service>();\n");
+                        startupFile = startupFile.Insert(insertIndex, $"            services.AddScoped<ISolutionDayService, Solution{year}_{day:D2}Service>();\n");
 
                         await File.WriteAllTextAsync(startupFolderPath, startupFile);
 
@@ -63,25 +63,17 @@ using System.IO;
 
 namespace AdventOfCode.Services
 {{
-    public class Solution{year}_{day.ToString("D2")}Service: ISolutionDayService{{
-        public Solution{year}_{day.ToString("D2")}Service(){{}}
+    public class Solution{year}_{day:D2}Service: ISolutionDayService{{
+        public Solution{year}_{day:D2}Service(){{}}
 
         public string FirstHalf(){{
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @""Inputs"", ""{year}_{day.ToString("D2")}.txt""));
-
-            foreach(char character in data){{
-                
-            }}
+            string[] lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @""Inputs"", ""{year}_{day:D2}.txt""));
 
             return $"""";
         }}
 
         public string SecondHalf(){{            
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @""Inputs\"", ""{year}_{day.ToString("D2")}.txt""));
-
-            foreach(char character in data){{
-
-            }}
+            string[] lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @""Inputs\"", ""{year}_{day:D2}.txt""));
 
             return $"""";
         }}

@@ -5,17 +5,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch (console)",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build (console)",
-            "program": "${workspaceFolder}/PuzzleHelper/bin/Debug/net5.0/PuzzleHelper.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/PuzzleHelper",
-            "stopAtEntry": false,
-            "console": "internalConsole",
-        },
-        {
             "name": "Launch (web)",
             "type": "coreclr",
             "request": "launch",
@@ -51,7 +40,17 @@
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
             }
+        },
+        {
+            "name": "Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build (console)",
+            "program": "${workspaceFolder}/PuzzleHelper/bin/Debug/net5.0/PuzzleHelper.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/PuzzleHelper",
+            "stopAtEntry": false,
+            "console": "internalConsole",
         }
-
     ]
 }

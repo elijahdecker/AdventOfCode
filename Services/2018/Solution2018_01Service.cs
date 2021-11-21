@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace AdventOfCode.Services
 {
@@ -7,23 +9,36 @@ namespace AdventOfCode.Services
         public Solution2018_01Service(){}
 
         public string FirstHalf(){
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_01.txt"));
+            string[] data =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_01.txt"));
+            List<int> changes = data.Select(d => int.Parse(d)).ToList();
 
-            foreach(char character in data){
-                
-            }
+            int resultingFrequency = changes.Sum();
 
-            return $"";
+            return $"The resulting frequency is {resultingFrequency}";
         }
 
-        public string SecondHalf(){            
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_01.txt"));
+        public string SecondHalf(){
+            string[] data =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_01.txt"));
+            List<int> changes = data.Select(d => int.Parse(d)).ToList();
 
-            foreach(char character in data){
+            List<int> reachedFrequencies = new();
+            int currentFrequency = 0;
+            bool duplicateFrequencyFound = false;
 
+            while(!duplicateFrequencyFound){
+                foreach (int change in changes){
+                    if (reachedFrequencies.Contains(currentFrequency)){
+                        duplicateFrequencyFound = true;
+                        break;
+                    }
+
+                    reachedFrequencies.Add(currentFrequency);
+
+                    currentFrequency += change;
+                }
             }
 
-            return $"";
+            return $"The first frequency that is reached twice is {currentFrequency}";
         }
     }
 }

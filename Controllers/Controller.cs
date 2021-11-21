@@ -1,6 +1,6 @@
-﻿using System;
+﻿using AdventOfCode.Services;
 using Microsoft.AspNetCore.Mvc;
-using AdventOfCode.Services;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace AdventOfCode.Controllers
 {
@@ -16,7 +16,7 @@ namespace AdventOfCode.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetSolution(int year, int day, bool secondHalf){
+        public IActionResult GetSolution([FromQuery, BindRequired]int year = 2015, [FromQuery, BindRequired]int day = 1, bool secondHalf = false){
             try{
                 return Ok(solutionService.GetSolution(year, day, secondHalf));
             }

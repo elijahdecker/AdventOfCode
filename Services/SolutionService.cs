@@ -15,7 +15,7 @@ namespace AdventOfCode.Services
         public string GetSolution(int year, int day, bool secondHalf){
             // Fetch the specific service
             IEnumerable<ISolutionDayService> services = serviceProvider.GetServices<ISolutionDayService>();
-            ISolutionDayService service = services.FirstOrDefault(s => s.GetType().ToString() == $"AdventOfCode.Services.Solution{year}_{day.ToString("D2")}Service");
+            ISolutionDayService service = services.FirstOrDefault(s => s.GetType().ToString() == $"AdventOfCode.Services.Solution{year}_{day:D2}Service");
 
             IEnumerable<string> test = services.Select(s => s.GetType().ToString());
 
