@@ -46,15 +46,50 @@ namespace AdventOfCode.Services
             return $"The checksum is {checksum}";
         }
 
-        public string SecondHalf(){            
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_02.txt"));
+        public string SecondHalf(){
+            string[] lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_02.txt"));
 
-            foreach(char character in data){
+            List<char> commonLetters = new();
 
+            // Loop over each id
+            for (int i = 0; i < lines.Count() - 1; i++){
+                // If this is not empty, we've found the answer and should stop
+                if (commonLetters.Any()){
+                    break;
+                }
+
+                // Loop over each id after the current one
+                for (int j = i + 1; j < lines.Count(); j++){
+                    string id1 = lines[i];
+                    string id2 = lines[j];
+
+                    int numberOfDifferences = 0;
+
+                    // Compare the two ids char by char
+                    for(int k = 0; k < id1.Count(); k++){
+                        // If we've found more than 1 difference then this is not the answer, continue to the next pair of ids
+                        if (numberOfDifferences > 1){
+                            break;
+                        }
+
+                        if (id1[k] != id2[k]){
+                            numberOfDifferences++;
+                        }
+                        else{
+                            commonLetters.Add(id1[k]);
+                        }
+                    }
+
+                    // If we have found exactly 1 difference, we have our answer and should stop
+                    if (numberOfDifferences == 1){
+                        break;
+                    }
+
+                    commonLetters = new();
+                }
             }
 
-            return $"";
+            return $"Common letters between 2 correct box IDs are {string.Join("", commonLetters)}";
         }
     }
 }
-                        
