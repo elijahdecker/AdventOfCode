@@ -1,8 +1,3 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace AdventOfCode.Services
 {
     public class SolutionService: ISolutionService{
@@ -16,8 +11,6 @@ namespace AdventOfCode.Services
             // Fetch the specific service
             IEnumerable<ISolutionDayService> services = serviceProvider.GetServices<ISolutionDayService>();
             ISolutionDayService service = services.FirstOrDefault(s => s.GetType().ToString() == $"AdventOfCode.Services.Solution{year}_{day:D2}Service");
-
-            IEnumerable<string> test = services.Select(s => s.GetType().ToString());
 
             // If the service was not found, throw an exception
             if(service == null){

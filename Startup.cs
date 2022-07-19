@@ -1,8 +1,3 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using AdventOfCode.Controllers;
 using AdventOfCode.Services;
@@ -21,7 +16,6 @@ namespace AdventOfCode
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -180,6 +174,31 @@ namespace AdventOfCode
             services.AddScoped<ISolutionDayService, Solution2020_23Service>();
             services.AddScoped<ISolutionDayService, Solution2020_24Service>();
             services.AddScoped<ISolutionDayService, Solution2020_25Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_01Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_02Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_03Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_04Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_05Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_06Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_07Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_08Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_09Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_10Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_11Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_12Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_13Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_14Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_15Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_16Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_17Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_18Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_19Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_20Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_21Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_22Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_23Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_24Service>();
+            services.AddScoped<ISolutionDayService, Solution2021_25Service>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -189,7 +208,7 @@ namespace AdventOfCode
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AdventOfCode v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AdventOfCode"));
             }
 
             app.UseHttpsRedirection();

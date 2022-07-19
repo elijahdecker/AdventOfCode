@@ -42,7 +42,7 @@
             }
         },
         {
-            "name": "Launch (console)",
+            "name": "Run puzzle helper",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build (console)",

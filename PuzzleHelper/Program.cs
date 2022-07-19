@@ -6,7 +6,7 @@
         {
             // Server time is UTC-5
             DateTime now = DateTime.UtcNow.AddHours(-5);
-            int latestPuzzleYear = now.Year - now.Month == 12 ? 0 : 1;
+            int latestPuzzleYear = now.Year - (now.Month == 12 ? 0 : 1);
             int latestPuzzleDay = 25;
 
             // If we're in December, then the latest available puzzle is today
@@ -57,22 +57,19 @@
                         // Initialize the new service file
                         using StreamWriter serviceFile = new(dayFilePath);
 
-                        await serviceFile.WriteAsync($@"using System;
-using System.IO;
-
-namespace AdventOfCode.Services
+                        await serviceFile.WriteAsync($@"namespace AdventOfCode.Services
 {{
     public class Solution{year}_{day:D2}Service: ISolutionDayService{{
         public Solution{year}_{day:D2}Service(){{}}
 
         public string FirstHalf(){{
-            string[] lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @""Inputs"", ""{year}_{day:D2}.txt""));
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @""Inputs"", ""{year}_{day:D2}.txt"")).ToList();
 
             return $"""";
         }}
 
-        public string SecondHalf(){{            
-            string[] lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @""Inputs\"", ""{year}_{day:D2}.txt""));
+        public string SecondHalf(){{
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @""Inputs\"", ""{year}_{day:D2}.txt"")).ToList();
 
             return $"""";
         }}
