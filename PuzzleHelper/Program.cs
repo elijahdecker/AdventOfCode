@@ -88,7 +88,7 @@
             using (var client = new HttpClient(handler) { BaseAddress = baseAddress })
             {
                 var message = new HttpRequestMessage(HttpMethod.Get, $"/{year}/day/{day}/input");
-                message.Headers.Add("Cookie", "<Insert Cookie Here>");
+                message.Headers.Add("Cookie", "_ga=GA1.2.627641371.1655257688; session=53616c7465645f5f7262c584ed5c6d1e7b43d2be87ca3fe527358b2d38c026a613028e441e0c53ac64c9b6759f506b60db5d3a0bce3a3616470729f0a9a07246; _gid=GA1.2.502685094.1658189864");
                 var result = await client.SendAsync(message);
                 result.EnsureSuccessStatusCode();
                 return await result.Content.ReadAsStringAsync();
