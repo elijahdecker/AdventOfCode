@@ -6,14 +6,20 @@
         {
             // Server time is UTC-5
             DateTime now = DateTime.UtcNow.AddHours(-5);
-            int latestPuzzleYear = now.Year - (now.Month == 12 ? 0 : 1);
-            int latestPuzzleDay = 25;
+            int latestPuzzleYear, latestPuzzleDay;
 
             // If we're in December, then the latest available puzzle is today
             if (now.Month == 12)
             {
                 latestPuzzleYear = now.Year;
-                latestPuzzleDay = now.Day;
+
+                // If it's December 26th-31st the latest day is the 25th
+                latestPuzzleDay = Math.Min(now.Day, 25);
+            }
+            else {
+                // Otherwise the latest puzzle is from the end of the previous event
+                latestPuzzleYear = now.Year - 1;
+                latestPuzzleDay = 25;
             }
 
             // Startup.cs
@@ -57,25 +63,26 @@
                         // Initialize the new service file
                         using StreamWriter serviceFile = new(dayFilePath);
 
-                        await serviceFile.WriteAsync($@"namespace AdventOfCode.Services
-{{
-    public class Solution{year}_{day:D2}Service: ISolutionDayService{{
-        public Solution{year}_{day:D2}Service(){{}}
+                        await serviceFile.WriteAsync($$"""
+namespace AdventOfCode.Services
+{
+    public class Solution{{year}}_{{day:D2}}Service: ISolutionDayService{
+        public Solution{{year}}_{{day:D2}}Service(){}
 
-        public string FirstHalf(){{
-            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @""Inputs"", ""{year}_{day:D2}.txt"")).ToList();
+        public string FirstHalf(){
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "{{year}}_{{day:D2}}.txt")).ToList();
 
-            return $"""";
-        }}
+            return $"";
+        }
 
-        public string SecondHalf(){{
-            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @""Inputs\"", ""{year}_{day:D2}.txt"")).ToList();
+        public string SecondHalf(){
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "{{year}}_{{day:D2}}.txt")).ToList();
 
-            return $"""";
-        }}
-    }}
-}}
-                        ");
+            return $"";
+        }
+    }
+}
+""");
                     }
                 }
             }
@@ -88,7 +95,7 @@
             using (var client = new HttpClient(handler) { BaseAddress = baseAddress })
             {
                 var message = new HttpRequestMessage(HttpMethod.Get, $"/{year}/day/{day}/input");
-                message.Headers.Add("Cookie", "_ga=GA1.2.627641371.1655257688; session=53616c7465645f5f7262c584ed5c6d1e7b43d2be87ca3fe527358b2d38c026a613028e441e0c53ac64c9b6759f506b60db5d3a0bce3a3616470729f0a9a07246; _gid=GA1.2.502685094.1658189864");
+                message.Headers.Add("Cookie", "_ga=GA1.2.2025053948.1667698880; session=53616c7465645f5fc7c26110549b8c17fb43c5ad58369985e83b3775382993395b90b83c6f702d048717586fa3b15af396b3de0a51e4df8282debdd55f992403; _gid=GA1.2.1015458013.1669854031");
                 var result = await client.SendAsync(message);
                 result.EnsureSuccessStatusCode();
                 return await result.Content.ReadAsStringAsync();
