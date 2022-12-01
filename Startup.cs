@@ -199,6 +199,7 @@ namespace AdventOfCode
             services.AddScoped<ISolutionDayService, Solution2021_23Service>();
             services.AddScoped<ISolutionDayService, Solution2021_24Service>();
             services.AddScoped<ISolutionDayService, Solution2021_25Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_01Service>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
