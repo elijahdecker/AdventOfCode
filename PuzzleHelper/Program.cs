@@ -101,8 +101,8 @@ static async Task<string> ImportInput(int year, int day)
 
         var message = new HttpRequestMessage(HttpMethod.Get, $"/{year}/day/{day}/input");
 
-        string cookie = ""; // Replace with your cookie
-        message.Headers.Add("Cookie", cookie);
+        string cookie = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Cookie.txt"));
+        message.Headers.Add("Cookie", "");
 
         var result = await client.SendAsync(message);
         result.EnsureSuccessStatusCode();
