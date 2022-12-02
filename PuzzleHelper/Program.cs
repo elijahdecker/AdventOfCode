@@ -74,13 +74,13 @@ namespace AdventOfCode.Services
         public string FirstHalf(){
             List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "{{year}}_{{day:D2}}.txt")).ToList();
 
-            return $"{}";
+            return $"";
         }
 
         public string SecondHalf(){
             List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "{{year}}_{{day:D2}}.txt")).ToList();
 
-            return $"{}";
+            return $"";
         }
     }
 }
