@@ -24,7 +24,8 @@ bool update = false;
 // Create a folder for each year that is missing one
 for (int year = 2015; year <= latestPuzzleYear; year++)
 {
-    string yearFolderPath = Path.Combine(Environment.CurrentDirectory, $"../Services/{year}");
+    string basePath = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)!.Parent!.Parent!.Parent!.FullName;
+    string yearFolderPath = Path.Combine(basePath, $"../Services/{year}");
 
     if (!Directory.Exists(yearFolderPath))
     {
