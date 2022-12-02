@@ -55,7 +55,10 @@ for (int year = 2015; year <= latestPuzzleYear; year++)
 
             int insertMinIndex = startupFile.IndexOf("services.AddScoped<ISolutionService, SolutionService>();");
             int insertIndex = startupFile.IndexOf("        }", insertMinIndex);
-            startupFile = startupFile.Insert(insertIndex, $"            services.AddScoped<ISolutionDayService, Solution{year}_{day:D2}Service>();\n");
+
+            if (!startupFile.Contains($"services.AddScoped<ISolutionDayService, Solution{year}_{day:D2}Service>()")) {
+                startupFile = startupFile.Insert(insertIndex, $"            services.AddScoped<ISolutionDayService, Solution{year}_{day:D2}Service>();\n");
+            }
 
             await File.WriteAllTextAsync(startupFolderPath, startupFile);
 
