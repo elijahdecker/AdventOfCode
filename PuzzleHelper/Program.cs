@@ -19,6 +19,8 @@ else {
 // Startup.cs
 string startupFolderPath = Path.Combine(Environment.CurrentDirectory, "../Startup.cs");
 
+bool update = false;
+
 // Create a folder for each year that is missing one
 for (int year = 2015; year <= latestPuzzleYear; year++)
 {
@@ -27,6 +29,8 @@ for (int year = 2015; year <= latestPuzzleYear; year++)
     if (!Directory.Exists(yearFolderPath))
     {
         Directory.CreateDirectory(yearFolderPath);
+        Console.WriteLine($"Created folder for {year}.");
+        update = true;
     }
 
     // Create/update files for each day that is missing one
@@ -77,8 +81,14 @@ namespace AdventOfCode.Services
     }
 }
 """);
+        Console.WriteLine($"Created files for Year: {year}, Day: {day}.");
+        update = true;
         }
     }
+}
+
+if (!update) {
+    Console.WriteLine("No updates applied.");
 }
 
 static async Task<string> ImportInput(int year, int day)
@@ -90,7 +100,9 @@ static async Task<string> ImportInput(int year, int day)
         client.DefaultRequestHeaders.UserAgent.ParseAdd($".NET 7.0 (+via https://github.com/austin-owensby/AdventOfCode by austin_owensby@hotmail.com)");
 
         var message = new HttpRequestMessage(HttpMethod.Get, $"/{year}/day/{day}/input");
-        message.Headers.Add("Cookie", "_ga=GA1.2.2025053948.1667698880; session=53616c7465645f5fc7c26110549b8c17fb43c5ad58369985e83b3775382993395b90b83c6f702d048717586fa3b15af396b3de0a51e4df8282debdd55f992403; _gid=GA1.2.1015458013.1669854031");
+
+        string cookie = ""; // Replace with your cookie
+        message.Headers.Add("Cookie", cookie);
 
         var result = await client.SendAsync(message);
         result.EnsureSuccessStatusCode();
