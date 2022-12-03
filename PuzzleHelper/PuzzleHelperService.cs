@@ -74,16 +74,18 @@
                     await serviceFile.WriteAsync($$"""
         namespace AdventOfCode.Services
         {
-            public class Solution{{year}}_{{day:D2}}Service: ISolutionDayService{
-                public Solution{{year}}_{{day:D2}}Service(){}
+            public class Solution{{year}}_{{day:D2}}Service : ISolutionDayService{
+                public Solution{{year}}_{{day:D2}}Service() { }
 
-                public string FirstHalf(){
+                public string FirstHalf()
+                {
                     List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "{{year}}_{{day:D2}}.txt")).ToList();
 
                     return $"";
                 }
 
-                public string SecondHalf(){
+                public string SecondHalf()
+                {
                     List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "{{year}}_{{day:D2}}.txt")).ToList();
 
                     return $"";
