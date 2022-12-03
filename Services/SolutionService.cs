@@ -49,7 +49,6 @@ namespace AdventOfCode.Services
                 result.EnsureSuccessStatusCode();
                 string content = await result.Content.ReadAsStringAsync();
 
-                Console.Clear();
                 // For debugging in case we get an unexpected output
                 Console.Write(content);
 

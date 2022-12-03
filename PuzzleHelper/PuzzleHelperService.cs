@@ -1,9 +1,7 @@
 ﻿public static class PuzzleHelper
 {
     public static async Task Run()
-    {
-        Console.Clear();
-        
+    {        
         // Server time is UTC-5
         DateTime now = DateTime.UtcNow.AddHours(-5);
         int latestPuzzleYear, latestPuzzleDay;
