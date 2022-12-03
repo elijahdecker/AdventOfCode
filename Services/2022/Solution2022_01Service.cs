@@ -8,46 +8,16 @@ namespace AdventOfCode.Services
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2022_01.txt")).ToList();
 
-            List<int> calories = new();
+            int answer = lines.ChunkByExclusive(string.IsNullOrWhiteSpace).Select(elf => elf.Select(e => int.Parse(e)).Sum()).Max();
 
-            int calorie = 0;
-
-            foreach (string line in lines)
-            {
-                if (string.IsNullOrWhiteSpace(line))
-                {
-                    calories.Add(calorie);
-                    calorie = 0;
-                }
-                else
-                {
-                    calorie += int.Parse(line);
-                }
-            }
-
-            return $"There are {calories.Max()} calories caried by the elf with the most calories";
+            return $"There are {answer} calories caried by the elf with the most calories";
         }
 
         public string SecondHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2022_01.txt")).ToList();
 
-            List<int> calories = new();
-
-            int calorie = 0;
-
-            foreach (string line in lines)
-            {
-                if (string.IsNullOrWhiteSpace(line))
-                {
-                    calories.Add(calorie);
-                    calorie = 0;
-                }
-                else
-                {
-                    calorie += int.Parse(line);
-                }
-            }
+            List<int> calories = lines.ChunkByExclusive(string.IsNullOrWhiteSpace).Select(elf => elf.Select(e => int.Parse(e)).Sum()).ToList();
 
             int total3 = calories.OrderDescending().Take(3).Sum();
 

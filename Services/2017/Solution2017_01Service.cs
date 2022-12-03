@@ -1,31 +1,44 @@
 namespace AdventOfCode.Services
 {
-    public class Solution2017_01Service : ISolutionDayService
-    {
+    public class Solution2017_01Service : ISolutionDayService{
         public Solution2017_01Service() { }
 
         public string FirstHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2017_01.txt"));
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2017_01.txt")).ToList();
 
-            foreach (char character in data)
-            {
+            char prevChar = char.MaxValue;
 
+            int score = 0;
+
+            foreach (char digit in lines.First()) {
+                if (digit == prevChar) {
+                    score++;
+                }
+
+                prevChar = digit;
             }
 
-            return $"";
+            string answer = score.ToString();
+
+            File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "Outputs", "2017_01_1.txt"), answer);
+
+            return answer;
         }
 
         public string SecondHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2017_01.txt"));
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2017_01.txt")).ToList();
 
-            foreach (char character in data)
-            {
+            foreach (string line in lines) {
 
             }
 
-            return $"";
+            string answer = "";
+
+            File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "Outputs", "2017_01_2.txt"), answer);
+
+            return answer;
         }
     }
 }
