@@ -24,5 +24,13 @@ namespace AdventOfCode.Controllers
                 return NotFound(e.Message);
             }
         }
+
+        [HttpPost]
+        public async Task<ActionResult> RunPuzzleHelper()
+        {
+            await PuzzleHelper.Run();
+
+            return Ok();
+        }
     }
 }

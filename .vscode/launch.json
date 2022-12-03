@@ -46,20 +46,6 @@
             "logging": {
                 "moduleLoad": false
             }
-        },
-        {
-            "name": "Run puzzle helper",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build (console)",
-            "program": "${workspaceFolder}/PuzzleHelper/bin/Debug/net7.0/PuzzleHelper.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/PuzzleHelper",
-            "stopAtEntry": false,
-            "console": "internalConsole",
-            "logging": {
-                "moduleLoad": false
-            }
         }
     ]
 }
