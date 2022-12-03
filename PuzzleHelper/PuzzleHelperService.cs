@@ -2,6 +2,8 @@
 {
     public static async Task Run()
     {
+        Console.Clear();
+        
         // Server time is UTC-5
         DateTime now = DateTime.UtcNow.AddHours(-5);
         int latestPuzzleYear, latestPuzzleDay;
@@ -78,16 +80,32 @@
 
                 public string FirstHalf()
                 {
-                    List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "{{year}}_{{day:D2}}.txt")).ToList();
+                    List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "{{year}}_{{day:D2}}.txt")).ToList();
 
-                    return $"";
+                    foreach (string line in lines) {
+
+                    }
+
+                    string answer = "";
+
+                    File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "Outputs", "{{year}}_{{day:D2}}_1.txt"), answer);
+
+                    return answer;
                 }
 
                 public string SecondHalf()
                 {
                     List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "{{year}}_{{day:D2}}.txt")).ToList();
 
-                    return $"";
+                    foreach (string line in lines) {
+
+                    }
+
+                    string answer = "";
+
+                    File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "Outputs", "{{year}}_{{day:D2}}_2.txt"), answer);
+
+                    return answer;
                 }
             }
         }
