@@ -22,15 +22,15 @@
         }
 
         // Startup.cs
-        string startupFolderPath = Path.Combine(Environment.CurrentDirectory, "../Startup.cs");
+        string startupFolderPath = Path.Combine(Environment.CurrentDirectory, "Startup.cs");
 
         bool update = false;
 
         // Create a folder for each year that is missing one
         for (int year = 2015; year <= latestPuzzleYear; year++)
         {
-            string basePath = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)!.Parent!.Parent!.FullName;
-            string yearFolderPath = Path.Combine(basePath, $"../Services/{year}");
+            string basePath = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)!.Parent!.Parent!.Parent!.FullName;
+            string yearFolderPath = Path.Combine(basePath, $"Services/{year}");
 
             if (!Directory.Exists(yearFolderPath))
             {
@@ -47,11 +47,11 @@
                 if (!File.Exists(dayFilePath))
                 {
                     // Import the input file
-                    string inputFilePath = Path.Combine(Environment.CurrentDirectory, $"../Inputs/{year}_{day:D2}.txt");
+                    string inputFilePath = Path.Combine(basePath, $"Inputs/{year}_{day:D2}.txt");
 
                     using StreamWriter inputFile = new(inputFilePath);
 
-                    string response = await ImportInput(year, day);
+                    string response = await ImportInput(year, day, basePath);
 
                     await inputFile.WriteAsync(response);
 
@@ -105,7 +105,7 @@
         }
     }
 
-    private static async Task<string> ImportInput(int year, int day)
+    private static async Task<string> ImportInput(int year, int day, string basePath)
     {
         Uri baseAddress = new("https://adventofcode.com");
         using (var handler = new HttpClientHandler { UseCookies = false })
@@ -115,7 +115,7 @@
 
             var message = new HttpRequestMessage(HttpMethod.Get, $"/{year}/day/{day}/input");
 
-            string cookie = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Cookie.txt"));
+            string cookie = File.ReadAllText(Path.Combine(basePath, "PuzzleHelper/Cookie.txt"));
             message.Headers.Add("Cookie", cookie);
 
             var result = await client.SendAsync(message);
