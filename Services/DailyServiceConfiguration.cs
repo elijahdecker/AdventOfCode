@@ -1,29 +1,9 @@
-using AdventOfCode.Controllers;
-using AdventOfCode.Services;
-using Microsoft.OpenApi.Models;
-
-namespace AdventOfCode
+namespace AdventOfCode.Services
 {
-    public class Startup
+    public static class DailyServiceConfiguration
     {
-        public Startup(IConfiguration configuration)
+        public static void ConfigureDailyServices(this IServiceCollection services)
         {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AdventOfCode", Version = "v1" });
-                c.ParameterFilter<ParameterFilter>();
-            });
-
-            services.AddScoped<ISolutionService, SolutionService>();
             services.AddScoped<ISolutionDayService, Solution2015_01Service>();
             services.AddScoped<ISolutionDayService, Solution2015_02Service>();
             services.AddScoped<ISolutionDayService, Solution2015_03Service>();
@@ -201,28 +181,6 @@ namespace AdventOfCode
             services.AddScoped<ISolutionDayService, Solution2021_25Service>();
             services.AddScoped<ISolutionDayService, Solution2022_01Service>();
             services.AddScoped<ISolutionDayService, Solution2022_02Service>();
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AdventOfCode"));
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
         }
     }
 }
