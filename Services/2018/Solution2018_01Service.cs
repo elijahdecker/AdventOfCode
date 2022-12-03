@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
 namespace AdventOfCode.Services
 {
-    public class Solution2018_01Service: ISolutionDayService{
-        public Solution2018_01Service(){}
+    public class Solution2018_01Service : ISolutionDayService
+    {
+        public Solution2018_01Service() { }
 
-        public string FirstHalf(){
-            string[] data =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_01.txt"));
+        public string FirstHalf()
+        {
+            string[] data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_01.txt"));
             List<int> changes = data.Select(d => int.Parse(d)).ToList();
 
             int resultingFrequency = changes.Sum();
@@ -17,17 +14,21 @@ namespace AdventOfCode.Services
             return $"The resulting frequency is {resultingFrequency}";
         }
 
-        public string SecondHalf(){
-            string[] data =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_01.txt"));
+        public string SecondHalf()
+        {
+            string[] data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_01.txt"));
             List<int> changes = data.Select(d => int.Parse(d)).ToList();
 
             List<int> reachedFrequencies = new();
             int currentFrequency = 0;
             bool duplicateFrequencyFound = false;
 
-            while(!duplicateFrequencyFound){
-                foreach (int change in changes){
-                    if (reachedFrequencies.Contains(currentFrequency)){
+            while (!duplicateFrequencyFound)
+            {
+                foreach (int change in changes)
+                {
+                    if (reachedFrequencies.Contains(currentFrequency))
+                    {
                         duplicateFrequencyFound = true;
                         break;
                     }
@@ -42,4 +43,3 @@ namespace AdventOfCode.Services
         }
     }
 }
-                        

@@ -1,14 +1,14 @@
-using System;
-using System.IO;
 using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Services
 {
-    public class Solution2015_08Service: ISolutionDayService{
-        public Solution2015_08Service(){}
+    public class Solution2015_08Service : ISolutionDayService
+    {
+        public Solution2015_08Service() { }
 
-        public string FirstHalf(){
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_08.txt"));
+        public string FirstHalf()
+        {
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_08.txt"));
 
             int charDifference = 0;
 
@@ -19,8 +19,9 @@ namespace AdventOfCode.Services
             return $"The number of characters of code for string literals minus the number of characters in memory for the values of the strings in total for the entire file is {charDifference}.";
         }
 
-        public string SecondHalf(){            
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_08.txt"));
+        public string SecondHalf()
+        {
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_08.txt"));
 
             int charDifference = 0;
 
@@ -31,4 +32,3 @@ namespace AdventOfCode.Services
         }
     }
 }
-                        

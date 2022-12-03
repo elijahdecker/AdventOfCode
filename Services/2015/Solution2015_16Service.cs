@@ -1,15 +1,12 @@
-using System.Collections.Generic;
-using System.Linq;
-using System;
-using System.IO;
-
 namespace AdventOfCode.Services
 {
-    public class Solution2015_16Service: ISolutionDayService{
-        public Solution2015_16Service(){}
+    public class Solution2015_16Service : ISolutionDayService
+    {
+        public Solution2015_16Service() { }
 
-        public string FirstHalf(){
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_16.txt"));
+        public string FirstHalf()
+        {
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_16.txt"));
 
             string[] lines = data.Split("\n").SkipLast(1).ToArray();
 
@@ -28,21 +25,25 @@ namespace AdventOfCode.Services
 
             int correctAunt = 0;
 
-            foreach(string line in lines){
+            foreach (string line in lines)
+            {
                 string[] words = line.Split(" ");
 
                 string word = words[2];
                 int value = int.Parse(words[3].Split(",")[0]);
 
-                if(mfcsam[word] == value){
+                if (mfcsam[word] == value)
+                {
                     word = words[4];
                     value = int.Parse(words[5].Split(",")[0]);
 
-                    if(mfcsam[word] == value){
+                    if (mfcsam[word] == value)
+                    {
                         word = words[6];
                         value = int.Parse(words[7]);
 
-                        if(mfcsam[word] == value){
+                        if (mfcsam[word] == value)
+                        {
                             correctAunt = int.Parse(words[1].Split(":")[0]);
                         }
                     }
@@ -52,8 +53,9 @@ namespace AdventOfCode.Services
             return $"Aunt Sue {correctAunt} got you the gift.";
         }
 
-        public string SecondHalf(){            
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_16.txt"));
+        public string SecondHalf()
+        {
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_16.txt"));
 
             string[] lines = data.Split("\n").SkipLast(1).ToArray();
 
@@ -72,63 +74,82 @@ namespace AdventOfCode.Services
 
             int correctAunt = 0;
 
-            foreach(string line in lines){
+            foreach (string line in lines)
+            {
                 string[] words = line.Split(" ");
 
                 string word = words[2];
                 int value = int.Parse(words[3].Split(",")[0]);
 
-                if(word == "cats:" || word == "tress:"){
-                    if(mfcsam[word] >= value){
+                if (word == "cats:" || word == "tress:")
+                {
+                    if (mfcsam[word] >= value)
+                    {
                         continue;
                     }
                 }
-                else if(word == "pomeranians:" || word == "goldfish:"){
-                    if(mfcsam[word] <= value){
+                else if (word == "pomeranians:" || word == "goldfish:")
+                {
+                    if (mfcsam[word] <= value)
+                    {
                         continue;
                     }
                 }
-                else{
-                    if(mfcsam[word] != value){
+                else
+                {
+                    if (mfcsam[word] != value)
+                    {
                         continue;
                     }
                 }
-                
+
                 word = words[4];
                 value = int.Parse(words[5].Split(",")[0]);
 
-                if(word == "cats:" || word == "tress:"){
-                    if(mfcsam[word] >= value){
+                if (word == "cats:" || word == "tress:")
+                {
+                    if (mfcsam[word] >= value)
+                    {
                         continue;
                     }
                 }
-                else if(word == "pomeranians:" || word == "goldfish:"){
-                    if(mfcsam[word] <= value){
+                else if (word == "pomeranians:" || word == "goldfish:")
+                {
+                    if (mfcsam[word] <= value)
+                    {
                         continue;
                     }
                 }
-                else{
-                    if(mfcsam[word] != value){
+                else
+                {
+                    if (mfcsam[word] != value)
+                    {
                         continue;
                     }
                 }
 
-                    
+
                 word = words[6];
                 value = int.Parse(words[7]);
 
-                if(word == "cats:" || word == "tress:"){
-                    if(mfcsam[word] >= value){
+                if (word == "cats:" || word == "tress:")
+                {
+                    if (mfcsam[word] >= value)
+                    {
                         continue;
                     }
                 }
-                else if(word == "pomeranians:" || word == "goldfish:"){
-                    if(mfcsam[word] <= value){
+                else if (word == "pomeranians:" || word == "goldfish:")
+                {
+                    if (mfcsam[word] <= value)
+                    {
                         continue;
                     }
                 }
-                else{
-                    if(mfcsam[word] != value){
+                else
+                {
+                    if (mfcsam[word] != value)
+                    {
                         continue;
                     }
                 }
@@ -140,4 +161,3 @@ namespace AdventOfCode.Services
         }
     }
 }
-                        

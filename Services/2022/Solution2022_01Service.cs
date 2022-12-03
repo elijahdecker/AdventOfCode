@@ -1,21 +1,26 @@
 namespace AdventOfCode.Services
 {
-    public class Solution2022_01Service: ISolutionDayService{
-        public Solution2022_01Service(){}
+    public class Solution2022_01Service : ISolutionDayService
+    {
+        public Solution2022_01Service() { }
 
-        public string FirstHalf(){
-            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2022_01.txt")).ToList();
+        public string FirstHalf()
+        {
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2022_01.txt")).ToList();
 
             List<int> calories = new();
 
             int calorie = 0;
 
-            foreach (string line in lines) {
-                if (string.IsNullOrWhiteSpace(line)) {
+            foreach (string line in lines)
+            {
+                if (string.IsNullOrWhiteSpace(line))
+                {
                     calories.Add(calorie);
                     calorie = 0;
                 }
-                else {
+                else
+                {
                     calorie += int.Parse(line);
                 }
             }
@@ -23,19 +28,23 @@ namespace AdventOfCode.Services
             return $"There are {calories.Max()} calories caried by the elf with the most calories";
         }
 
-        public string SecondHalf(){
-            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2022_01.txt")).ToList();
+        public string SecondHalf()
+        {
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2022_01.txt")).ToList();
 
             List<int> calories = new();
 
             int calorie = 0;
 
-            foreach (string line in lines) {
-                if (string.IsNullOrWhiteSpace(line)) {
+            foreach (string line in lines)
+            {
+                if (string.IsNullOrWhiteSpace(line))
+                {
                     calories.Add(calorie);
                     calorie = 0;
                 }
-                else {
+                else
+                {
                     calorie += int.Parse(line);
                 }
             }

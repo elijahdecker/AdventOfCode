@@ -1,25 +1,24 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Collections.Generic;
-
 namespace AdventOfCode.Services
 {
-    public class Solution2015_15Service: ISolutionDayService{
-        public Solution2015_15Service(){}
+    public class Solution2015_15Service : ISolutionDayService
+    {
+        public Solution2015_15Service() { }
 
-        public string FirstHalf(){
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_15.txt"));
+        public string FirstHalf()
+        {
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_15.txt"));
 
             string[] lines = data.Split("\n");
             lines = lines.SkipLast(1).ToArray();
 
             List<Ingredient> ingredients = new();
 
-            foreach(string line in lines){
+            foreach (string line in lines)
+            {
                 string[] words = line.Split(" ");
 
-                Ingredient ingredient = new(){
+                Ingredient ingredient = new()
+                {
                     Capacity = int.Parse(words[2].Split(',')[0]),
                     Durability = int.Parse(words[4].Split(',')[0]),
                     Flavor = int.Parse(words[6].Split(',')[0]),
@@ -34,9 +33,12 @@ namespace AdventOfCode.Services
 
             // Iterate through each of the possibilities of the 3 ingredient totals
             // The 4th ingredient will always be 100 - the sum of the first 3
-            for(int i = 0; i <= 100; i++){
-                for(int j = 0; j <= 100 - i; j++){
-                    for(int k = 0; k <= 100 - i - j; k++){
+            for (int i = 0; i <= 100; i++)
+            {
+                for (int j = 0; j <= 100 - i; j++)
+                {
+                    for (int k = 0; k <= 100 - i - j; k++)
+                    {
                         int l = 100 - i - j - k;
 
                         int capactity = Math.Max(0, i * ingredients[0].Capacity + j * ingredients[1].Capacity + k * ingredients[2].Capacity + l * ingredients[3].Capacity);
@@ -46,7 +48,8 @@ namespace AdventOfCode.Services
 
                         int score = capactity * durability * flavor * texture;
 
-                        if(score > highestScore){
+                        if (score > highestScore)
+                        {
                             highestScore = score;
                         }
                     }
@@ -56,18 +59,21 @@ namespace AdventOfCode.Services
             return $"The total score of the highest-scoring cookie is {highestScore}.";
         }
 
-        public string SecondHalf(){            
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_15.txt"));
+        public string SecondHalf()
+        {
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_15.txt"));
 
             string[] lines = data.Split("\n");
             lines = lines.SkipLast(1).ToArray();
 
             List<Ingredient> ingredients = new();
 
-            foreach(string line in lines){
+            foreach (string line in lines)
+            {
                 string[] words = line.Split(" ");
 
-                Ingredient ingredient = new(){
+                Ingredient ingredient = new()
+                {
                     Capacity = int.Parse(words[2].Split(',')[0]),
                     Durability = int.Parse(words[4].Split(',')[0]),
                     Flavor = int.Parse(words[6].Split(',')[0]),
@@ -82,9 +88,12 @@ namespace AdventOfCode.Services
 
             // Iterate through each of the possibilities of the 3 ingredient totals
             // The 4th ingredient will always be 100 - the sum of the first 3
-            for(int i = 0; i <= 100; i++){
-                for(int j = 0; j <= 100 - i; j++){
-                    for(int k = 0; k <= 100 - i - j; k++){
+            for (int i = 0; i <= 100; i++)
+            {
+                for (int j = 0; j <= 100 - i; j++)
+                {
+                    for (int k = 0; k <= 100 - i - j; k++)
+                    {
                         int l = 100 - i - j - k;
 
                         int capactity = Math.Max(0, i * ingredients[0].Capacity + j * ingredients[1].Capacity + k * ingredients[2].Capacity + l * ingredients[3].Capacity);
@@ -95,7 +104,8 @@ namespace AdventOfCode.Services
 
                         int score = capactity * durability * flavor * texture;
 
-                        if(calories == 500 && score > highestScore){
+                        if (calories == 500 && score > highestScore)
+                        {
                             highestScore = score;
                         }
                     }
@@ -106,12 +116,12 @@ namespace AdventOfCode.Services
         }
     }
 
-    public class Ingredient{
-        public int Capacity {get; set;}
-        public int Durability {get; set;}
-        public int Flavor {get; set;}
-        public int Texture {get; set;}
-        public int Calories {get; set;}
+    public class Ingredient
+    {
+        public int Capacity { get; set; }
+        public int Durability { get; set; }
+        public int Flavor { get; set; }
+        public int Texture { get; set; }
+        public int Calories { get; set; }
     }
 }
-                        

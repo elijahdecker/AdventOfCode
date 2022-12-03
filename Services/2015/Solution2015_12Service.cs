@@ -1,24 +1,25 @@
-using System;
-using System.IO;
-using System.Collections.Generic;
-
 namespace AdventOfCode.Services
 {
-    public class Solution2015_12Service: ISolutionDayService{
-        public Solution2015_12Service(){}
+    public class Solution2015_12Service : ISolutionDayService
+    {
+        public Solution2015_12Service() { }
 
-        public string FirstHalf(){
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_12.txt"));
+        public string FirstHalf()
+        {
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_12.txt"));
 
             int sum = 0;
-            List<char> validNumberCharacters = new(){'-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+            List<char> validNumberCharacters = new() { '-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
             string trackedNumber = "";
 
-            foreach(char character in data){
-                if(validNumberCharacters.Contains(character)){
+            foreach (char character in data)
+            {
+                if (validNumberCharacters.Contains(character))
+                {
                     trackedNumber += character;
                 }
-                else if(trackedNumber != ""){
+                else if (trackedNumber != "")
+                {
                     sum += Int32.Parse(trackedNumber);
                     trackedNumber = "";
                 }
@@ -27,39 +28,45 @@ namespace AdventOfCode.Services
             return $"The sum of all the numbers in the document is {sum}.";
         }
 
-        public string SecondHalf(){            
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_12.txt"));
+        public string SecondHalf()
+        {
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_12.txt"));
 
             Stack<ParsedData> stack = new();
             ParsedData currentObject = new();
-            List<char> validNumberCharacters = new(){'-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+            List<char> validNumberCharacters = new() { '-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
             string trackedNumber = "";
             string trackedRed = "";
 
-            foreach(char character in data){
+            foreach (char character in data)
+            {
                 // Track numbers and add them to the existing object when the number is completed
-                if(validNumberCharacters.Contains(character)){
+                if (validNumberCharacters.Contains(character))
+                {
                     trackedNumber += character;
                 }
-                else if(trackedNumber != ""){
-                    if(!currentObject.HasRed){
+                else if (trackedNumber != "")
+                {
+                    if (!currentObject.HasRed)
+                    {
                         currentObject.Sum += int.Parse(trackedNumber);
                     }
                     trackedNumber = "";
                 }
 
                 // If a new object/array is found, push the current one to the stack and reset the current object
-                switch(character){
+                switch (character)
+                {
                     case '{':
                         // If the parent of this object has red, ignore any children
                         stack.Push(currentObject);
-                        currentObject = new(){HasRed = currentObject.HasRed};
+                        currentObject = new() { HasRed = currentObject.HasRed };
                         trackedRed = "";
                         break;
                     case '[':
                         // If the parent of this object has red, so do its children
                         stack.Push(currentObject);
-                        currentObject = new(){IsArray = true, HasRed = currentObject.HasRed};
+                        currentObject = new() { IsArray = true, HasRed = currentObject.HasRed };
                         trackedRed = "";
                         break;
                     case ']':
@@ -73,17 +80,21 @@ namespace AdventOfCode.Services
                         trackedRed = "r";
                         break;
                     case 'e':
-                        if(trackedRed == "r"){
+                        if (trackedRed == "r")
+                        {
                             trackedRed = "re";
                         }
-                        else{
+                        else
+                        {
                             trackedRed = "";
                         }
                         break;
                     case 'd':
-                        if(trackedRed == "re"){
+                        if (trackedRed == "re")
+                        {
                             // We only ignore the sum if red is in an object or has a red parent
-                            if(!currentObject.IsArray){
+                            if (!currentObject.IsArray)
+                            {
                                 currentObject.HasRed = true;
                                 currentObject.Sum = 0;
                             }
@@ -100,10 +111,10 @@ namespace AdventOfCode.Services
         }
     }
 
-    public class ParsedData {
-        public bool IsArray {get; set;}
-        public int Sum {get; set;}
-        public bool HasRed {get; set;}
+    public class ParsedData
+    {
+        public bool IsArray { get; set; }
+        public int Sum { get; set; }
+        public bool HasRed { get; set; }
     }
 }
-                        

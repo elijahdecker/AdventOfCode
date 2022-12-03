@@ -1,21 +1,23 @@
-using System;
-using System.IO;
-
 namespace AdventOfCode.Services
 {
-    public class Solution2015_01Service: ISolutionDayService{
-        public Solution2015_01Service(){}
+    public class Solution2015_01Service : ISolutionDayService
+    {
+        public Solution2015_01Service() { }
 
-        public string FirstHalf(){
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_01.txt"));
+        public string FirstHalf()
+        {
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_01.txt"));
 
             int floor = 0;
 
-            foreach(char character in data){
-                if(character == '('){
+            foreach (char character in data)
+            {
+                if (character == '(')
+                {
                     floor++;
                 }
-                else if(character == ')'){
+                else if (character == ')')
+                {
                     floor--;
                 }
             }
@@ -23,21 +25,26 @@ namespace AdventOfCode.Services
             return $"Santa's final floor: {floor}.";
         }
 
-        public string SecondHalf(){            
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_01.txt"));
+        public string SecondHalf()
+        {
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_01.txt"));
 
             int floor = 0;
             int position = 1;
 
-            foreach(char character in data){
-                if(character == '('){
+            foreach (char character in data)
+            {
+                if (character == '(')
+                {
                     floor++;
                 }
-                else if(character == ')'){
+                else if (character == ')')
+                {
                     floor--;
                 }
 
-                if(floor == -1){
+                if (floor == -1)
+                {
                     break;
                 }
 

@@ -1,15 +1,12 @@
-using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace AdventOfCode.Services
 {
-    public class Solution2015_21Service: ISolutionDayService{
-        public Solution2015_21Service(){}
+    public class Solution2015_21Service : ISolutionDayService
+    {
+        public Solution2015_21Service() { }
 
-        public string FirstHalf(){
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_21.txt"));
+        public string FirstHalf()
+        {
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_21.txt"));
 
             string[] lines = data.Split("\n");
             int bossStartHealth = int.Parse(lines[0].Split(" ")[2]);
@@ -46,18 +43,23 @@ namespace AdventOfCode.Services
 
             int minCost = int.MaxValue;
 
-            foreach(Item weapon in weapons){
-                foreach(Item armor in armors){
-                    for(int i = 0; i < rings.Count; i++){
-                        for(int j = 0; j < rings.Count; j++){
-                            if(i == j){
+            foreach (Item weapon in weapons)
+            {
+                foreach (Item armor in armors)
+                {
+                    for (int i = 0; i < rings.Count; i++)
+                    {
+                        for (int j = 0; j < rings.Count; j++)
+                        {
+                            if (i == j)
+                            {
                                 continue;
                             }
 
                             Item ring1 = rings[i];
                             Item ring2 = rings[j];
 
-                            List<Item> items = new(){weapon, armor, ring1, ring2};
+                            List<Item> items = new() { weapon, armor, ring1, ring2 };
 
                             int totalCost = items.Sum(i => i.Cost);
                             int totalArmor = items.Sum(i => i.Armor);
@@ -67,18 +69,22 @@ namespace AdventOfCode.Services
 
                             bool playersTurn = true;
 
-                            while(health > 0 && bossHealth > 0){
-                                if(playersTurn){
+                            while (health > 0 && bossHealth > 0)
+                            {
+                                if (playersTurn)
+                                {
                                     bossHealth -= Math.Max(1, totalDamage - bossArmor);
                                 }
-                                else{
+                                else
+                                {
                                     health -= Math.Max(1, bossDamage - totalArmor);
                                 }
 
                                 playersTurn = !playersTurn;
                             }
 
-                            if(health > 0 && totalCost < minCost){
+                            if (health > 0 && totalCost < minCost)
+                            {
                                 minCost = totalCost;
                             }
                         }
@@ -89,8 +95,9 @@ namespace AdventOfCode.Services
             return $"The minimum cost to beat the boss is {minCost}";
         }
 
-        public string SecondHalf(){            
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_21.txt"));
+        public string SecondHalf()
+        {
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_21.txt"));
 
             string[] lines = data.Split("\n");
             int bossStartHealth = int.Parse(lines[0].Split(" ")[2]);
@@ -127,18 +134,23 @@ namespace AdventOfCode.Services
 
             int maxCost = int.MinValue;
 
-            foreach(Item weapon in weapons){
-                foreach(Item armor in armors){
-                    for(int i = 0; i < rings.Count; i++){
-                        for(int j = 0; j < rings.Count; j++){
-                            if(i == j){
+            foreach (Item weapon in weapons)
+            {
+                foreach (Item armor in armors)
+                {
+                    for (int i = 0; i < rings.Count; i++)
+                    {
+                        for (int j = 0; j < rings.Count; j++)
+                        {
+                            if (i == j)
+                            {
                                 continue;
                             }
 
                             Item ring1 = rings[i];
                             Item ring2 = rings[j];
 
-                            List<Item> items = new(){weapon, armor, ring1, ring2};
+                            List<Item> items = new() { weapon, armor, ring1, ring2 };
 
                             int totalCost = items.Sum(i => i.Cost);
                             int totalArmor = items.Sum(i => i.Armor);
@@ -148,18 +160,22 @@ namespace AdventOfCode.Services
 
                             bool playersTurn = true;
 
-                            while(health > 0 && bossHealth > 0){
-                                if(playersTurn){
+                            while (health > 0 && bossHealth > 0)
+                            {
+                                if (playersTurn)
+                                {
                                     bossHealth -= Math.Max(1, totalDamage - bossArmor);
                                 }
-                                else{
+                                else
+                                {
                                     health -= Math.Max(1, bossDamage - totalArmor);
                                 }
 
                                 playersTurn = !playersTurn;
                             }
 
-                            if(bossHealth > 0 && totalCost > maxCost){
+                            if (bossHealth > 0 && totalCost > maxCost)
+                            {
                                 maxCost = totalCost;
                             }
                         }
@@ -171,16 +187,17 @@ namespace AdventOfCode.Services
         }
     }
 
-    public class Item{
-        public int Cost {get; set;}
-        public int Damage {get; set;}
-        public int Armor {get; set;}
+    public class Item
+    {
+        public int Cost { get; set; }
+        public int Damage { get; set; }
+        public int Armor { get; set; }
 
-        public Item(int cost, int damage, int armor){
+        public Item(int cost, int damage, int armor)
+        {
             Cost = cost;
             Damage = damage;
             Armor = armor;
         }
     }
 }
-                        

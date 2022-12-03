@@ -1,20 +1,19 @@
-using System;
-using System.IO;
-using System.Linq;
-
 namespace AdventOfCode.Services
 {
-    public class Solution2018_03Service: ISolutionDayService{
-        public Solution2018_03Service(){}
+    public class Solution2018_03Service : ISolutionDayService
+    {
+        public Solution2018_03Service() { }
 
-        public string FirstHalf(){
-            string[] lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_03.txt"));
+        public string FirstHalf()
+        {
+            string[] lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_03.txt"));
 
             int totalSideLength = 1000;
 
-            int[] usedFabric = new int[totalSideLength*totalSideLength];
+            int[] usedFabric = new int[totalSideLength * totalSideLength];
 
-            foreach(string line in lines){
+            foreach (string line in lines)
+            {
                 string[] splitLine = line.Split(' ');
                 string startString = splitLine[2];
                 string dimensionString = splitLine[3];
@@ -24,9 +23,11 @@ namespace AdventOfCode.Services
                 int length = int.Parse(dimensionString.Split('x')[0]);
                 int width = int.Parse(dimensionString.Split('x')[1]);
 
-                for (int x = startX; x < startX + length; x++){
-                    for (int y = startY; y < startY + width; y++){
-                        usedFabric[totalSideLength*x + y]++;
+                for (int x = startX; x < startX + length; x++)
+                {
+                    for (int y = startY; y < startY + width; y++)
+                    {
+                        usedFabric[totalSideLength * x + y]++;
                     }
                 }
             }
@@ -36,14 +37,16 @@ namespace AdventOfCode.Services
             return $"The number of squares with two or more claims is {duplicateSquares}.";
         }
 
-        public string SecondHalf(){            
-            string[] lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_03.txt"));
+        public string SecondHalf()
+        {
+            string[] lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_03.txt"));
 
             int totalSideLength = 1000;
 
-            int[] usedFabric = new int[totalSideLength*totalSideLength];
+            int[] usedFabric = new int[totalSideLength * totalSideLength];
 
-            foreach(string line in lines){
+            foreach (string line in lines)
+            {
                 string[] splitLine = line.Split(' ');
                 string startString = splitLine[2];
                 string dimensionString = splitLine[3];
@@ -53,16 +56,19 @@ namespace AdventOfCode.Services
                 int length = int.Parse(dimensionString.Split('x')[0]);
                 int width = int.Parse(dimensionString.Split('x')[1]);
 
-                for (int x = startX; x < startX + length; x++){
-                    for (int y = startY; y < startY + width; y++){
-                        usedFabric[totalSideLength*x + y]++;
+                for (int x = startX; x < startX + length; x++)
+                {
+                    for (int y = startY; y < startY + width; y++)
+                    {
+                        usedFabric[totalSideLength * x + y]++;
                     }
                 }
             }
 
             int idWithNoOverlap = 0;
 
-            foreach(string line in lines){
+            foreach (string line in lines)
+            {
                 string[] splitLine = line.Split(' ');
                 string startString = splitLine[2];
                 string dimensionString = splitLine[3];
@@ -74,21 +80,26 @@ namespace AdventOfCode.Services
 
                 bool noOverlap = true;
 
-                for (int x = startX; x < startX + length; x++){
-                    for (int y = startY; y < startY + width; y++){
-                        noOverlap = usedFabric[totalSideLength*x + y] == 1;
+                for (int x = startX; x < startX + length; x++)
+                {
+                    for (int y = startY; y < startY + width; y++)
+                    {
+                        noOverlap = usedFabric[totalSideLength * x + y] == 1;
 
-                        if (!noOverlap){
+                        if (!noOverlap)
+                        {
                             break;
                         }
                     }
 
-                    if (!noOverlap){
+                    if (!noOverlap)
+                    {
                         break;
                     }
                 }
 
-                if (noOverlap){
+                if (noOverlap)
+                {
                     idWithNoOverlap = int.Parse(splitLine[0].Split('#')[1]);
                     break;
                 }
@@ -98,4 +109,3 @@ namespace AdventOfCode.Services
         }
     }
 }
-                        

@@ -1,6 +1,6 @@
-using Microsoft.OpenApi.Models;
 using AdventOfCode.Controllers;
 using AdventOfCode.Services;
+using Microsoft.OpenApi.Models;
 
 namespace AdventOfCode
 {
@@ -20,7 +20,7 @@ namespace AdventOfCode
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AdventOfCode", Version = "v1" });
-                c.ParameterFilter<ParameterFilter>();  
+                c.ParameterFilter<ParameterFilter>();
             });
 
             services.AddScoped<ISolutionService, SolutionService>();

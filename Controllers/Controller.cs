@@ -16,11 +16,14 @@ namespace AdventOfCode.Controllers
         }
 
         [HttpGet]
-        public ActionResult<string> GetSolution([FromQuery, BindRequired]int year = 2015, [FromQuery, BindRequired]int day = 1, bool secondHalf = false){
-            try{
+        public ActionResult<string> GetSolution([FromQuery, BindRequired] int year = 2015, [FromQuery, BindRequired] int day = 1, bool secondHalf = false)
+        {
+            try
+            {
                 return solutionService.GetSolution(year, day, secondHalf);
             }
-            catch(SolutionNotFoundException e){
+            catch (SolutionNotFoundException e)
+            {
                 return NotFound(e.Message);
             }
         }

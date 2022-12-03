@@ -1,15 +1,12 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Collections.Generic;
-
 namespace AdventOfCode.Services
 {
-    public class Solution2015_14Service: ISolutionDayService{
-        public Solution2015_14Service(){}
+    public class Solution2015_14Service : ISolutionDayService
+    {
+        public Solution2015_14Service() { }
 
-        public string FirstHalf(){
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_14.txt"));
+        public string FirstHalf()
+        {
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_14.txt"));
 
             string[] lines = data.Split("\n");
             lines = lines.SkipLast(1).ToArray();
@@ -18,9 +15,10 @@ namespace AdventOfCode.Services
 
             int maxDistance = 0;
 
-            foreach(string line in lines){
+            foreach (string line in lines)
+            {
                 string[] words = line.Split(" ");
-                
+
                 int speed = int.Parse(words[3]);
                 int flightLength = int.Parse(words[6]);
                 int restLength = int.Parse(words[13]);
@@ -30,27 +28,33 @@ namespace AdventOfCode.Services
                 bool flying = true;
                 int distance = 0;
 
-                for(int i = 0; i < raceLength; i++){
-                    if(flying){
+                for (int i = 0; i < raceLength; i++)
+                {
+                    if (flying)
+                    {
                         flightLeft--;
                         distance += speed;
 
-                        if(flightLeft == 0){
+                        if (flightLeft == 0)
+                        {
                             flying = false;
                             restLeft = restLength;
                         }
                     }
-                    else{
+                    else
+                    {
                         restLeft--;
 
-                        if(restLeft == 0){
+                        if (restLeft == 0)
+                        {
                             flying = true;
                             flightLeft = flightLength;
                         }
                     }
                 }
 
-                if(distance > maxDistance){
+                if (distance > maxDistance)
+                {
                     maxDistance = distance;
                 }
             }
@@ -58,8 +62,9 @@ namespace AdventOfCode.Services
             return $"The max distance a reindeer flew after {raceLength} seconds was {maxDistance}.";
         }
 
-        public string SecondHalf(){            
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_14.txt"));
+        public string SecondHalf()
+        {
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_14.txt"));
 
             string[] lines = data.Split("\n");
             lines = lines.SkipLast(1).ToArray();
@@ -68,11 +73,12 @@ namespace AdventOfCode.Services
 
             List<List<int>> distances = new();
 
-            foreach(string line in lines){
+            foreach (string line in lines)
+            {
                 List<int> distanceSet = new();
 
                 string[] words = line.Split(" ");
-                
+
                 int speed = int.Parse(words[3]);
                 int flightLength = int.Parse(words[6]);
                 int restLength = int.Parse(words[13]);
@@ -82,20 +88,25 @@ namespace AdventOfCode.Services
                 bool flying = true;
                 int distance = 0;
 
-                for(int i = 0; i < raceLength; i++){
-                    if(flying){
+                for (int i = 0; i < raceLength; i++)
+                {
+                    if (flying)
+                    {
                         flightLeft--;
                         distance += speed;
 
-                        if(flightLeft == 0){
+                        if (flightLeft == 0)
+                        {
                             flying = false;
                             restLeft = restLength;
                         }
                     }
-                    else{
+                    else
+                    {
                         restLeft--;
 
-                        if(restLeft == 0){
+                        if (restLeft == 0)
+                        {
                             flying = true;
                             flightLeft = flightLength;
                         }
@@ -112,11 +123,14 @@ namespace AdventOfCode.Services
 
 
 
-            for(int i = 0; i < raceLength; i++){
+            for (int i = 0; i < raceLength; i++)
+            {
                 int max = distances.Select(d => d[i]).Max();
 
-                for(int j = 0; j < distances.Count; j++){
-                    if(distances[j][i] == max){
+                for (int j = 0; j < distances.Count; j++)
+                {
+                    if (distances[j][i] == max)
+                    {
                         points[j]++;
                     }
                 }
@@ -128,4 +142,3 @@ namespace AdventOfCode.Services
         }
     }
 }
-                        

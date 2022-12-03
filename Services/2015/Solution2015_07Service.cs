@@ -1,40 +1,42 @@
-using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace AdventOfCode.Services
 {
-    public class Solution2015_07Service: ISolutionDayService{
-        public Solution2015_07Service(){}
+    public class Solution2015_07Service : ISolutionDayService
+    {
+        public Solution2015_07Service() { }
 
-        public string FirstHalf(){
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_07.txt"));
+        public string FirstHalf()
+        {
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_07.txt"));
             string[] lines = data.Split("\n");
-            List<string> knownRegisters = new(){"1"};
-            Dictionary<string, ushort> registerValues = new(){{"1", 1}};
+            List<string> knownRegisters = new() { "1" };
+            Dictionary<string, ushort> registerValues = new() { { "1", 1 } };
             Dictionary<List<string>, string> unknownRegisters = new();
 
             // Process the data from the file into unknown and known registers
-            foreach(string line in lines){
+            foreach (string line in lines)
+            {
                 string[] instruction = line.Split(" ");
 
                 // # -> a
                 // a -> b
-                if(instruction.Length == 3){
+                if (instruction.Length == 3)
+                {
 
-                    if(UInt16.TryParse(instruction[0], out ushort value)){
+                    if (UInt16.TryParse(instruction[0], out ushort value))
+                    {
                         knownRegisters.Add(instruction[2]);
                         registerValues[instruction[2]] = value;
                     }
-                    else{
-                        unknownRegisters[new List<string>{"ASSIGN", instruction[0]}] = instruction[2];
+                    else
+                    {
+                        unknownRegisters[new List<string> { "ASSIGN", instruction[0] }] = instruction[2];
                     }
                 }
 
                 // NOT a -> b
-                if(instruction.Length == 4){
-                    unknownRegisters[new List<string>{instruction[0], instruction[1]}] = instruction[3];
+                if (instruction.Length == 4)
+                {
+                    unknownRegisters[new List<string> { instruction[0], instruction[1] }] = instruction[3];
                 }
 
                 // a AND b -> c
@@ -42,30 +44,39 @@ namespace AdventOfCode.Services
                 // a OR b -> c
                 // a LSHIFT # -> b
                 // a RSHIFT # -> b
-                if(instruction.Length == 5){
-                    if(instruction[1] == "AND"){
-                        unknownRegisters[new List<string>{instruction[1], instruction[0], instruction[2]}] = instruction[4];
+                if (instruction.Length == 5)
+                {
+                    if (instruction[1] == "AND")
+                    {
+                        unknownRegisters[new List<string> { instruction[1], instruction[0], instruction[2] }] = instruction[4];
                     }
-                    else if(instruction[1] == "OR"){
-                        unknownRegisters[new List<string>{instruction[1], instruction[0], instruction[2]}] = instruction[4];
+                    else if (instruction[1] == "OR")
+                    {
+                        unknownRegisters[new List<string> { instruction[1], instruction[0], instruction[2] }] = instruction[4];
                     }
-                    else if(instruction[1] == "LSHIFT"){
-                        unknownRegisters[new List<string>{instruction[1], instruction[0], instruction[2]}] = instruction[4];
+                    else if (instruction[1] == "LSHIFT")
+                    {
+                        unknownRegisters[new List<string> { instruction[1], instruction[0], instruction[2] }] = instruction[4];
 
                         // If an integer is found, add it as a register
-                        if(UInt16.TryParse(instruction[2], out ushort value)){
-                            if(!knownRegisters.Contains(instruction[2])){
+                        if (UInt16.TryParse(instruction[2], out ushort value))
+                        {
+                            if (!knownRegisters.Contains(instruction[2]))
+                            {
                                 knownRegisters.Add(instruction[2]);
                                 registerValues[instruction[2]] = value;
                             }
                         }
                     }
-                    else if(instruction[1] == "RSHIFT"){
-                        unknownRegisters[new List<string>{instruction[1], instruction[0], instruction[2]}] = instruction[4];
+                    else if (instruction[1] == "RSHIFT")
+                    {
+                        unknownRegisters[new List<string> { instruction[1], instruction[0], instruction[2] }] = instruction[4];
 
                         // If an integer is found, add it as a register
-                        if(UInt16.TryParse(instruction[2], out ushort value)){
-                            if(!knownRegisters.Contains(instruction[2])){
+                        if (UInt16.TryParse(instruction[2], out ushort value))
+                        {
+                            if (!knownRegisters.Contains(instruction[2]))
+                            {
                                 knownRegisters.Add(instruction[2]);
                                 registerValues[instruction[2]] = value;
                             }
@@ -74,15 +85,19 @@ namespace AdventOfCode.Services
                 }
             }
 
-            while(!knownRegisters.Contains("a")){
-                foreach(KeyValuePair<List<string>, string> pair in unknownRegisters){
+            while (!knownRegisters.Contains("a"))
+            {
+                foreach (KeyValuePair<List<string>, string> pair in unknownRegisters)
+                {
                     // Get the arguments for the registers for this instruction
-                    List<string> registers = pair.Key.Count == 2 ? new List<string>{pair.Key[1]} : new List<string>{pair.Key[1], pair.Key[2]};
+                    List<string> registers = pair.Key.Count == 2 ? new List<string> { pair.Key[1] } : new List<string> { pair.Key[1], pair.Key[2] };
 
                     // If the registers for this instruction are all known, calculate the new value
-                    if(!registers.Except(knownRegisters).Any()){
-                        registerValues[pair.Value] = (ushort)(pair.Key[0] switch {
-                            "ASSIGN" =>  registerValues[registers[0]],
+                    if (!registers.Except(knownRegisters).Any())
+                    {
+                        registerValues[pair.Value] = (ushort)(pair.Key[0] switch
+                        {
+                            "ASSIGN" => registerValues[registers[0]],
                             "NOT" => ~registerValues[registers[0]],
                             "AND" => registerValues[registers[0]] & registerValues[registers[1]],
                             "OR" => registerValues[registers[0]] | registerValues[registers[1]],
@@ -102,33 +117,39 @@ namespace AdventOfCode.Services
             return $"Wire a's value is {registerValues["a"]}.";
         }
 
-        public string SecondHalf(){            
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_07.txt"));
+        public string SecondHalf()
+        {
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_07.txt"));
             string[] lines = data.Split("\n");
-            List<string> knownRegisters = new(){"1"};
-            Dictionary<string, ushort> registerValues = new(){{"1", 1}};
+            List<string> knownRegisters = new() { "1" };
+            Dictionary<string, ushort> registerValues = new() { { "1", 1 } };
             Dictionary<List<string>, string> unknownRegisters = new();
 
             // Process the data from the file into unknown and known registers
-            foreach(string line in lines){
+            foreach (string line in lines)
+            {
                 string[] instruction = line.Split(" ");
 
                 // # -> a
                 // a -> b
-                if(instruction.Length == 3){
+                if (instruction.Length == 3)
+                {
 
-                    if(UInt16.TryParse(instruction[0], out ushort value)){
+                    if (UInt16.TryParse(instruction[0], out ushort value))
+                    {
                         knownRegisters.Add(instruction[2]);
                         registerValues[instruction[2]] = value;
                     }
-                    else{
-                        unknownRegisters[new List<string>{"ASSIGN", instruction[0]}] = instruction[2];
+                    else
+                    {
+                        unknownRegisters[new List<string> { "ASSIGN", instruction[0] }] = instruction[2];
                     }
                 }
 
                 // NOT a -> b
-                if(instruction.Length == 4){
-                    unknownRegisters[new List<string>{instruction[0], instruction[1]}] = instruction[3];
+                if (instruction.Length == 4)
+                {
+                    unknownRegisters[new List<string> { instruction[0], instruction[1] }] = instruction[3];
                 }
 
                 // a AND b -> c
@@ -136,30 +157,39 @@ namespace AdventOfCode.Services
                 // a OR b -> c
                 // a LSHIFT # -> b
                 // a RSHIFT # -> b
-                if(instruction.Length == 5){
-                    if(instruction[1] == "AND"){
-                        unknownRegisters[new List<string>{instruction[1], instruction[0], instruction[2]}] = instruction[4];
+                if (instruction.Length == 5)
+                {
+                    if (instruction[1] == "AND")
+                    {
+                        unknownRegisters[new List<string> { instruction[1], instruction[0], instruction[2] }] = instruction[4];
                     }
-                    else if(instruction[1] == "OR"){
-                        unknownRegisters[new List<string>{instruction[1], instruction[0], instruction[2]}] = instruction[4];
+                    else if (instruction[1] == "OR")
+                    {
+                        unknownRegisters[new List<string> { instruction[1], instruction[0], instruction[2] }] = instruction[4];
                     }
-                    else if(instruction[1] == "LSHIFT"){
-                        unknownRegisters[new List<string>{instruction[1], instruction[0], instruction[2]}] = instruction[4];
+                    else if (instruction[1] == "LSHIFT")
+                    {
+                        unknownRegisters[new List<string> { instruction[1], instruction[0], instruction[2] }] = instruction[4];
 
                         // If an integer is found, add it as a register
-                        if(UInt16.TryParse(instruction[2], out ushort value)){
-                            if(!knownRegisters.Contains(instruction[2])){
+                        if (UInt16.TryParse(instruction[2], out ushort value))
+                        {
+                            if (!knownRegisters.Contains(instruction[2]))
+                            {
                                 knownRegisters.Add(instruction[2]);
                                 registerValues[instruction[2]] = value;
                             }
                         }
                     }
-                    else if(instruction[1] == "RSHIFT"){
-                        unknownRegisters[new List<string>{instruction[1], instruction[0], instruction[2]}] = instruction[4];
+                    else if (instruction[1] == "RSHIFT")
+                    {
+                        unknownRegisters[new List<string> { instruction[1], instruction[0], instruction[2] }] = instruction[4];
 
                         // If an integer is found, add it as a register
-                        if(UInt16.TryParse(instruction[2], out ushort value)){
-                            if(!knownRegisters.Contains(instruction[2])){
+                        if (UInt16.TryParse(instruction[2], out ushort value))
+                        {
+                            if (!knownRegisters.Contains(instruction[2]))
+                            {
                                 knownRegisters.Add(instruction[2]);
                                 registerValues[instruction[2]] = value;
                             }
@@ -175,15 +205,19 @@ namespace AdventOfCode.Services
             ushort calculatedValue = UInt16.Parse(valueStringNoPeriod);
             registerValues["b"] = calculatedValue;
 
-            while(!knownRegisters.Contains("a")){
-                foreach(KeyValuePair<List<string>, string> pair in unknownRegisters){
+            while (!knownRegisters.Contains("a"))
+            {
+                foreach (KeyValuePair<List<string>, string> pair in unknownRegisters)
+                {
                     // Get the arguments for the registers for this instruction
-                    List<string> registers = pair.Key.Count == 2 ? new List<string>{pair.Key[1]} : new List<string>{pair.Key[1], pair.Key[2]};
+                    List<string> registers = pair.Key.Count == 2 ? new List<string> { pair.Key[1] } : new List<string> { pair.Key[1], pair.Key[2] };
 
                     // If the registers for this instruction are all known, calculate the new value
-                    if(!registers.Except(knownRegisters).Any()){
-                        registerValues[pair.Value] = (ushort)(pair.Key[0] switch {
-                            "ASSIGN" =>  registerValues[registers[0]],
+                    if (!registers.Except(knownRegisters).Any())
+                    {
+                        registerValues[pair.Value] = (ushort)(pair.Key[0] switch
+                        {
+                            "ASSIGN" => registerValues[registers[0]],
                             "NOT" => ~registerValues[registers[0]],
                             "AND" => registerValues[registers[0]] & registerValues[registers[1]],
                             "OR" => registerValues[registers[0]] | registerValues[registers[1]],
@@ -204,4 +238,3 @@ namespace AdventOfCode.Services
         }
     }
 }
-                        

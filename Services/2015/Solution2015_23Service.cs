@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
 namespace AdventOfCode.Services
 {
-    public class Solution2015_23Service: ISolutionDayService{
-        public Solution2015_23Service(){}
+    public class Solution2015_23Service : ISolutionDayService
+    {
+        public Solution2015_23Service() { }
 
-        public string FirstHalf(){
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_23.txt"));
+        public string FirstHalf()
+        {
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_23.txt"));
             List<string> lines = data.Split('\n').ToList();
             lines.RemoveAt(lines.Count - 1);
 
@@ -17,7 +14,8 @@ namespace AdventOfCode.Services
             int regA = 0;
             int regB = 0;
 
-            while(instructionPointer < lines.Count){
+            while (instructionPointer < lines.Count)
+            {
                 string line = lines[instructionPointer];
                 string instruction = line.Split(' ')[0];
                 string register = "";
@@ -25,18 +23,22 @@ namespace AdventOfCode.Services
 
                 int jumpAmount = 1;
 
-                switch (instruction){
+                switch (instruction)
+                {
                     // hlf r: sets r to half its value
                     case "hlf":
                         register = line.Split(' ')[1];
 
-                        if (register.StartsWith("a")){
+                        if (register.StartsWith("a"))
+                        {
                             regA /= 2;
                         }
-                        else if (register.StartsWith("b")){
+                        else if (register.StartsWith("b"))
+                        {
                             regB /= 2;
                         }
-                        else{
+                        else
+                        {
                             throw new ArgumentException($"Unknown register: '{register}.'");
                         }
 
@@ -45,13 +47,16 @@ namespace AdventOfCode.Services
                     case "tpl":
                         register = line.Split(' ')[1];
 
-                        if (register.StartsWith("a")){
+                        if (register.StartsWith("a"))
+                        {
                             regA *= 3;
                         }
-                        else if (register.StartsWith("b")){
+                        else if (register.StartsWith("b"))
+                        {
                             regB *= 3;
                         }
-                        else{
+                        else
+                        {
                             throw new ArgumentException($"Unknown register: '{register}.'");
                         }
 
@@ -60,23 +65,28 @@ namespace AdventOfCode.Services
                     case "inc":
                         register = line.Split(' ')[1];
 
-                        if (register.StartsWith("a")){
+                        if (register.StartsWith("a"))
+                        {
                             regA++;
                         }
-                        else if (register.StartsWith("b")){
+                        else if (register.StartsWith("b"))
+                        {
                             regB++;
                         }
-                        else{
+                        else
+                        {
                             throw new ArgumentException($"Unknown register: '{register}.'");
                         }
 
                         break;
                     // jmp offset: continues at an offset of offset
                     case "jmp":
-                        if(int.TryParse(line.Split(' ')[1], out offset)){
+                        if (int.TryParse(line.Split(' ')[1], out offset))
+                        {
                             jumpAmount = offset;
                         }
-                        else{
+                        else
+                        {
                             throw new ArgumentException($"Couldn't parse offset: '{offset}.'");
                         }
 
@@ -84,23 +94,30 @@ namespace AdventOfCode.Services
                     // jie r, offset: continues at an offset of offset if r is even
                     case "jie":
                         register = line.Split(' ')[1];
-                        
-                        if(int.TryParse(line.Split(' ')[2], out offset)){
-                            if (register.StartsWith("a")){
-                                if (regA % 2 == 0){
+
+                        if (int.TryParse(line.Split(' ')[2], out offset))
+                        {
+                            if (register.StartsWith("a"))
+                            {
+                                if (regA % 2 == 0)
+                                {
                                     jumpAmount = offset;
                                 }
                             }
-                            else if (register.StartsWith("b")){
-                                if (regB % 2 == 0){
+                            else if (register.StartsWith("b"))
+                            {
+                                if (regB % 2 == 0)
+                                {
                                     jumpAmount = offset;
                                 }
                             }
-                            else{
+                            else
+                            {
                                 throw new ArgumentException($"Unknown register: '{register}.'");
                             }
                         }
-                        else{
+                        else
+                        {
                             throw new ArgumentException($"Couldn't parse offset: '{offset}.'");
                         }
 
@@ -108,23 +125,30 @@ namespace AdventOfCode.Services
                     // jio r, offset: continues at an offset of offset if r is one
                     case "jio":
                         register = line.Split(' ')[1];
-                        
-                        if(int.TryParse(line.Split(' ')[2], out offset)){
-                            if (register.StartsWith("a")){
-                                if (regA == 1){
+
+                        if (int.TryParse(line.Split(' ')[2], out offset))
+                        {
+                            if (register.StartsWith("a"))
+                            {
+                                if (regA == 1)
+                                {
                                     jumpAmount = offset;
                                 }
                             }
-                            else if (register.StartsWith("b")){
-                                if (regB == 1){
+                            else if (register.StartsWith("b"))
+                            {
+                                if (regB == 1)
+                                {
                                     jumpAmount = offset;
                                 }
                             }
-                            else{
+                            else
+                            {
                                 throw new ArgumentException($"Unknown register: '{register}.'");
                             }
                         }
-                        else{
+                        else
+                        {
                             throw new ArgumentException($"Couldn't parse offset: '{offset}.'");
                         }
 
@@ -139,8 +163,9 @@ namespace AdventOfCode.Services
             return $"The value of regB after the program stops is {regB}.";
         }
 
-        public string SecondHalf(){            
-            string data =  File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_23.txt"));
+        public string SecondHalf()
+        {
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_23.txt"));
             List<string> lines = data.Split('\n').ToList();
             lines.RemoveAt(lines.Count - 1);
 
@@ -148,7 +173,8 @@ namespace AdventOfCode.Services
             int regA = 1;
             int regB = 0;
 
-            while(instructionPointer < lines.Count){
+            while (instructionPointer < lines.Count)
+            {
                 string line = lines[instructionPointer];
                 string instruction = line.Split(' ')[0];
                 string register = "";
@@ -156,18 +182,22 @@ namespace AdventOfCode.Services
 
                 int jumpAmount = 1;
 
-                switch (instruction){
+                switch (instruction)
+                {
                     // hlf r: sets r to half its value
                     case "hlf":
                         register = line.Split(' ')[1];
 
-                        if (register.StartsWith("a")){
+                        if (register.StartsWith("a"))
+                        {
                             regA /= 2;
                         }
-                        else if (register.StartsWith("b")){
+                        else if (register.StartsWith("b"))
+                        {
                             regB /= 2;
                         }
-                        else{
+                        else
+                        {
                             throw new ArgumentException($"Unknown register: '{register}.'");
                         }
 
@@ -176,13 +206,16 @@ namespace AdventOfCode.Services
                     case "tpl":
                         register = line.Split(' ')[1];
 
-                        if (register.StartsWith("a")){
+                        if (register.StartsWith("a"))
+                        {
                             regA *= 3;
                         }
-                        else if (register.StartsWith("b")){
+                        else if (register.StartsWith("b"))
+                        {
                             regB *= 3;
                         }
-                        else{
+                        else
+                        {
                             throw new ArgumentException($"Unknown register: '{register}.'");
                         }
 
@@ -191,23 +224,28 @@ namespace AdventOfCode.Services
                     case "inc":
                         register = line.Split(' ')[1];
 
-                        if (register.StartsWith("a")){
+                        if (register.StartsWith("a"))
+                        {
                             regA++;
                         }
-                        else if (register.StartsWith("b")){
+                        else if (register.StartsWith("b"))
+                        {
                             regB++;
                         }
-                        else{
+                        else
+                        {
                             throw new ArgumentException($"Unknown register: '{register}.'");
                         }
 
                         break;
                     // jmp offset: continues at an offset of offset
                     case "jmp":
-                        if(int.TryParse(line.Split(' ')[1], out offset)){
+                        if (int.TryParse(line.Split(' ')[1], out offset))
+                        {
                             jumpAmount = offset;
                         }
-                        else{
+                        else
+                        {
                             throw new ArgumentException($"Couldn't parse offset: '{offset}.'");
                         }
 
@@ -215,23 +253,30 @@ namespace AdventOfCode.Services
                     // jie r, offset: continues at an offset of offset if r is even
                     case "jie":
                         register = line.Split(' ')[1];
-                        
-                        if(int.TryParse(line.Split(' ')[2], out offset)){
-                            if (register.StartsWith("a")){
-                                if (regA % 2 == 0){
+
+                        if (int.TryParse(line.Split(' ')[2], out offset))
+                        {
+                            if (register.StartsWith("a"))
+                            {
+                                if (regA % 2 == 0)
+                                {
                                     jumpAmount = offset;
                                 }
                             }
-                            else if (register.StartsWith("b")){
-                                if (regB % 2 == 0){
+                            else if (register.StartsWith("b"))
+                            {
+                                if (regB % 2 == 0)
+                                {
                                     jumpAmount = offset;
                                 }
                             }
-                            else{
+                            else
+                            {
                                 throw new ArgumentException($"Unknown register: '{register}.'");
                             }
                         }
-                        else{
+                        else
+                        {
                             throw new ArgumentException($"Couldn't parse offset: '{offset}.'");
                         }
 
@@ -239,23 +284,30 @@ namespace AdventOfCode.Services
                     // jio r, offset: continues at an offset of offset if r is one
                     case "jio":
                         register = line.Split(' ')[1];
-                        
-                        if(int.TryParse(line.Split(' ')[2], out offset)){
-                            if (register.StartsWith("a")){
-                                if (regA == 1){
+
+                        if (int.TryParse(line.Split(' ')[2], out offset))
+                        {
+                            if (register.StartsWith("a"))
+                            {
+                                if (regA == 1)
+                                {
                                     jumpAmount = offset;
                                 }
                             }
-                            else if (register.StartsWith("b")){
-                                if (regB == 1){
+                            else if (register.StartsWith("b"))
+                            {
+                                if (regB == 1)
+                                {
                                     jumpAmount = offset;
                                 }
                             }
-                            else{
+                            else
+                            {
                                 throw new ArgumentException($"Unknown register: '{register}.'");
                             }
                         }
-                        else{
+                        else
+                        {
                             throw new ArgumentException($"Couldn't parse offset: '{offset}.'");
                         }
 
@@ -271,4 +323,3 @@ namespace AdventOfCode.Services
         }
     }
 }
-                        

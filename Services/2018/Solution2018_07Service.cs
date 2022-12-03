@@ -1,17 +1,18 @@
-using System;
-using System.IO;
 using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Services
 {
-    public class Solution2018_07Service: ISolutionDayService{
-        public Solution2018_07Service(){}
+    public class Solution2018_07Service : ISolutionDayService
+    {
+        public Solution2018_07Service() { }
 
-        public class Instruction{
-            public char First {get; set;}
-            public char Next {get; set;}
+        public class Instruction
+        {
+            public char First { get; set; }
+            public char Next { get; set; }
 
-            public Instruction(string data) {
+            public Instruction(string data)
+            {
                 Regex rx = new Regex(@"Step (.) must be finished before step (.) can begin\.");
                 MatchCollection matches = rx.Matches(data);
                 Match match = matches.First();
@@ -21,13 +22,15 @@ namespace AdventOfCode.Services
             }
         }
 
-        public class Worker {
-            public char? Step {get; set;}
-            public int TimeLeft {get; set;}
+        public class Worker
+        {
+            public char? Step { get; set; }
+            public int TimeLeft { get; set; }
         }
 
-        public string FirstHalf(){
-            List<string> data =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_07.txt")).ToList();
+        public string FirstHalf()
+        {
+            List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_07.txt")).ToList();
 
             List<Instruction> instructions = data.Select(d => new Instruction(d)).ToList();
 
@@ -40,19 +43,23 @@ namespace AdventOfCode.Services
 
             string order = string.Empty;
 
-            while (availableSteps.Count > 0) {
+            while (availableSteps.Count > 0)
+            {
                 char step = availableSteps.Dequeue();
 
-                if (!order.Contains(step)) {
+                if (!order.Contains(step))
+                {
                     order += step;
 
                     // Get all steps that had the current steps as a requirement
                     List<char> nextSteps = instructions.Where(i => i.First == step).Select(i => i.Next).ToList();
 
-                    foreach (char nextStep in nextSteps) {
+                    foreach (char nextStep in nextSteps)
+                    {
                         // Check if the next step has all of it's requirements met
                         List<char> requiredStepsForNextStep = instructions.Where(i => i.Next == nextStep).Select(s => s.First).ToList();
-                        if (requiredStepsForNextStep.All(s => order.Contains(s))) {
+                        if (requiredStepsForNextStep.All(s => order.Contains(s)))
+                        {
                             availableSteps.Enqueue(nextStep, nextStep);
                         }
                     }
@@ -62,8 +69,9 @@ namespace AdventOfCode.Services
             return $"The order of the steps is {order}";
         }
 
-        public string SecondHalf(){
-            List<string> data =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_07.txt")).ToList();
+        public string SecondHalf()
+        {
+            List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_07.txt")).ToList();
 
             List<Instruction> instructions = data.Select(d => new Instruction(d)).ToList();
 
@@ -76,26 +84,31 @@ namespace AdventOfCode.Services
 
             List<char> history = startingSteps.Where(s => !endSteps.Contains(s)).ToList();
 
-            int timeSpent = 0; 
+            int timeSpent = 0;
 
-            List<Worker> workers = new(){ new(), new(), new(), new(), new() };
+            List<Worker> workers = new() { new(), new(), new(), new(), new() };
 
             bool keepLooping = true;
 
-            while (keepLooping) {
+            while (keepLooping)
+            {
                 timeSpent++;
 
-                foreach (Worker worker in workers) {
-                    if (worker.TimeLeft > 0) {
+                foreach (Worker worker in workers)
+                {
+                    if (worker.TimeLeft > 0)
+                    {
                         worker.TimeLeft--;
                     }
 
-                    if (worker.TimeLeft == 0 && worker.Step != null) {
+                    if (worker.TimeLeft == 0 && worker.Step != null)
+                    {
                         history.Add((char)worker.Step);
                         worker.Step = null;
                     }
 
-                    if (worker.Step == null && availableSteps.Count > 0) {
+                    if (worker.Step == null && availableSteps.Count > 0)
+                    {
                         worker.Step = availableSteps.Dequeue();
                         worker.TimeLeft = (int)worker.Step - (int)'A' + 1 + 60;
                     }
@@ -116,4 +129,3 @@ namespace AdventOfCode.Services
         }
     }
 }
-                        

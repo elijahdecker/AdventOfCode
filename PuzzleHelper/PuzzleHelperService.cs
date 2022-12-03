@@ -1,5 +1,7 @@
-﻿public static class PuzzleHelper {
-    public static async Task Run() {
+﻿public static class PuzzleHelper
+{
+    public static async Task Run()
+    {
         // Server time is UTC-5
         DateTime now = DateTime.UtcNow.AddHours(-5);
         int latestPuzzleYear, latestPuzzleDay;
@@ -12,7 +14,8 @@
             // If it's December 26th-31st the latest day is the 25th
             latestPuzzleDay = Math.Min(now.Day, 25);
         }
-        else {
+        else
+        {
             // Otherwise the latest puzzle is from the end of the previous event
             latestPuzzleYear = now.Year - 1;
             latestPuzzleDay = 25;
@@ -58,7 +61,8 @@
                     int insertMinIndex = startupFile.IndexOf("services.AddScoped<ISolutionService, SolutionService>();");
                     int insertIndex = startupFile.IndexOf("        }", insertMinIndex);
 
-                    if (!startupFile.Contains($"services.AddScoped<ISolutionDayService, Solution{year}_{day:D2}Service>()")) {
+                    if (!startupFile.Contains($"services.AddScoped<ISolutionDayService, Solution{year}_{day:D2}Service>()"))
+                    {
                         startupFile = startupFile.Insert(insertIndex, $"            services.AddScoped<ISolutionDayService, Solution{year}_{day:D2}Service>();\n");
                     }
 
@@ -87,17 +91,18 @@
             }
         }
         """);
-                Console.WriteLine($"Created files for Year: {year}, Day: {day}.");
-                update = true;
+                    Console.WriteLine($"Created files for Year: {year}, Day: {day}.");
+                    update = true;
                 }
             }
         }
 
-        if (!update) {
+        if (!update)
+        {
             Console.WriteLine("No updates applied.");
         }
     }
-    
+
     private static async Task<string> ImportInput(int year, int day)
     {
         Uri baseAddress = new("https://adventofcode.com");

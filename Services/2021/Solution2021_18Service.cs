@@ -1,19 +1,21 @@
 namespace AdventOfCode.Services
 {
-    public class Solution2021_18Service: ISolutionDayService{
-        public Solution2021_18Service(){}
+    public class Solution2021_18Service : ISolutionDayService
+    {
+        public Solution2021_18Service() { }
 
-        public string FirstHalf(){
-            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2021_18.txt")).ToList();
+        public string FirstHalf()
+        {
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2021_18.txt")).ToList();
 
             return $"";
         }
 
-        public string SecondHalf(){
-            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs\", "2021_18.txt")).ToList();
+        public string SecondHalf()
+        {
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs\", "2021_18.txt")).ToList();
 
             return $"";
         }
     }
 }
-                        
