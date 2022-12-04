@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace AdventOfCode.Services {
     // Reminders of useful LINQ functions
     // Chunk(n) splits list into list of lists of length n
@@ -78,6 +80,43 @@ namespace AdventOfCode.Services {
 
             return resultList;
 
+        }
+    
+        /// <summary>
+        /// A quick version of regex that assumes we're receiving 1 line and only want the first mathc
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="regex"></param>
+        /// <returns></returns>
+        public static List<string> QuickRegex(this string input, string regex) {
+            List<string> response = new();
+            
+            Regex rx = new(regex);
+
+            MatchCollection match = rx.Matches(input);
+
+            if (match.Any()) {
+                GroupCollection groups = match.First().Groups;
+
+                // Not starting at i = 0 because that returns the whole match, we only care about the captures
+                for (int i = 1; i < groups.Count; i++) {
+                    Group group = groups[i];
+
+                    response.Add(group.Value);
+                }
+            }
+
+            return response;
+        }
+
+        /// <summary>
+        /// Parses a list of strings into a list of ints
+        /// </summary>
+        /// <param name="strings"></param>
+        /// <returns></returns>
+        public static List<int> ToInts(this IEnumerable<string> strings)
+        {
+            return strings.Select(s => int.Parse(s)).ToList();
         }
     }
 }

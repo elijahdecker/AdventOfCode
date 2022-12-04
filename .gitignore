@@ -4,4 +4,4 @@ obj/
 .vs
 PuzzleHelper/Cookie.txt
 /AdventOfCode.csproj.user
-Outputs/*
+Outputs/* 
