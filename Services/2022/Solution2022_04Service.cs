@@ -24,11 +24,7 @@ namespace AdventOfCode.Services
                 return value;
             });
 
-            string answer = matches.ToString();
-
-            File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "Outputs", "2022_04_1.txt"), answer);
-
-            return answer;
+            return Utility.SubmitAnswer(2022, 4, false, matches).GetAwaiter().GetResult();
         }
 
         public string SecondHalf()

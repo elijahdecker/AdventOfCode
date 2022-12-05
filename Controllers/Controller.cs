@@ -28,14 +28,6 @@ namespace AdventOfCode.Controllers
             }
         }
 
-        [HttpPost("answer")]
-        public async Task<IActionResult> SubmitSolution([FromQuery, BindRequired] int year = 2015, [FromQuery, BindRequired] int day = 1, bool secondHalf = false)
-        {
-            bool success = await solutionService.SendSolution(year, day, secondHalf);
-
-            return success ? Ok() : BadRequest();
-        }
-
         [HttpPost("puzzle-helper")]
         public async Task<ActionResult> RunPuzzleHelper()
         {

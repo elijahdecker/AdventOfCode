@@ -80,30 +80,26 @@
                 {
                     List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "{{year}}_{{day:D2}}.txt")).ToList();
 
+                    int answer = 0;
+
                     foreach (string line in lines) {
 
                     }
 
-                    string answer = "";
-
-                    File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "Outputs", "{{year}}_{{day:D2}}_1.txt"), answer);
-
-                    return answer;
+                    return Utility.SubmitAnswer({{year}}, {{day}}, false, answer).GetAwaiter().GetResult();
                 }
 
                 public string SecondHalf()
                 {
                     List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "{{year}}_{{day:D2}}.txt")).ToList();
 
+                    int answer = 0;
+
                     foreach (string line in lines) {
 
                     }
 
-                    string answer = "";
-
-                    File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "Outputs", "{{year}}_{{day:D2}}_2.txt"), answer);
-
-                    return answer;
+                    return Utility.SubmitAnswer({{year}}, {{day}}, true, answer).GetAwaiter().GetResult();
                 }
             }
         }

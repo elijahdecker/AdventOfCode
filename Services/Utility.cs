@@ -118,5 +118,53 @@ namespace AdventOfCode.Services {
         {
             return strings.Select(s => int.Parse(s)).ToList();
         }
+
+        /// <summary>
+        /// Submits the answer to AoC
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="day"></param>
+        /// <param name="secondHalf"></param>
+        /// <param name="answer"></param>
+        /// <returns></returns>
+        public static async Task<string> SubmitAnswer(int year, int day, bool secondHalf, string answer) {
+            return await PostAnswer(year, day, secondHalf, answer);
+        }
+
+        /// <summary>
+        /// Submits the answer to AoC
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="day"></param>
+        /// <param name="secondHalf"></param>
+        /// <param name="answer"></param>
+        /// <returns></returns>
+        public static async Task<string> SubmitAnswer(int year, int day, bool secondHalf, int answer) {
+            return await PostAnswer(year, day, secondHalf, answer.ToString());
+        }
+
+        private static async Task<string> PostAnswer(int year, int day, bool secondHalf, string answer) {
+            Uri baseAddress = new("https://adventofcode.com");
+            using (var handler = new HttpClientHandler { UseCookies = false })
+            using (var client = new HttpClient(handler) { BaseAddress = baseAddress })
+            {
+                client.DefaultRequestHeaders.UserAgent.ParseAdd($".NET 7.0 (+via https://github.com/austin-owensby/AdventOfCode by austin_owensby@hotmail.com)");
+
+                string cookie = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "PuzzleHelper/Cookie.txt"));
+                client.DefaultRequestHeaders.Add("Cookie", cookie);
+
+                Dictionary<string, string> data = new(){
+                    { "level", secondHalf ? "2" : "1"},
+                    { "answer", answer } 
+                };
+
+                HttpContent request = new FormUrlEncodedContent(data);
+
+                var result = await client.PostAsync($"/{year}/day/{day}/answer", request);
+
+                result.EnsureSuccessStatusCode();
+                return await result.Content.ReadAsStringAsync();
+            }
+        }
     }
 }
