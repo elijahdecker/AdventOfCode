@@ -29,11 +29,9 @@ namespace AdventOfCode.Controllers
         }
 
         [HttpPost("puzzle-helper")]
-        public async Task<ActionResult> RunPuzzleHelper()
+        public async Task<string> RunPuzzleHelper()
         {
-            await PuzzleHelper.Run();
-
-            return Ok();
+            return await PuzzleHelper.Run();
         }
     }
 }

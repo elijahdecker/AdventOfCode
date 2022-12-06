@@ -1,7 +1,9 @@
 ﻿public static class PuzzleHelper
 {
-    public static async Task Run()
-    {        
+    public static async Task<string> Run()
+    {
+        string output = string.Empty;
+
         // Server time is UTC-5
         DateTime now = DateTime.UtcNow.AddHours(-5);
         int latestPuzzleYear, latestPuzzleDay;
@@ -35,6 +37,7 @@
             {
                 Directory.CreateDirectory(yearFolderPath);
                 Console.WriteLine($"Created folder for {year}.");
+                output += $"Created folder for {year}.";
                 update = true;
             }
 
@@ -105,6 +108,7 @@
         }
         """);
                     Console.WriteLine($"Created files for Year: {year}, Day: {day}.");
+                    output += $"Created files for Year: {year}, Day: {day}.";
                     update = true;
                 }
             }
@@ -113,7 +117,10 @@
         if (!update)
         {
             Console.WriteLine("No updates applied.");
+            output += "No updates applied.";
         }
+
+        return output;
     }
 
     private static async Task<string> ImportInput(int year, int day)
