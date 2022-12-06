@@ -83,7 +83,7 @@ namespace AdventOfCode.Services {
         }
     
         /// <summary>
-        /// A quick version of regex that assumes we're receiving 1 line and only want the first mathc
+        /// A quick version of regex that assumes we're receiving 1 line and only want the first match
         /// </summary>
         /// <param name="input"></param>
         /// <param name="regex"></param>
@@ -107,6 +107,17 @@ namespace AdventOfCode.Services {
             }
 
             return response;
+        }
+
+        /// <summary>
+        /// A quick version of regex that assumes that each element of the list is 1 line and only want the first match
+        /// </summary>
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="regex"></param>
+        /// <returns></returns>
+        public static List<List<string>> QuickRegex(this IEnumerable<string> input, string regex) {
+            return input.Select(i => i.QuickRegex(regex)).ToList();
         }
 
         /// <summary>
@@ -165,6 +176,20 @@ namespace AdventOfCode.Services {
                 result.EnsureSuccessStatusCode();
                 return await result.Content.ReadAsStringAsync();
             }
+        }
+
+        /// <summary>
+        /// Pivot's a 2D list
+        /// </summary>
+        /// <param name="list"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static List<List<T>> Pivot<T>(this IEnumerable<IEnumerable<T>> list) {
+            return list
+                .SelectMany(inner => inner.Select((item, index) => new { item, index }))
+                .GroupBy(i => i.index, i => i.item)
+                .Select(g => g.ToList())
+                .ToList();
         }
     }
 }

@@ -183,6 +183,7 @@ namespace AdventOfCode.Services
             services.AddScoped<ISolutionDayService, Solution2022_02Service>();
             services.AddScoped<ISolutionDayService, Solution2022_03Service>();
             services.AddScoped<ISolutionDayService, Solution2022_04Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_05Service>();
         }
     }
 }
