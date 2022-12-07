@@ -59,7 +59,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The max distance a reindeer flew after {raceLength} seconds was {maxDistance}.";
+            return await Task.FromResult($"The max distance a reindeer flew after {raceLength} seconds was {maxDistance}.");
         }
 
         public async Task<string> SecondHalf()
@@ -138,7 +138,7 @@ namespace AdventOfCode.Services
 
             int maxPoints = points.Max();
 
-            return $"The max points a reindeer gained after {raceLength} seconds was {maxPoints}.";
+            return await Task.FromResult($"The max points a reindeer gained after {raceLength} seconds was {maxPoints}.");
         }
     }
 }

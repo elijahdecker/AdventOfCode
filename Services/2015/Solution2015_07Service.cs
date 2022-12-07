@@ -114,7 +114,7 @@ namespace AdventOfCode.Services
                 unknownRegisters = unknownRegisters.Where(r => !knownRegisters.Contains(r.Value)).ToDictionary(r => r.Key, r => r.Value);
             }
 
-            return $"Wire a's value is {registerValues["a"]}.";
+            return await Task.FromResult($"Wire a's value is {registerValues["a"]}.");
         }
 
         public async Task<string> SecondHalf()
@@ -234,7 +234,7 @@ namespace AdventOfCode.Services
                 unknownRegisters = unknownRegisters.Where(r => !knownRegisters.Contains(r.Value)).ToDictionary(r => r.Key, r => r.Value);
             }
 
-            return $"Wire a's value is {registerValues["a"]} after setting b to a's value from part 1.";
+            return await Task.FromResult($"Wire a's value is {registerValues["a"]} after setting b to a's value from part 1.");
         }
     }
 }

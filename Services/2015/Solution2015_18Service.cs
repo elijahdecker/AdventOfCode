@@ -60,7 +60,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The number of total lights after {numberOfStages} iterations is {totalLights}";
+            return await Task.FromResult($"The number of total lights after {numberOfStages} iterations is {totalLights}");
         }
 
         public async Task<string> SecondHalf()
@@ -135,7 +135,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The number of total lights after {numberOfStages} iterations is {totalLights}";
+            return await Task.FromResult($"The number of total lights after {numberOfStages} iterations is {totalLights}");
         }
 
         private int getNumberOfLiveNeighbors(int j, int k, string[] board)

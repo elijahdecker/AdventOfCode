@@ -31,7 +31,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"{totalCombinations} combinations of continers can fit {targetTotal} liters.";
+            return await Task.FromResult($"{totalCombinations} combinations of continers can fit {targetTotal} liters.");
         }
 
         public async Task<string> SecondHalf()
@@ -72,7 +72,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"{totalCombinations} combinations of continers can fit {targetTotal} liters with the least amount of containers needed.";
+            return await Task.FromResult($"{totalCombinations} combinations of continers can fit {targetTotal} liters with the least amount of containers needed.");
         }
     }
 }

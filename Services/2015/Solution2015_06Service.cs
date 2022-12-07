@@ -58,7 +58,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"There are {lightOnCount} lights turned on after the instructions.";
+            return await Task.FromResult($"There are {lightOnCount} lights turned on after the instructions.");
         }
 
         public async Task<string> SecondHalf()
@@ -112,7 +112,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"There total brightness is {totalBrightness} after the instructions.";
+            return await Task.FromResult($"There total brightness is {totalBrightness} after the instructions.");
         }
     }
 }

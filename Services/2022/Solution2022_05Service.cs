@@ -32,7 +32,7 @@ namespace AdventOfCode.Services
 
             string answer = new(crates.Select(c => c.Pop()[0]).ToArray());
 
-            return Utility.SubmitAnswer(2022, 5, false, answer).GetAwaiter().GetResult();
+            return await Utility.SubmitAnswer(2022, 5, false, answer);
         }
 
         public async Task<string> SecondHalf()
@@ -72,7 +72,7 @@ namespace AdventOfCode.Services
 
             string answer = new(crates.Select(c => c.Pop()[0]).ToArray());
 
-            return Utility.SubmitAnswer(2022, 5, true, answer).GetAwaiter().GetResult();
+            return await Utility.SubmitAnswer(2022, 5, true, answer);
         }
     }
 }

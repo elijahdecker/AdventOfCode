@@ -67,7 +67,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"Santa's next password should be \"{currentPassword}\".";
+            return await Task.FromResult($"Santa's next password should be \"{currentPassword}\".");
         }
 
         public async Task<string> SecondHalf()
@@ -143,7 +143,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"Santa's next password should be \"{currentPassword}\".";
+            return await Task.FromResult($"Santa's next password should be \"{currentPassword}\".");
         }
 
 

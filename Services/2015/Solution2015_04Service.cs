@@ -38,7 +38,7 @@ namespace AdventOfCode.Services
                 addedDigit++;
             }
 
-            return $"The lowest number {data} combines with to make an MD5 hash starting with five zeroes is {addedDigit}.";
+            return await Task.FromResult($"The lowest number {data} combines with to make an MD5 hash starting with five zeroes is {addedDigit}.");
         }
 
         public async Task<string> SecondHalf()
@@ -73,7 +73,7 @@ namespace AdventOfCode.Services
                 addedDigit++;
             }
 
-            return $"The lowest number {data} combines with to make an MD5 hash starting with six zeroes is {addedDigit}.";
+            return await Task.FromResult($"The lowest number {data} combines with to make an MD5 hash starting with six zeroes is {addedDigit}.");
         }
     }
 }

@@ -49,7 +49,7 @@ namespace AdventOfCode.Services
                 data = filteredData;
             }
 
-            return $"Length of fully scanned polymer {data.Length}";
+            return await Task.FromResult($"Length of fully scanned polymer {data.Length}");
         }
 
         public async Task<string> SecondHalf()
@@ -111,7 +111,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The length of the shortest produced polymer is {minValue}";
+            return await Task.FromResult($"The length of the shortest produced polymer is {minValue}");
         }
     }
 }

@@ -35,7 +35,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The lowest house number of the house to get at least {goalNumber} presents is {foundHouse}.";
+            return await Task.FromResult($"The lowest house number of the house to get at least {goalNumber} presents is {foundHouse}.");
         }
 
         public async Task<string> SecondHalf()
@@ -95,7 +95,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The lowest house number of the house to get at least {goalNumber} presents is {foundHouse}.";
+            return await Task.FromResult($"The lowest house number of the house to get at least {goalNumber} presents is {foundHouse}.");
         }
     }
 }

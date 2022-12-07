@@ -25,7 +25,7 @@ namespace AdventOfCode.Services
                 return value;
             });
 
-            return Utility.SubmitAnswer(2022, 4, false, matches).GetAwaiter().GetResult();
+            return await Utility.SubmitAnswer(2022, 4, false, matches);
         }
 
         public async Task<string> SecondHalf()
@@ -49,11 +49,7 @@ namespace AdventOfCode.Services
                 return value;
             });
 
-            string answer = matches.ToString();
-
-            File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "Outputs", "2022_04_2.txt"), answer);
-
-            return answer;
+            return await Utility.SubmitAnswer(2022, 4, true, matches);
         }
     }
 }

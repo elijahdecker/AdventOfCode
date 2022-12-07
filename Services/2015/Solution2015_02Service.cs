@@ -29,7 +29,7 @@ namespace AdventOfCode.Services
                 total += surfaceArea;
             }
 
-            return $"Total area of wrapping paper needed: {total} ft^2.";
+            return await Task.FromResult($"Total area of wrapping paper needed: {total} ft^2.");
         }
 
         public async Task<string> SecondHalf()
@@ -57,7 +57,7 @@ namespace AdventOfCode.Services
                 total += surfaceArea;
             }
 
-            return $"Total area of ribbon needed: {total} ft^2.";
+            return await Task.FromResult($"Total area of ribbon needed: {total} ft^2.");
         }
     }
 }

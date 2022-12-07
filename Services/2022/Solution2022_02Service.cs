@@ -58,7 +58,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"{score}";
+            return await Task.FromResult($"{score}");
         }
 
         public async Task<string> SecondHalf()
@@ -129,7 +129,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"{score}";
+            return await Task.FromResult($"{score}");
         }
     }
 }

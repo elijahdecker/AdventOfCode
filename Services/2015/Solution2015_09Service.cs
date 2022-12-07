@@ -50,7 +50,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The minimum distance between towns is {minDistance}.";
+            return await Task.FromResult($"The minimum distance between towns is {minDistance}.");
         }
 
         public async Task<string> SecondHalf()
@@ -99,7 +99,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The maximum distance between towns is {maxDistance}.";
+            return await Task.FromResult($"The maximum distance between towns is {maxDistance}.");
         }
 
         static IEnumerable<IEnumerable<string>> GetPermutations(IEnumerable<string> list, int length)

@@ -18,7 +18,7 @@ namespace AdventOfCode.Services
                 return itemType.GetCharValue();
             });
 
-            return $"{sum}";
+            return await Task.FromResult($"{sum}");
         }
 
         public async Task<string> SecondHalf()
@@ -32,7 +32,7 @@ namespace AdventOfCode.Services
                 return itemType.GetCharValue();
             });
 
-            return $"{sum}";
+            return await Task.FromResult($"{sum}");
         }
     }
 }

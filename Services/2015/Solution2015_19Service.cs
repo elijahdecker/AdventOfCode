@@ -45,7 +45,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"{distinctMolecules.Count} can be created from 1 replacement.";
+            return await Task.FromResult($"{distinctMolecules.Count} can be created from 1 replacement.");
         }
 
         public async Task<string> SecondHalf()
@@ -81,13 +81,13 @@ namespace AdventOfCode.Services
 
                 if (!matchFound)
                 {
-                    return "Nothing found, try again.";
+                    return await Task.FromResult("Nothing found, try again.");
                 }
 
                 replacementCount++;
             }
 
-            return $"The molecule can be created with {replacementCount} replacements.";
+            return await Task.FromResult($"The molecule can be created with {replacementCount} replacements.");
         }
     }
 }

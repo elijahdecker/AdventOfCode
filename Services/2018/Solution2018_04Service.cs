@@ -96,7 +96,7 @@ namespace AdventOfCode.Services
 
             TimeOnly mostFrequentTime = mostAsleepGuard.Value.MaxBy(v => mostAsleepGuard.Value.Count(c => c == v));
 
-            return $"The most frequent guard multiplied by his most frequent minute asleep is {guardId * mostFrequentTime.Minute}.";
+            return await Task.FromResult($"The most frequent guard multiplied by his most frequent minute asleep is {guardId * mostFrequentTime.Minute}.");
         }
 
         public async Task<string> SecondHalf()
@@ -200,7 +200,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The most frequent guard multiplied by his most frequent minute asleep is {mostFrequentGuard * mostFrequentMinute.Minute}.";
+            return await Task.FromResult($"The most frequent guard multiplied by his most frequent minute asleep is {mostFrequentGuard * mostFrequentMinute.Minute}.");
         }
     }
 }

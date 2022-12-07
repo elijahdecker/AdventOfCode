@@ -44,7 +44,7 @@ namespace AdventOfCode.Services
                 newList = new();
             }
 
-            return $"The length of the result after {numberOfLoops} iterations is {currentList.Count}.";
+            return await Task.FromResult($"The length of the result after {numberOfLoops} iterations is {currentList.Count}.");
         }
 
         public async Task<string> SecondHalf()
@@ -87,7 +87,7 @@ namespace AdventOfCode.Services
                 newList = new();
             }
 
-            return $"The length of the result after {numberOfLoops} iterations is {currentList.Count}.";
+            return await Task.FromResult($"The length of the result after {numberOfLoops} iterations is {currentList.Count}.");
         }
     }
 }

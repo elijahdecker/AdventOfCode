@@ -10,7 +10,7 @@ namespace AdventOfCode.Services
 
             int answer = lines.ChunkByExclusive(string.IsNullOrWhiteSpace).Select(elf => elf.ToInts().Sum()).Max();
 
-            return $"There are {answer} calories caried by the elf with the most calories";
+            return await Task.FromResult($"There are {answer} calories caried by the elf with the most calories");
         }
 
         public async Task<string> SecondHalf()
@@ -21,7 +21,7 @@ namespace AdventOfCode.Services
 
             int total3 = calories.OrderDescending().Take(3).Sum();
 
-            return $"There are {total3} calories carried by the 3 elves with the most calories";
+            return await Task.FromResult($"There are {total3} calories carried by the 3 elves with the most calories");
         }
     }
 }

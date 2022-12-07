@@ -50,7 +50,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"Aunt Sue {correctAunt} got you the gift.";
+            return await Task.FromResult($"Aunt Sue {correctAunt} got you the gift.");
         }
 
         public async Task<string> SecondHalf()
@@ -157,7 +157,7 @@ namespace AdventOfCode.Services
                 correctAunt = int.Parse(words[1].Split(":")[0]);
             }
 
-            return $"Aunt Sue {correctAunt} got you the gift.";
+            return await Task.FromResult($"Aunt Sue {correctAunt} got you the gift.");
         }
     }
 }

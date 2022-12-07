@@ -27,7 +27,7 @@ namespace AdventOfCode.Services
                 locationsVisited[currentLocation] = locationsVisited.ContainsKey(currentLocation) ? locationsVisited[currentLocation] + 1 : 1;
             }
 
-            return $"Number of houses that received at least 1 present {locationsVisited.Count}.";
+            return await Task.FromResult($"Number of houses that received at least 1 present {locationsVisited.Count}.");
         }
 
         public async Task<string> SecondHalf()
@@ -76,7 +76,7 @@ namespace AdventOfCode.Services
                 robotSantasTurn = !robotSantasTurn;
             }
 
-            return $"Number of houses that received at least 1 present {locationsVisited.Count}.";
+            return await Task.FromResult($"Number of houses that received at least 1 present {locationsVisited.Count}.");
         }
     }
 }

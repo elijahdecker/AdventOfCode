@@ -92,7 +92,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The minimum cost to beat the boss is {minCost}";
+            return await Task.FromResult($"The minimum cost to beat the boss is {minCost}");
         }
 
         public async Task<string> SecondHalf()
@@ -183,7 +183,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The max cost to not beat the boss is {maxCost}";
+            return await Task.FromResult($"The max cost to not beat the boss is {maxCost}");
         }
     }
 

@@ -22,7 +22,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"Santa's final floor: {floor}.";
+            return await Task.FromResult($"Santa's final floor: {floor}.");
         }
 
         public async Task<string> SecondHalf()
@@ -51,7 +51,7 @@ namespace AdventOfCode.Services
                 position++;
             }
 
-            return $"Position that Santa enters the basement: {position}.";
+            return await Task.FromResult($"Position that Santa enters the basement: {position}.");
         }
     }
 }

@@ -29,7 +29,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return Utility.SubmitAnswer(2022, 6, false, answer).GetAwaiter().GetResult();
+            return await Utility.SubmitAnswer(2022, 6, false, answer);
         }
 
         public async Task<string> SecondHalf()
@@ -57,7 +57,7 @@ namespace AdventOfCode.Services
                     break;
                 }
             }
-            return Utility.SubmitAnswer(2022, 6, true, answer).GetAwaiter().GetResult();
+            return await Utility.SubmitAnswer(2022, 6, true, answer);
         }
     }
 }

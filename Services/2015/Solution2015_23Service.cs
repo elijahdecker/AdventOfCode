@@ -160,7 +160,7 @@ namespace AdventOfCode.Services
                 instructionPointer += jumpAmount;
             }
 
-            return $"The value of regB after the program stops is {regB}.";
+            return await Task.FromResult($"The value of regB after the program stops is {regB}.");
         }
 
         public async Task<string> SecondHalf()
@@ -319,7 +319,7 @@ namespace AdventOfCode.Services
                 instructionPointer += jumpAmount;
             }
 
-            return $"The value of regB after the program stops is {regB} if a starts at 1.";
+            return await Task.FromResult($"The value of regB after the program stops is {regB} if a starts at 1.");
         }
     }
 }

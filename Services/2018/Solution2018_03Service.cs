@@ -34,7 +34,7 @@ namespace AdventOfCode.Services
 
             int duplicateSquares = usedFabric.Count(f => f > 1);
 
-            return $"The number of squares with two or more claims is {duplicateSquares}.";
+            return await Task.FromResult($"The number of squares with two or more claims is {duplicateSquares}.");
         }
 
         public async Task<string> SecondHalf()
@@ -105,7 +105,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The only ID without overlap is {idWithNoOverlap}";
+            return await Task.FromResult($"The only ID without overlap is {idWithNoOverlap}");
         }
     }
 }

@@ -66,7 +66,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The order of the steps is {order}";
+            return await Task.FromResult($"The order of the steps is {order}");
         }
 
         public async Task<string> SecondHalf()
@@ -125,7 +125,7 @@ namespace AdventOfCode.Services
                 */
             }
 
-            return $"With 5 workers, it will take {timeSpent} seconds to complete all of the steps.";
+            return await Task.FromResult($"With 5 workers, it will take {timeSpent} seconds to complete all of the steps.");
         }
     }
 }

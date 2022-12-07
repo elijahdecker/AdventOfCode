@@ -8,41 +8,28 @@ namespace AdventOfCode.Services
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2017_01.txt")).ToList();
 
-            char prevChar = char.MaxValue;
-
-            int score = 0;
-
-            foreach (char digit in lines.First())
-            {
-                if (digit == prevChar)
-                {
-                    score++;
-                }
-
-                prevChar = digit;
-            }
-
-            string answer = score.ToString();
-
-            File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "Outputs", "2017_01_1.txt"), answer);
-
-            return answer;
-        }
-
-        public async Task<string> SecondHalf()
-        {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2017_01.txt")).ToList();
+            int answer = 0;
 
             foreach (string line in lines)
             {
 
             }
 
-            string answer = "";
+            return await Utility.SubmitAnswer(2017, 1, false, answer);
+        }
 
-            File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "Outputs", "2017_01_2.txt"), answer);
+        public async Task<string> SecondHalf()
+        {
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2017_01.txt")).ToList();
 
-            return answer;
+            int answer = 0;
+
+            foreach (string line in lines)
+            {
+
+            }
+
+            return await Utility.SubmitAnswer(2017, 1, true, answer);
         }
     }
 }

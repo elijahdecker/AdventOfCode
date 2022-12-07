@@ -25,7 +25,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The sum of all the numbers in the document is {sum}.";
+            return await Task.FromResult($"The sum of all the numbers in the document is {sum}.");
         }
 
         public async Task<string> SecondHalf()
@@ -107,7 +107,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The sum of all the numbers in the document after fixing the red double count is {currentObject.Sum}.";
+            return await Task.FromResult($"The sum of all the numbers in the document after fixing the red double count is {currentObject.Sum}.");
         }
     }
 

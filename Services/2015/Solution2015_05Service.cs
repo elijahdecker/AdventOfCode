@@ -53,7 +53,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"There are {niceCount} nice strings.";
+            return await Task.FromResult($"There are {niceCount} nice strings.");
         }
 
         public async Task<string> SecondHalf()
@@ -103,7 +103,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"There are {niceCount} nice strings.";
+            return await Task.FromResult($"There are {niceCount} nice strings.");
         }
     }
 }

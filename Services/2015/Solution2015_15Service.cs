@@ -56,7 +56,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The total score of the highest-scoring cookie is {highestScore}.";
+            return await Task.FromResult($"The total score of the highest-scoring cookie is {highestScore}.");
         }
 
         public async Task<string> SecondHalf()
@@ -112,7 +112,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The total score of the highest-scoring cookie with exactly 500 calories is {highestScore}.";
+            return await Task.FromResult($"The total score of the highest-scoring cookie with exactly 500 calories is {highestScore}.");
         }
     }
 

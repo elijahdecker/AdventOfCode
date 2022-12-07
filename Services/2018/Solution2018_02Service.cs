@@ -47,7 +47,7 @@ namespace AdventOfCode.Services
 
             int checksum = twiceCount * thriceCount;
 
-            return $"The checksum is {checksum}";
+            return await Task.FromResult($"The checksum is {checksum}");
         }
 
         public async Task<string> SecondHalf()
@@ -102,7 +102,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"Common letters between 2 correct box IDs are {string.Join("", commonLetters)}";
+            return await Task.FromResult($"Common letters between 2 correct box IDs are {string.Join("", commonLetters)}");
         }
     }
 }

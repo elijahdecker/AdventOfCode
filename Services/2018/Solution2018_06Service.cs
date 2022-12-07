@@ -59,7 +59,7 @@ namespace AdventOfCode.Services
             List<char> filteredChars = allCells.Where(c => !edgeChars.Contains(c) && c != '.').ToList();
             int largestArea = filteredChars.Distinct().Max(c => filteredChars.Count(a => a == c));
 
-            return $"The largest area is {largestArea}";
+            return await Task.FromResult($"The largest area is {largestArea}");
         }
 
         public async Task<string> SecondHalf()
@@ -104,7 +104,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The size of the region within a distance of 10,000 of the points is {regionSize}";
+            return await Task.FromResult($"The size of the region within a distance of 10,000 of the points is {regionSize}");
         }
 
         private char GetClosestPoint(Point point, List<Point> origins)

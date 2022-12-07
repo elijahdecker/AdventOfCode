@@ -70,7 +70,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The max happiness from an optimal seating arrangement is {maxHappiness}.";
+            return await Task.FromResult($"The max happiness from an optimal seating arrangement is {maxHappiness}.");
         }
 
         public async Task<string> SecondHalf()
@@ -149,7 +149,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The max happiness from an optimal seating arrangement including yourself is {maxHappiness}.";
+            return await Task.FromResult($"The max happiness from an optimal seating arrangement including yourself is {maxHappiness}.");
         }
 
         static IEnumerable<IEnumerable<string>> GetPermutations(IEnumerable<string> list, int length)

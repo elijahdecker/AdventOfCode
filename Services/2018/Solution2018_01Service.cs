@@ -11,7 +11,7 @@ namespace AdventOfCode.Services
 
             int resultingFrequency = changes.Sum();
 
-            return $"The resulting frequency is {resultingFrequency}";
+            return await Task.FromResult($"The resulting frequency is {resultingFrequency}");
         }
 
         public async Task<string> SecondHalf()
@@ -39,7 +39,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return $"The first frequency that is reached twice is {currentFrequency}";
+            return await Task.FromResult($"The first frequency that is reached twice is {currentFrequency}");
         }
     }
 }
