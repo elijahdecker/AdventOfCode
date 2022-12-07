@@ -8,12 +8,7 @@ namespace AdventOfCode.Services
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2019_01.txt")).ToList();
 
-            int answer = 0;
-
-            foreach (string line in lines)
-            {
-
-            }
+            int answer = lines.ToInts().Sum(l => (int)Math.Floor((double)l / 3) - 2);
 
             return await Utility.SubmitAnswer(2019, 1, false, answer);
         }
@@ -24,9 +19,19 @@ namespace AdventOfCode.Services
 
             int answer = 0;
 
-            foreach (string line in lines)
+            foreach (int line in lines.ToInts())
             {
+                int mass = line;
 
+                do
+                {
+                    mass = (int)Math.Floor((double)mass / 3) - 2;
+
+                    if (mass > 0)
+                    {
+                        answer += mass;
+                    }
+                } while (mass > 0);
             }
 
             return await Utility.SubmitAnswer(2019, 1, true, answer);

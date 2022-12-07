@@ -1,3 +1,4 @@
+using HtmlAgilityPack;
 using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Services
@@ -165,26 +166,40 @@ namespace AdventOfCode.Services
         private static async Task<string> PostAnswer(int year, int day, bool secondHalf, string answer)
         {
             Uri baseAddress = new("https://adventofcode.com");
-            using (var handler = new HttpClientHandler { UseCookies = false })
-            using (var client = new HttpClient(handler) { BaseAddress = baseAddress })
-            {
-                client.DefaultRequestHeaders.UserAgent.ParseAdd($".NET 7.0 (+via https://github.com/austin-owensby/AdventOfCode by austin_owensby@hotmail.com)");
+            using var handler = new HttpClientHandler { UseCookies = false };
+            using var client = new HttpClient(handler) { BaseAddress = baseAddress };
 
-                string cookie = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "PuzzleHelper/Cookie.txt"));
-                client.DefaultRequestHeaders.Add("Cookie", cookie);
+            client.DefaultRequestHeaders.UserAgent.ParseAdd($".NET 7.0 (+via https://github.com/austin-owensby/AdventOfCode by austin_owensby@hotmail.com)");
 
-                Dictionary<string, string> data = new(){
+            string cookie = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "PuzzleHelper/Cookie.txt"));
+            client.DefaultRequestHeaders.Add("Cookie", cookie);
+
+            Dictionary<string, string> data = new(){
                     { "level", secondHalf ? "2" : "1"},
                     { "answer", answer }
                 };
 
-                HttpContent request = new FormUrlEncodedContent(data);
+            HttpContent request = new FormUrlEncodedContent(data);
 
-                var result = await client.PostAsync($"/{year}/day/{day}/answer", request);
+            var result = await client.PostAsync($"/{year}/day/{day}/answer", request);
 
-                result.EnsureSuccessStatusCode();
-                return await result.Content.ReadAsStringAsync();
+            result.EnsureSuccessStatusCode();
+            string content = await result.Content.ReadAsStringAsync();
+
+            try
+            {
+                // Find article component
+                HtmlDocument doc = new();
+                doc.LoadHtml(content);
+                HtmlNode article = doc.DocumentNode.SelectSingleNode("//article/p");
+                content = article.InnerHtml;
             }
+            catch (Exception)
+            {
+                Console.WriteLine("Error parsing html response.");
+            }
+
+            return content;
         }
 
         /// <summary>
