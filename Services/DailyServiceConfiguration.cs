@@ -185,6 +185,25 @@ namespace AdventOfCode.Services
             services.AddScoped<ISolutionDayService, Solution2022_04Service>();
             services.AddScoped<ISolutionDayService, Solution2022_05Service>();
             services.AddScoped<ISolutionDayService, Solution2022_06Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_07Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_08Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_09Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_10Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_11Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_12Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_13Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_14Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_15Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_16Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_17Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_18Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_19Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_20Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_21Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_22Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_23Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_24Service>();
+            services.AddScoped<ISolutionDayService, Solution2022_25Service>();
         }
     }
 }

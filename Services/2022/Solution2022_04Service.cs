@@ -1,11 +1,12 @@
 namespace AdventOfCode.Services
 {
-    public class Solution2022_04Service : ISolutionDayService{
+    public class Solution2022_04Service : ISolutionDayService
+    {
         public Solution2022_04Service() { }
 
         public async Task<string> FirstHalf()
         {
-            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_04.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_04.txt")).ToList();
 
             int matches = lines.Select(line => line.QuickRegex(@"(\d+)-(\d+),(\d+)-(\d+)").ToInts()).Sum(digits =>
             {
@@ -29,7 +30,7 @@ namespace AdventOfCode.Services
 
         public async Task<string> SecondHalf()
         {
-            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_04.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_04.txt")).ToList();
 
             int matches = lines.Select(line => line.QuickRegex(@"(\d+)-(\d+),(\d+)-(\d+)").ToInts()).Sum(digits =>
             {

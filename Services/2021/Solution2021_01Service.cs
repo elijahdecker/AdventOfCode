@@ -6,33 +6,30 @@ namespace AdventOfCode.Services
 
         public async Task<string> FirstHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2021_01.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2021_01.txt")).ToList();
 
-            List<int> calories = new();
-
-            int calorie = 0;
+            int answer = 0;
 
             foreach (string line in lines)
             {
-                if (string.IsNullOrWhiteSpace(line))
-                {
-                    calories.Add(calorie);
-                    calorie = 0;
-                }
-                else
-                {
-                    calorie += int.Parse(line);
-                }
+
             }
 
-            return $"{calories.Max()}";
+            return await Utility.SubmitAnswer(2021, 1, false, answer);
         }
 
         public async Task<string> SecondHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs\", "2021_01.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2021_01.txt")).ToList();
 
-            return $"";
+            int answer = 0;
+
+            foreach (string line in lines)
+            {
+
+            }
+
+            return await Utility.SubmitAnswer(2021, 1, true, answer);
         }
     }
 }

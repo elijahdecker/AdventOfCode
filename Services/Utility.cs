@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 
-namespace AdventOfCode.Services {
+namespace AdventOfCode.Services
+{
     // Reminders of useful LINQ functions
     // Chunk(n) splits list into list of lists of length n
     // Except returns the list of values from the first not in the second
@@ -10,7 +11,8 @@ namespace AdventOfCode.Services {
     // Enumerable.Range(a, b) starting at a, increments with each element b times
     // Enumerable.Repeat(a, b) repeats a, b times
 
-    public static class Utility {
+    public static class Utility
+    {
         /// <summary>
         /// Converts 'a' to 1 and 'A' to 27
         /// </summary>
@@ -81,25 +83,28 @@ namespace AdventOfCode.Services {
             return resultList;
 
         }
-    
+
         /// <summary>
         /// A quick version of regex that assumes we're receiving 1 line and only want the first match
         /// </summary>
         /// <param name="input"></param>
         /// <param name="regex"></param>
         /// <returns></returns>
-        public static List<string> QuickRegex(this string input, string regex) {
+        public static List<string> QuickRegex(this string input, string regex)
+        {
             List<string> response = new();
-            
+
             Regex rx = new(regex);
 
             MatchCollection match = rx.Matches(input);
 
-            if (match.Any()) {
+            if (match.Any())
+            {
                 GroupCollection groups = match.First().Groups;
 
                 // Not starting at i = 0 because that returns the whole match, we only care about the captures
-                for (int i = 1; i < groups.Count; i++) {
+                for (int i = 1; i < groups.Count; i++)
+                {
                     Group group = groups[i];
 
                     response.Add(group.Value);
@@ -116,7 +121,8 @@ namespace AdventOfCode.Services {
         /// <param name="input"></param>
         /// <param name="regex"></param>
         /// <returns></returns>
-        public static List<List<string>> QuickRegex(this IEnumerable<string> input, string regex) {
+        public static List<List<string>> QuickRegex(this IEnumerable<string> input, string regex)
+        {
             return input.Select(i => i.QuickRegex(regex)).ToList();
         }
 
@@ -138,7 +144,8 @@ namespace AdventOfCode.Services {
         /// <param name="secondHalf"></param>
         /// <param name="answer"></param>
         /// <returns></returns>
-        public static async Task<string> SubmitAnswer(int year, int day, bool secondHalf, string answer) {
+        public static async Task<string> SubmitAnswer(int year, int day, bool secondHalf, string answer)
+        {
             return await PostAnswer(year, day, secondHalf, answer);
         }
 
@@ -150,11 +157,13 @@ namespace AdventOfCode.Services {
         /// <param name="secondHalf"></param>
         /// <param name="answer"></param>
         /// <returns></returns>
-        public static async Task<string> SubmitAnswer(int year, int day, bool secondHalf, int answer) {
+        public static async Task<string> SubmitAnswer(int year, int day, bool secondHalf, int answer)
+        {
             return await PostAnswer(year, day, secondHalf, answer.ToString());
         }
 
-        private static async Task<string> PostAnswer(int year, int day, bool secondHalf, string answer) {
+        private static async Task<string> PostAnswer(int year, int day, bool secondHalf, string answer)
+        {
             Uri baseAddress = new("https://adventofcode.com");
             using (var handler = new HttpClientHandler { UseCookies = false })
             using (var client = new HttpClient(handler) { BaseAddress = baseAddress })
@@ -166,7 +175,7 @@ namespace AdventOfCode.Services {
 
                 Dictionary<string, string> data = new(){
                     { "level", secondHalf ? "2" : "1"},
-                    { "answer", answer } 
+                    { "answer", answer }
                 };
 
                 HttpContent request = new FormUrlEncodedContent(data);
@@ -184,7 +193,8 @@ namespace AdventOfCode.Services {
         /// <param name="list"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static List<List<T>> Pivot<T>(this IEnumerable<IEnumerable<T>> list) {
+        public static List<List<T>> Pivot<T>(this IEnumerable<IEnumerable<T>> list)
+        {
             return list
                 .SelectMany(inner => inner.Select((item, index) => new { item, index }))
                 .GroupBy(i => i.index, i => i.item)

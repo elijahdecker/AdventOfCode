@@ -1,11 +1,12 @@
 namespace AdventOfCode.Services
 {
-    public class Solution2022_03Service : ISolutionDayService{
+    public class Solution2022_03Service : ISolutionDayService
+    {
         public Solution2022_03Service() { }
 
         public async Task<string> FirstHalf()
         {
-            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2022_03.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2022_03.txt")).ToList();
 
             int sum = lines.Sum(line =>
             {
@@ -22,13 +23,13 @@ namespace AdventOfCode.Services
 
         public async Task<string> SecondHalf()
         {
-            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2022_03.txt")).ToList();
-            
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2022_03.txt")).ToList();
+
             int sum = lines.Chunk(3).Sum(c =>
             {
                 char itemType = c[0].Intersect(c[1]).Intersect(c[2]).First();
 
-                return itemType.GetCharValue(); 
+                return itemType.GetCharValue();
             });
 
             return $"{sum}";

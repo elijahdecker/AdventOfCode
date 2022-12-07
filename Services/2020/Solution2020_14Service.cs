@@ -6,26 +6,30 @@ namespace AdventOfCode.Services
 
         public async Task<string> FirstHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2020_14.txt"));
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2020_14.txt")).ToList();
 
-            foreach (char character in data)
+            int answer = 0;
+
+            foreach (string line in lines)
             {
 
             }
 
-            return $"";
+            return await Utility.SubmitAnswer(2020, 14, false, answer);
         }
 
         public async Task<string> SecondHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2020_14.txt"));
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2020_14.txt")).ToList();
 
-            foreach (char character in data)
+            int answer = 0;
+
+            foreach (string line in lines)
             {
 
             }
 
-            return $"";
+            return await Utility.SubmitAnswer(2020, 14, true, answer);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿public class PuzzleHelperService: IPuzzleHelperService
+﻿public class PuzzleHelperService : IPuzzleHelperService
 {
     public PuzzleHelperService() { }
 
@@ -73,7 +73,8 @@
                     await serviceFile.WriteAsync($$"""
         namespace AdventOfCode.Services
         {
-            public class Solution{{year}}_{{day:D2}}Service : ISolutionDayService{
+            public class Solution{{year}}_{{day:D2}}Service : ISolutionDayService
+            {
                 public Solution{{year}}_{{day:D2}}Service() { }
 
                 public async Task<string> FirstHalf()
@@ -109,12 +110,14 @@
                     output += $"Created solution file for Year: {year}, Day: {day}.";
                     update = true;
                 }
-            
+
                 // Only import the file if it is available
-                if (year < latestPuzzleYear || year == latestPuzzleYear && day <= latestPuzzleDay) {
+                if (year < latestPuzzleYear || year == latestPuzzleYear && day <= latestPuzzleDay)
+                {
                     string inputFilePath = Path.Combine(Environment.CurrentDirectory, $"Inputs/{year}_{day:D2}.txt");
 
-                    if (!File.Exists(inputFilePath)) {
+                    if (!File.Exists(inputFilePath))
+                    {
                         using StreamWriter inputFile = new(inputFilePath);
 
                         string response = await ImportInput(year, day);
@@ -144,7 +147,8 @@
     /// <param name="year"></param>
     /// <param name="day"></param>
     /// <returns></returns>
-    public async Task<string> RunDaily(int year, int day) {
+    public async Task<string> RunDaily(int year, int day)
+    {
         string output = string.Empty;
 
         // Server time is UTC-5
@@ -167,8 +171,9 @@
         }
 
         string inputFilePath = Path.Combine(Environment.CurrentDirectory, $"Inputs/{year}_{day:D2}.txt");
-        
-        if (!File.Exists(inputFilePath)) {
+
+        if (!File.Exists(inputFilePath))
+        {
             using StreamWriter inputFile = new(inputFilePath);
 
             string response = await ImportInput(year, day);
@@ -178,7 +183,8 @@
             Console.WriteLine($"Created input file for Year: {year}, Day: {day}.");
             output = $"Created input file for Year: {year}, Day: {day}.";
         }
-        else {
+        else
+        {
             Console.WriteLine("No updates applied.");
             output += "No updates applied.";
         }
