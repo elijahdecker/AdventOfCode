@@ -6,7 +6,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_08Service() { }
 
-        public string FirstHalf()
+        public async Task<string> FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_08.txt"));
 
@@ -19,7 +19,7 @@ namespace AdventOfCode.Services
             return $"The number of characters of code for string literals minus the number of characters in memory for the values of the strings in total for the entire file is {charDifference}.";
         }
 
-        public string SecondHalf()
+        public async Task<string> SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_08.txt"));
 

@@ -19,7 +19,7 @@ namespace AdventOfCode.Services
             }
         }
 
-        public string FirstHalf()
+        public async Task<string> FirstHalf()
         {
             List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_06.txt")).ToList();
 
@@ -62,7 +62,7 @@ namespace AdventOfCode.Services
             return $"The largest area is {largestArea}";
         }
 
-        public string SecondHalf()
+        public async Task<string> SecondHalf()
         {
             List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_06.txt")).ToList();
 

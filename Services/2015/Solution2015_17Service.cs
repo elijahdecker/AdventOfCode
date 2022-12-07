@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_17Service() { }
 
-        public string FirstHalf()
+        public async Task<string> FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_17.txt"));
 
@@ -34,7 +34,7 @@ namespace AdventOfCode.Services
             return $"{totalCombinations} combinations of continers can fit {targetTotal} liters.";
         }
 
-        public string SecondHalf()
+        public async Task<string> SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_17.txt"));
 

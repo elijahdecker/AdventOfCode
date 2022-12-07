@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2020_10Service() { }
 
-        public string FirstHalf()
+        public async Task<string> FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2020_10.txt"));
 
@@ -16,7 +16,7 @@ namespace AdventOfCode.Services
             return $"";
         }
 
-        public string SecondHalf()
+        public async Task<string> SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2020_10.txt"));
 

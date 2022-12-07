@@ -1,6 +1,12 @@
-﻿public static class PuzzleHelper
+﻿public class PuzzleHelperService: IPuzzleHelperService
 {
-    public static async Task<string> Run()
+    public PuzzleHelperService() { }
+
+    /// <summary>
+    /// Generates solution files and imports year input files
+    /// </summary>
+    /// <returns></returns>
+    public async Task<string> Run()
     {
         string output = string.Empty;
 
@@ -29,7 +35,7 @@
         bool update = false;
 
         // Create a folder for each year that is missing one
-        for (int year = 2015; year <= latestPuzzleYear; year++)
+        for (int year = 2015; year <= now.Year; year++)
         {
             string yearFolderPath = Path.Combine(Environment.CurrentDirectory, $"Services/{year}");
 
@@ -42,21 +48,12 @@
             }
 
             // Create/update files for each day that is missing one
-            for (int day = 1; day <= latestPuzzleDay; day++)
+            for (int day = 1; day <= 25; day++)
             {
                 string dayFilePath = Path.Combine(yearFolderPath, $"Solution{year}_{day:D2}Service.cs");
 
                 if (!File.Exists(dayFilePath))
                 {
-                    // Import the input file
-                    string inputFilePath = Path.Combine(Environment.CurrentDirectory, $"Inputs/{year}_{day:D2}.txt");
-
-                    using StreamWriter inputFile = new(inputFilePath);
-
-                    string response = await ImportInput(year, day);
-
-                    await inputFile.WriteAsync(response);
-
                     // Update the startup file by adding a new line for injecting the new service
                     string startupFile = await File.ReadAllTextAsync(startupFolderPath);
 
@@ -79,7 +76,7 @@
             public class Solution{{year}}_{{day:D2}}Service : ISolutionDayService{
                 public Solution{{year}}_{{day:D2}}Service() { }
 
-                public string FirstHalf()
+                public async Task<string> FirstHalf()
                 {
                     List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "{{year}}_{{day:D2}}.txt")).ToList();
 
@@ -89,10 +86,10 @@
 
                     }
 
-                    return Utility.SubmitAnswer({{year}}, {{day}}, false, answer).GetAwaiter().GetResult();
+                    return await Utility.SubmitAnswer({{year}}, {{day}}, false, answer);
                 }
 
-                public string SecondHalf()
+                public async Task<string> SecondHalf()
                 {
                     List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "{{year}}_{{day:D2}}.txt")).ToList();
 
@@ -102,14 +99,32 @@
 
                     }
 
-                    return Utility.SubmitAnswer({{year}}, {{day}}, true, answer).GetAwaiter().GetResult();
+                    return await Utility.SubmitAnswer({{year}}, {{day}}, true, answer);
                 }
             }
         }
         """);
-                    Console.WriteLine($"Created files for Year: {year}, Day: {day}.");
-                    output += $"Created files for Year: {year}, Day: {day}.";
+
+                    Console.WriteLine($"Created solution file for Year: {year}, Day: {day}.");
+                    output += $"Created solution file for Year: {year}, Day: {day}.";
                     update = true;
+                }
+            
+                // Only import the file if it is available
+                if (year < latestPuzzleYear || year == latestPuzzleYear && day <= latestPuzzleDay) {
+                    string inputFilePath = Path.Combine(Environment.CurrentDirectory, $"Inputs/{year}_{day:D2}.txt");
+
+                    if (!File.Exists(inputFilePath)) {
+                        using StreamWriter inputFile = new(inputFilePath);
+
+                        string response = await ImportInput(year, day);
+
+                        await inputFile.WriteAsync(response);
+
+                        Console.WriteLine($"Created input file for Year: {year}, Day: {day}.");
+                        output += $"Created input file for Year: {year}, Day: {day}.";
+                        update = true;
+                    }
                 }
             }
         }
@@ -123,7 +138,55 @@
         return output;
     }
 
-    private static async Task<string> ImportInput(int year, int day)
+    /// <summary>
+    /// A streamlined version of the puzzle helper that imports just the days file
+    /// </summary>
+    /// <param name="year"></param>
+    /// <param name="day"></param>
+    /// <returns></returns>
+    public async Task<string> RunDaily(int year, int day) {
+        string output = string.Empty;
+
+        // Server time is UTC-5
+        DateTime now = DateTime.UtcNow.AddHours(-5);
+        int latestPuzzleYear, latestPuzzleDay;
+
+        // If we're in December, then the latest available puzzle is today
+        if (now.Month == 12)
+        {
+            latestPuzzleYear = now.Year;
+
+            // If it's December 26th-31st the latest day is the 25th
+            latestPuzzleDay = Math.Min(now.Day, 25);
+        }
+        else
+        {
+            // Otherwise the latest puzzle is from the end of the previous event
+            latestPuzzleYear = now.Year - 1;
+            latestPuzzleDay = 25;
+        }
+
+        string inputFilePath = Path.Combine(Environment.CurrentDirectory, $"Inputs/{year}_{day:D2}.txt");
+        
+        if (!File.Exists(inputFilePath)) {
+            using StreamWriter inputFile = new(inputFilePath);
+
+            string response = await ImportInput(year, day);
+
+            await inputFile.WriteAsync(response);
+
+            Console.WriteLine($"Created input file for Year: {year}, Day: {day}.");
+            output = $"Created input file for Year: {year}, Day: {day}.";
+        }
+        else {
+            Console.WriteLine("No updates applied.");
+            output += "No updates applied.";
+        }
+
+        return output;
+    }
+
+    private async Task<string> ImportInput(int year, int day)
     {
         Uri baseAddress = new("https://adventofcode.com");
         using (var handler = new HttpClientHandler { UseCookies = false })

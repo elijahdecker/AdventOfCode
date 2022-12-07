@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_23Service() { }
 
-        public string FirstHalf()
+        public async Task<string> FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_23.txt"));
             List<string> lines = data.Split('\n').ToList();
@@ -163,7 +163,7 @@ namespace AdventOfCode.Services
             return $"The value of regB after the program stops is {regB}.";
         }
 
-        public string SecondHalf()
+        public async Task<string> SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_23.txt"));
             List<string> lines = data.Split('\n').ToList();

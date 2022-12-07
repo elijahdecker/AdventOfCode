@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_12Service() { }
 
-        public string FirstHalf()
+        public async Task<string> FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_12.txt"));
 
@@ -28,7 +28,7 @@ namespace AdventOfCode.Services
             return $"The sum of all the numbers in the document is {sum}.";
         }
 
-        public string SecondHalf()
+        public async Task<string> SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_12.txt"));
 

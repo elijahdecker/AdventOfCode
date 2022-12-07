@@ -6,7 +6,7 @@ namespace AdventOfCode.Services
     {
         public Solution2018_04Service() { }
 
-        public string FirstHalf()
+        public async Task<string> FirstHalf()
         {
             List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_04.txt")).OrderBy(s => s).ToList();
 
@@ -99,7 +99,7 @@ namespace AdventOfCode.Services
             return $"The most frequent guard multiplied by his most frequent minute asleep is {guardId * mostFrequentTime.Minute}.";
         }
 
-        public string SecondHalf()
+        public async Task<string> SecondHalf()
         {
             List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_04.txt")).OrderBy(s => s).ToList();
 

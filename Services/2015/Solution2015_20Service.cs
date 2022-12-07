@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_20Service() { }
 
-        public string FirstHalf()
+        public async Task<string> FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_20.txt"));
 
@@ -38,7 +38,7 @@ namespace AdventOfCode.Services
             return $"The lowest house number of the house to get at least {goalNumber} presents is {foundHouse}.";
         }
 
-        public string SecondHalf()
+        public async Task<string> SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_20.txt"));
 

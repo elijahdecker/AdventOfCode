@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_07Service() { }
 
-        public string FirstHalf()
+        public async Task<string> FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_07.txt"));
             string[] lines = data.Split("\n");
@@ -117,7 +117,7 @@ namespace AdventOfCode.Services
             return $"Wire a's value is {registerValues["a"]}.";
         }
 
-        public string SecondHalf()
+        public async Task<string> SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_07.txt"));
             string[] lines = data.Split("\n");
@@ -199,7 +199,7 @@ namespace AdventOfCode.Services
             }
 
             // Use the value from the first half and set it to b
-            string[] response = FirstHalf().Split(" ");
+            string[] response = (await FirstHalf()).Split(" ");
             string valueString = response[response.Length - 1];
             string valueStringNoPeriod = valueString.Remove(valueString.Length - 1, 1);
             ushort calculatedValue = UInt16.Parse(valueStringNoPeriod);

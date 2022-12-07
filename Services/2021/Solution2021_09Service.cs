@@ -4,14 +4,14 @@ namespace AdventOfCode.Services
     {
         public Solution2021_09Service() { }
 
-        public string FirstHalf()
+        public async Task<string> FirstHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2021_09.txt")).ToList();
 
             return $"";
         }
 
-        public string SecondHalf()
+        public async Task<string> SecondHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs\", "2021_09.txt")).ToList();
 

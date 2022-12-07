@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_15Service() { }
 
-        public string FirstHalf()
+        public async Task<string> FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_15.txt"));
 
@@ -59,7 +59,7 @@ namespace AdventOfCode.Services
             return $"The total score of the highest-scoring cookie is {highestScore}.";
         }
 
-        public string SecondHalf()
+        public async Task<string> SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_15.txt"));
 

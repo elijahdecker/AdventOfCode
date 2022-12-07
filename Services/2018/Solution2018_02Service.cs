@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2018_02Service() { }
 
-        public string FirstHalf()
+        public async Task<string> FirstHalf()
         {
             string[] lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_02.txt"));
 
@@ -50,7 +50,7 @@ namespace AdventOfCode.Services
             return $"The checksum is {checksum}";
         }
 
-        public string SecondHalf()
+        public async Task<string> SecondHalf()
         {
             string[] lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_02.txt"));
 

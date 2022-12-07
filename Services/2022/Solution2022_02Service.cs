@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2022_02Service() { }
 
-        public string FirstHalf()
+        public async Task<string> FirstHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2022_02.txt")).ToList();
 
@@ -61,7 +61,7 @@ namespace AdventOfCode.Services
             return $"{score}";
         }
 
-        public string SecondHalf()
+        public async Task<string> SecondHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2022_02.txt")).ToList();
             int score = 0;

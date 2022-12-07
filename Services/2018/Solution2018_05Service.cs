@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2018_05Service() { }
 
-        public string FirstHalf()
+        public async Task<string> FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_05.txt"));
             data = data.Replace("\n", "").Replace("\r", "");
@@ -52,7 +52,7 @@ namespace AdventOfCode.Services
             return $"Length of fully scanned polymer {data.Length}";
         }
 
-        public string SecondHalf()
+        public async Task<string> SecondHalf()
         {
             string originalData = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_05.txt"));
             originalData = originalData.Replace("\n", "").Replace("\r", "");

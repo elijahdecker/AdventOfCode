@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_13Service() { }
 
-        public string FirstHalf()
+        public async Task<string> FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_13.txt"));
             string[] lines = data.Split("\n");
@@ -73,7 +73,7 @@ namespace AdventOfCode.Services
             return $"The max happiness from an optimal seating arrangement is {maxHappiness}.";
         }
 
-        public string SecondHalf()
+        public async Task<string> SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_13.txt"));
             string[] lines = data.Split("\n");

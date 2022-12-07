@@ -9,7 +9,7 @@ namespace AdventOfCode.Services
             this.serviceProvider = serviceProvider;
         }
 
-        public string GetSolution(int year, int day, bool secondHalf)
+        public async Task<string> GetSolution(int year, int day, bool secondHalf)
         {
             // Fetch the specific service
             IEnumerable<ISolutionDayService> services = serviceProvider.GetServices<ISolutionDayService>();
@@ -22,7 +22,7 @@ namespace AdventOfCode.Services
             }
 
             // Get the specific solutino
-            return secondHalf ? service.SecondHalf() : service.FirstHalf();
+            return secondHalf ? await service.SecondHalf() : await service.FirstHalf();
         }
     }
 }

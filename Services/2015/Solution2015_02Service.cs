@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_02Service() { }
 
-        public string FirstHalf()
+        public async Task<string> FirstHalf()
         {
             int total = 0;
 
@@ -32,7 +32,7 @@ namespace AdventOfCode.Services
             return $"Total area of wrapping paper needed: {total} ft^2.";
         }
 
-        public string SecondHalf()
+        public async Task<string> SecondHalf()
         {
             int total = 0;
 

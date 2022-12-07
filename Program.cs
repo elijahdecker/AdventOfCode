@@ -11,6 +11,7 @@ builder.Services.AddSwaggerGen(c => {
 });
 
 builder.Services.AddScoped<ISolutionService, SolutionService>();
+builder.Services.AddScoped<IPuzzleHelperService, PuzzleHelperService>();
 builder.Services.ConfigureDailyServices();
 
 WebApplication app = builder.Build();

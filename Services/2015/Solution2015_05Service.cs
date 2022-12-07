@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_05Service() { }
 
-        public string FirstHalf()
+        public async Task<string> FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_05.txt"));
             string[] lines = data.Split("\n");
@@ -56,7 +56,7 @@ namespace AdventOfCode.Services
             return $"There are {niceCount} nice strings.";
         }
 
-        public string SecondHalf()
+        public async Task<string> SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_05.txt"));
             string[] lines = data.Split("\n");

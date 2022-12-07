@@ -28,7 +28,7 @@ namespace AdventOfCode.Services
             public int TimeLeft { get; set; }
         }
 
-        public string FirstHalf()
+        public async Task<string> FirstHalf()
         {
             List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_07.txt")).ToList();
 
@@ -69,7 +69,7 @@ namespace AdventOfCode.Services
             return $"The order of the steps is {order}";
         }
 
-        public string SecondHalf()
+        public async Task<string> SecondHalf()
         {
             List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_07.txt")).ToList();
 

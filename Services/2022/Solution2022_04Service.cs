@@ -3,7 +3,7 @@ namespace AdventOfCode.Services
     public class Solution2022_04Service : ISolutionDayService{
         public Solution2022_04Service() { }
 
-        public string FirstHalf()
+        public async Task<string> FirstHalf()
         {
             List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_04.txt")).ToList();
 
@@ -27,7 +27,7 @@ namespace AdventOfCode.Services
             return Utility.SubmitAnswer(2022, 4, false, matches).GetAwaiter().GetResult();
         }
 
-        public string SecondHalf()
+        public async Task<string> SecondHalf()
         {
             List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_04.txt")).ToList();
 
