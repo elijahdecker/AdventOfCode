@@ -4,4 +4,7 @@ obj/
 .vs
 PuzzleHelper/Cookie.txt
 /AdventOfCode.csproj.user
-Outputs/* 
+
+# Ignore user generated inputs since AoC rules request they not be included
+# https://www.reddit.com/r/adventofcode/wiki/faqs/copyright/inputs/
+Inputs/* 
