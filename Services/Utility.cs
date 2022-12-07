@@ -158,6 +158,19 @@ namespace AdventOfCode.Services
         /// <param name="secondHalf"></param>
         /// <param name="answer"></param>
         /// <returns></returns>
+        public static async Task<string> SubmitAnswer(int year, int day, bool secondHalf, long answer)
+        {
+            return await PostAnswer(year, day, secondHalf, answer.ToString());
+        }
+
+        /// <summary>
+        /// Submits the answer to AoC
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="day"></param>
+        /// <param name="secondHalf"></param>
+        /// <param name="answer"></param>
+        /// <returns></returns>
         public static async Task<string> SubmitAnswer(int year, int day, bool secondHalf, int answer)
         {
             return await PostAnswer(year, day, secondHalf, answer.ToString());
