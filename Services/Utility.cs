@@ -229,5 +229,17 @@ namespace AdventOfCode.Services
                 .Select(g => g.ToList())
                 .ToList();
         }
+
+        /// <summary>
+        /// Reverses a list in place
+        /// </summary>
+        /// <param name="list"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static List<T> ReverseInPlace<T>(this List<T> list) {
+            list.Reverse();
+
+            return list.ToList();
+        }
     }
 }
