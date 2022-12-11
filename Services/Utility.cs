@@ -138,6 +138,16 @@ namespace AdventOfCode.Services
         }
 
         /// <summary>
+        /// Parses a list of strings into a list of longs
+        /// </summary>
+        /// <param name="strings"></param>
+        /// <returns></returns>
+        public static List<long> ToLongs(this IEnumerable<string> strings)
+        {
+            return strings.Select(s => long.Parse(s)).ToList();
+        }
+
+        /// <summary>
         /// Submits the answer to AoC
         /// </summary>
         /// <param name="year"></param>
