@@ -34,3 +34,4 @@ Imports the input from Advent of Code for a specific day. Useful when you want a
 
 ## TODO
 - Add an option to not post the solution to AoC and just return the result from the puzzle
+- Is there a better way to do the DailyServiceCofiguration.cs file?
