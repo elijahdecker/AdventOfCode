@@ -35,7 +35,7 @@ namespace AdventOfCode.Services
         /// <param name="list"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static IEnumerable<IEnumerable<T>> ChunkByExclusive<T>(this IEnumerable<T> list, Func<T, bool> predicate)
+        public static List<List<T>> ChunkByExclusive<T>(this IEnumerable<T> list, Func<T, bool> predicate)
         {
             return list.ChunkBy(predicate, false);
         }
@@ -47,12 +47,12 @@ namespace AdventOfCode.Services
         /// <param name="list"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static IEnumerable<IEnumerable<T>> ChunkByInclusive<T>(this IEnumerable<T> list, Func<T, bool> predicate)
+        public static List<List<T>> ChunkByInclusive<T>(this IEnumerable<T> list, Func<T, bool> predicate)
         {
             return list.ChunkBy(predicate, true);
         }
 
-        private static IEnumerable<IEnumerable<T>> ChunkBy<T>(this IEnumerable<T> list, Func<T, bool> predicate, bool inclusive)
+        private static List<List<T>> ChunkBy<T>(this IEnumerable<T> list, Func<T, bool> predicate, bool inclusive)
         {
             List<List<T>> resultList = new();
             List<T> result = new();
@@ -82,7 +82,6 @@ namespace AdventOfCode.Services
             }
 
             return resultList;
-
         }
 
         /// <summary>
