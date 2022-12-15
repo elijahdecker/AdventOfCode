@@ -1,4 +1,15 @@
 # Advent Of Code
+<!--Generated via https://github.com/alexandru-dinu/advent-of-code/blob/main/.scripts/gen_badges.py-->
+<!-- begin-year-badge -->
+![](https://img.shields.io/badge/2022-28%20stars-56721f)
+![](https://img.shields.io/badge/2021-20%20stars-6e621d)
+![](https://img.shields.io/badge/2020-21%20stars-6b651e)
+![](https://img.shields.io/badge/2019-2%20stars-c62917)
+![](https://img.shields.io/badge/2018-13%20stars-87521c)
+![](https://img.shields.io/badge/2017-0%20stars-ef0f14)
+![](https://img.shields.io/badge/2016-0%20stars-ef0f14)
+![](https://img.shields.io/badge/2015-44%20stars-308b22)
+<!-- end-year-badge -->
 This repository serves to hold my own solutions to the [Advent of Code](https://adventofcode.com/).
 Feel free to copy this template and generate your own solutions
 
@@ -16,11 +27,11 @@ The program is idempotent (You can run this multiple times as it will only add f
 
 ### GET api/run-solution
 - Query parameters
-   - year (Ex. 2022) (Defaults to 2015)
-   - day (Ex. 14) (Defaults to 1)
-   - secondHalf (Ex. true) (Defaults to false)
-   - send (Ex. true) (Defaults to false)
-   
+- year (Ex. 2022) (Defaults to 2015)
+- day (Ex. 14) (Defaults to 1)
+- secondHalf (Ex. true) (Defaults to false)
+- send (Ex. true) (Defaults to false)
+
 Runs a specific day's solution, posts the answer to Advent of Code, and returns the result from Advent of Code
 
 ### POST api/puzzle-helper
@@ -29,9 +40,9 @@ Imports all missing inputs from Advent of Code as well as creating missing solut
 
 ### POST api/puzzle-helper-daily
 - Query parameters
-   - year (Ex. 2022) (Defaults to 2015)
-   - day (Ex. 14) (Defaults to 1)
-   
+- year (Ex. 2022) (Defaults to 2015)
+- day (Ex. 14) (Defaults to 1)
+
 Imports the input from Advent of Code for a specific day. Useful when you want a streamlined version of the above call to only check for a specific day.
 
 ## Extra Notes
