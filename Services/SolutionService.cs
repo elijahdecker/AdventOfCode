@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         private readonly IServiceProvider serviceProvider;
 
-        public SolutionService(IServiceProvider serviceProvider, ISolutionDayService solutionDayService)
+        public SolutionService(IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
         }
