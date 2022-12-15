@@ -135,23 +135,48 @@
     {
         string output = string.Empty;
 
-        string inputFilePath = Path.Combine(Environment.CurrentDirectory, $"Inputs/{year}_{day:D2}.txt");
+        // Server time is UTC-5
+        DateTime now = DateTime.UtcNow.AddHours(-5);
+        int latestPuzzleYear, latestPuzzleDay;
 
-        if (!File.Exists(inputFilePath))
+        // If we're in December, then the latest available puzzle is today
+        if (now.Month == 12)
         {
-            using StreamWriter inputFile = new(inputFilePath);
+            latestPuzzleYear = now.Year;
 
-            string response = await ImportInput(year, day);
-
-            await inputFile.WriteAsync(response);
-
-            Console.WriteLine($"Created input file for Year: {year}, Day: {day}.");
-            output = $"Created input file for Year: {year}, Day: {day}.";
+            // If it's December 26th-31st the latest day is the 25th
+            latestPuzzleDay = Math.Min(now.Day, 25);
         }
         else
         {
+            // Otherwise the latest puzzle is from the end of the previous event
+            latestPuzzleYear = now.Year - 1;
+            latestPuzzleDay = 25;
+        }
+
+        if (latestPuzzleYear > year || latestPuzzleYear <= year && latestPuzzleDay > day) {
             Console.WriteLine("No updates applied.");
             output += "No updates applied.";
+        }
+        else {
+            string inputFilePath = Path.Combine(Environment.CurrentDirectory, $"Inputs/{year}_{day:D2}.txt");
+
+            if (!File.Exists(inputFilePath))
+            {
+                string response = await ImportInput(year, day);
+
+                using StreamWriter inputFile = new(inputFilePath);
+
+                await inputFile.WriteAsync(response);
+
+                Console.WriteLine($"Created input file for Year: {year}, Day: {day}.");
+                output = $"Created input file for Year: {year}, Day: {day}.";
+            }
+            else
+            {
+                Console.WriteLine("No updates applied.");
+                output += "No updates applied.";
+            }
         }
 
         return output;
