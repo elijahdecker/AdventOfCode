@@ -29,9 +29,6 @@
             latestPuzzleDay = 25;
         }
 
-        // Startup.cs
-        string startupFolderPath = Path.Combine(Environment.CurrentDirectory, "Services/DailyServiceConfiguration.cs");
-
         bool update = false;
 
         // Create a folder for each year that is missing one
@@ -54,19 +51,6 @@
 
                 if (!File.Exists(dayFilePath))
                 {
-                    // Update the startup file by adding a new line for injecting the new service
-                    string startupFile = await File.ReadAllTextAsync(startupFolderPath);
-
-                    int insertMinIndex = startupFile.IndexOf("        {");
-                    int insertIndex = startupFile.IndexOf("        }", insertMinIndex);
-
-                    if (!startupFile.Contains($"services.AddScoped<ISolutionDayService, Solution{year}_{day:D2}Service>()"))
-                    {
-                        startupFile = startupFile.Insert(insertIndex, $"            services.AddScoped<ISolutionDayService, Solution{year}_{day:D2}Service>();\n");
-                    }
-
-                    await File.WriteAllTextAsync(startupFolderPath, startupFile);
-
                     // Initialize the new service file
                     using StreamWriter serviceFile = new(dayFilePath);
 

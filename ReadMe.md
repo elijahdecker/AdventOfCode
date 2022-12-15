@@ -37,6 +37,3 @@ Imports the input from Advent of Code for a specific day. Useful when you want a
 ## Extra Notes
 - The admin of Advent of Code have requested that puzzle inputs be cached (To reduce load on the system) and not be made publically available (To make it harder to completely copy the site)
 - This puzzle helper currently does not use the leaderboard api, but if you choose to copy t
-
-## TODO
-- Is there a better way to do the DailyServiceCofiguration.cs file?
