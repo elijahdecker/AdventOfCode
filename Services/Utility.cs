@@ -170,7 +170,8 @@ namespace AdventOfCode.Services
                 Uri baseAddress = new("https://adventofcode.com");
                 using HttpClientHandler handler = new() { UseCookies = false };
                 using HttpClient client = new(handler) { BaseAddress = baseAddress };
-
+                
+                // Don't modify this User Agent, it should match the repo making the request and not the user making the request
                 client.DefaultRequestHeaders.UserAgent.ParseAdd($".NET 7.0 (+via https://github.com/austin-owensby/AdventOfCode by austin_owensby@hotmail.com)");
 
                 string cookie = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "PuzzleHelper/Cookie.txt"));
