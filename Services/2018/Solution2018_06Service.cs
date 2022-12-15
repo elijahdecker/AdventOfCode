@@ -19,7 +19,7 @@ namespace AdventOfCode.Services
             }
         }
 
-        public async Task<string> FirstHalf()
+        public async Task<string> FirstHalf(bool send)
         {
             List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_06.txt")).ToList();
 
@@ -62,7 +62,7 @@ namespace AdventOfCode.Services
             return await Task.FromResult($"The largest area is {largestArea}");
         }
 
-        public async Task<string> SecondHalf()
+        public async Task<string> SecondHalf(bool send)
         {
             List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_06.txt")).ToList();
 

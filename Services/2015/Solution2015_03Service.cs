@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_03Service() { }
 
-        public async Task<string> FirstHalf()
+        public async Task<string> FirstHalf(bool send)
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_03.txt"));
 
@@ -30,7 +30,7 @@ namespace AdventOfCode.Services
             return await Task.FromResult($"Number of houses that received at least 1 present {locationsVisited.Count}.");
         }
 
-        public async Task<string> SecondHalf()
+        public async Task<string> SecondHalf(bool send)
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_03.txt"));
 

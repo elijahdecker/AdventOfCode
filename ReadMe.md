@@ -1,5 +1,6 @@
 # Advent Of Code
 This repository serves to hold my own solutions to the [Advent of Code](https://adventofcode.com/).
+Feel free to copy this template and generate your own solutions
 
 ## Puzzle Helper
 This allows you to easily create the needed input files and services.
@@ -7,7 +8,7 @@ This allows you to easily create the needed input files and services.
 If you would like to use this project's template for you own solution and inputs
 1. First delete the daily service files.
 1. Next in the PuzzleHelper folder, create a Cookie.txt file and add your own cookie that gets created when logging into the Advent of Code website. If you open the Network tab in the Dev Tools while on the site you'll see the cookie in the API calls that are made.
-1. Finally just run the project and use one of the Puzzle Helper APIs to import your input
+1. Finally just run the project and use the Puzzle Helper API (`POST api/puzzle-helper`) to import your inputs and create fresh services
 
 The program is idempotent (You can run this multiple times as it will only add files if they are needed.)
 
@@ -18,6 +19,7 @@ The program is idempotent (You can run this multiple times as it will only add f
    - year (Ex. 2022) (Defaults to 2015)
    - day (Ex. 14) (Defaults to 1)
    - secondHalf (Ex. true) (Defaults to false)
+   - send (Ex. true) (Defaults to false)
    
 Runs a specific day's solution, posts the answer to Advent of Code, and returns the result from Advent of Code
 
@@ -27,11 +29,14 @@ Imports all missing inputs from Advent of Code as well as creating missing solut
 
 ### POST api/puzzle-helper-daily
 - Query parameters
-   - year (Ex. 2022)
-   - day (Ex. 14)
+   - year (Ex. 2022) (Defaults to 2015)
+   - day (Ex. 14) (Defaults to 1)
    
 Imports the input from Advent of Code for a specific day. Useful when you want a streamlined version of the above call to only check for a specific day.
 
+## Extra Notes
+- The admin of Advent of Code have requested that puzzle inputs be cached (To reduce load on the system) and not be made publically available (To make it harder to completely copy the site)
+- This puzzle helper currently does not use the leaderboard api, but if you choose to copy t
+
 ## TODO
-- Add an option to not post the solution to AoC and just return the result from the puzzle
 - Is there a better way to do the DailyServiceCofiguration.cs file?

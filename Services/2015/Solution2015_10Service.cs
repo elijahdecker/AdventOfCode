@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_10Service() { }
 
-        public async Task<string> FirstHalf()
+        public async Task<string> FirstHalf(bool send)
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_10.txt"));
 
@@ -47,7 +47,7 @@ namespace AdventOfCode.Services
             return await Task.FromResult($"The length of the result after {numberOfLoops} iterations is {currentList.Count}.");
         }
 
-        public async Task<string> SecondHalf()
+        public async Task<string> SecondHalf(bool send)
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_10.txt"));
 

@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2022_04Service() { }
 
-        public async Task<string> FirstHalf()
+        public async Task<string> FirstHalf(bool send)
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_04.txt")).ToList();
 
@@ -28,7 +28,7 @@ namespace AdventOfCode.Services
             return await Utility.SubmitAnswer(2022, 4, false, matches);
         }
 
-        public async Task<string> SecondHalf()
+        public async Task<string> SecondHalf(bool send)
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_04.txt")).ToList();
 

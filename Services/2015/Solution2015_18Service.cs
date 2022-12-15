@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_18Service() { }
 
-        public async Task<string> FirstHalf()
+        public async Task<string> FirstHalf(bool send)
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_18.txt"));
             string[] lights = data.Split("\n").SkipLast(1).ToArray();
@@ -63,7 +63,7 @@ namespace AdventOfCode.Services
             return await Task.FromResult($"The number of total lights after {numberOfStages} iterations is {totalLights}");
         }
 
-        public async Task<string> SecondHalf()
+        public async Task<string> SecondHalf(bool send)
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_18.txt"));
             string[] lights = data.Split("\n").SkipLast(1).ToArray();

@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_21Service() { }
 
-        public async Task<string> FirstHalf()
+        public async Task<string> FirstHalf(bool send)
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_21.txt"));
 
@@ -95,7 +95,7 @@ namespace AdventOfCode.Services
             return await Task.FromResult($"The minimum cost to beat the boss is {minCost}");
         }
 
-        public async Task<string> SecondHalf()
+        public async Task<string> SecondHalf(bool send)
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_21.txt"));
 

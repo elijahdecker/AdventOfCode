@@ -1,22 +1,24 @@
 namespace AdventOfCode.Services
 {
-    public class Directory {
-        public long Size {get; set;}
-        public string Name {get; set; }
-        public List<DirFile> Files {get; set;} = new();
-        public string ParentName {get; set;}
+    public class Directory
+    {
+        public long Size { get; set; }
+        public string Name { get; set; }
+        public List<DirFile> Files { get; set; } = new();
+        public string ParentName { get; set; }
     }
 
-    public class DirFile {
-        public string Name {get; set;}
-        public long Size {get; set;}
+    public class DirFile
+    {
+        public string Name { get; set; }
+        public long Size { get; set; }
     }
 
     public class Solution2022_07Service : ISolutionDayService
     {
         public Solution2022_07Service() { }
 
-        public async Task<string> FirstHalf()
+        public async Task<string> FirstHalf(bool send)
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_07.txt")).ToList();
 
@@ -32,44 +34,55 @@ namespace AdventOfCode.Services
 
             int i = 0;
 
-            while (i < lines.Count()) {
+            while (i < lines.Count())
+            {
                 string line = lines[i];
 
-                if (line.Contains("$ cd")) {
+                if (line.Contains("$ cd"))
+                {
                     // Navigating to a new directory
                     string newDirectoryName = line.QuickRegex(@"\$ cd (.+)").Single();
 
-                    if (newDirectoryName == "..") {
-                        if (currentDirectory.Name != "/") {
+                    if (newDirectoryName == "..")
+                    {
+                        if (currentDirectory.Name != "/")
+                        {
                             // If we're already at the top, don't do anything
                             currentDirectory = directories.Single(d => d.Name == currentDirectory.ParentName);
                         }
                     }
-                    else if (newDirectoryName == "/") {
+                    else if (newDirectoryName == "/")
+                    {
                         currentDirectory = directories.Single(d => d.Name == "/");
                     }
-                    else {
+                    else
+                    {
                         string parent = currentDirectory.Name == "/" ? "" : currentDirectory.Name;
                         currentDirectory = directories.Single(d => d.Name == $"{parent}/{newDirectoryName}");
                     }
 
                     i++;
                 }
-                else if (line.Contains("$ ls")) {
+                else if (line.Contains("$ ls"))
+                {
                     // List out the children of the current directory
                     i++;
                     line = lines[i];
 
-                    while (!line.StartsWith("$")) {
-                        if (line.Contains("dir ")) {
+                    while (!line.StartsWith("$"))
+                    {
+                        if (line.Contains("dir "))
+                        {
                             // Directory
                             string parent = currentDirectory.Name == "/" ? "" : currentDirectory.Name;
                             string newDirectoryName = line.QuickRegex(@"dir (.+)").Single();
                             string dirName = $"{parent}/{newDirectoryName}";
 
-                            if (!directories.Any(c => c.Name == dirName)) {
+                            if (!directories.Any(c => c.Name == dirName))
+                            {
                                 // Add the new dir
-                                Directory newDir = new(){
+                                Directory newDir = new()
+                                {
                                     Name = dirName,
                                     ParentName = currentDirectory.Name
                                 };
@@ -77,14 +90,17 @@ namespace AdventOfCode.Services
                                 directories.Add(newDir);
                             }
                         }
-                        else {
+                        else
+                        {
                             // File
                             string fileName = line.QuickRegex(@"(.+) (.+)")[1];
 
-                            if (!currentDirectory.Files.Any(c => c.Name == fileName)) {
+                            if (!currentDirectory.Files.Any(c => c.Name == fileName))
+                            {
                                 long size = int.Parse(line.QuickRegex(@"(.+) (.+)")[0]);
 
-                                currentDirectory.Files.Add(new(){
+                                currentDirectory.Files.Add(new()
+                                {
                                     Name = fileName,
                                     Size = size
                                 });
@@ -92,19 +108,22 @@ namespace AdventOfCode.Services
                                 // Increase the parent's size
                                 Directory parent = directories.Single(d => d.Name == currentDirectory.Name);
 
-                                while (parent != null) {
+                                while (parent != null)
+                                {
                                     parent.Size += size;
                                     parent = directories.FirstOrDefault(p => p.Name == parent.ParentName);
                                 }
                             }
                         }
-                    
+
                         i++;
 
-                        if (i < lines.Count) {
+                        if (i < lines.Count)
+                        {
                             line = lines[i];
                         }
-                        else {
+                        else
+                        {
                             // Ended input with ls
                             break;
                         }
@@ -114,10 +133,10 @@ namespace AdventOfCode.Services
 
             answer = directories.Sum(d => d.Size <= 100000 ? d.Size : 0);
 
-            return await Utility.SubmitAnswer(2022, 7, false, answer);
+            return await Utility.SubmitAnswer(2022, 7, false, answer, send);
         }
 
-        public async Task<string> SecondHalf()
+        public async Task<string> SecondHalf(bool send)
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_07.txt")).ToList();
 
@@ -133,44 +152,55 @@ namespace AdventOfCode.Services
 
             int i = 0;
 
-            while (i < lines.Count()) {
+            while (i < lines.Count())
+            {
                 string line = lines[i];
 
-                if (line.Contains("$ cd")) {
+                if (line.Contains("$ cd"))
+                {
                     // Navigating to a new directory
                     string newDirectoryName = line.QuickRegex(@"\$ cd (.+)").Single();
 
-                    if (newDirectoryName == "..") {
-                        if (currentDirectory.Name != "/") {
+                    if (newDirectoryName == "..")
+                    {
+                        if (currentDirectory.Name != "/")
+                        {
                             // If we're already at the top, don't do anything
                             currentDirectory = directories.Single(d => d.Name == currentDirectory.ParentName);
                         }
                     }
-                    else if (newDirectoryName == "/") {
+                    else if (newDirectoryName == "/")
+                    {
                         currentDirectory = directories.Single(d => d.Name == "/");
                     }
-                    else {
+                    else
+                    {
                         string parent = currentDirectory.Name == "/" ? "" : currentDirectory.Name;
                         currentDirectory = directories.Single(d => d.Name == $"{parent}/{newDirectoryName}");
                     }
 
                     i++;
                 }
-                else if (line.Contains("$ ls")) {
+                else if (line.Contains("$ ls"))
+                {
                     // List out the children of the current directory
                     i++;
                     line = lines[i];
 
-                    while (!line.StartsWith("$")) {
-                        if (line.Contains("dir ")) {
+                    while (!line.StartsWith("$"))
+                    {
+                        if (line.Contains("dir "))
+                        {
                             // Directory
                             string parent = currentDirectory.Name == "/" ? "" : currentDirectory.Name;
                             string newDirectoryName = line.QuickRegex(@"dir (.+)").Single();
                             string dirName = $"{parent}/{newDirectoryName}";
 
-                            if (!directories.Any(c => c.Name == dirName)) {
+                            if (!directories.Any(c => c.Name == dirName))
+                            {
                                 // Add the new dir
-                                Directory newDir = new(){
+                                Directory newDir = new()
+                                {
                                     Name = dirName,
                                     ParentName = currentDirectory.Name
                                 };
@@ -178,14 +208,17 @@ namespace AdventOfCode.Services
                                 directories.Add(newDir);
                             }
                         }
-                        else {
+                        else
+                        {
                             // File
                             string fileName = line.QuickRegex(@"(.+) (.+)")[1];
 
-                            if (!currentDirectory.Files.Any(c => c.Name == fileName)) {
+                            if (!currentDirectory.Files.Any(c => c.Name == fileName))
+                            {
                                 long size = int.Parse(line.QuickRegex(@"(.+) (.+)")[0]);
 
-                                currentDirectory.Files.Add(new(){
+                                currentDirectory.Files.Add(new()
+                                {
                                     Name = fileName,
                                     Size = size
                                 });
@@ -193,19 +226,22 @@ namespace AdventOfCode.Services
                                 // Increase the parent's size
                                 Directory parent = directories.Single(d => d.Name == currentDirectory.Name);
 
-                                while (parent != null) {
+                                while (parent != null)
+                                {
                                     parent.Size += size;
                                     parent = directories.FirstOrDefault(p => p.Name == parent.ParentName);
                                 }
                             }
                         }
-                    
+
                         i++;
 
-                        if (i < lines.Count) {
+                        if (i < lines.Count)
+                        {
                             line = lines[i];
                         }
-                        else {
+                        else
+                        {
                             // Ended input with ls
                             break;
                         }
@@ -223,7 +259,7 @@ namespace AdventOfCode.Services
 
             answer = directories.Where(d => d.Size >= minDirSizeToDelete).Select(d => d.Size).OrderBy(d => d).First();
 
-            return await Utility.SubmitAnswer(2022, 7, true, answer);
+            return await Utility.SubmitAnswer(2022, 7, true, answer, send);
         }
     }
 }

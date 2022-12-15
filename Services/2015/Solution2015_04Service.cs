@@ -7,7 +7,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_04Service() { }
 
-        public async Task<string> FirstHalf()
+        public async Task<string> FirstHalf(bool send)
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_04.txt"));
             data = data.Remove(data.Length - 1, 1); // Remove the newline character
@@ -41,7 +41,7 @@ namespace AdventOfCode.Services
             return await Task.FromResult($"The lowest number {data} combines with to make an MD5 hash starting with five zeroes is {addedDigit}.");
         }
 
-        public async Task<string> SecondHalf()
+        public async Task<string> SecondHalf(bool send)
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_04.txt"));
             data = data.Remove(data.Length - 1, 1); // Remove the newline character

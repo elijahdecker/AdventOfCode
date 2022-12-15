@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2022_01Service() { }
 
-        public async Task<string> FirstHalf()
+        public async Task<string> FirstHalf(bool send)
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2022_01.txt")).ToList();
 
@@ -13,7 +13,7 @@ namespace AdventOfCode.Services
             return await Task.FromResult($"There are {answer} calories caried by the elf with the most calories");
         }
 
-        public async Task<string> SecondHalf()
+        public async Task<string> SecondHalf(bool send)
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2022_01.txt")).ToList();
 

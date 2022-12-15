@@ -4,16 +4,16 @@ namespace AdventOfCode.Services
     {
         public Solution2019_01Service() { }
 
-        public async Task<string> FirstHalf()
+        public async Task<string> FirstHalf(bool send)
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2019_01.txt")).ToList();
 
             int answer = lines.ToInts().Sum(l => (int)Math.Floor((double)l / 3) - 2);
 
-            return await Utility.SubmitAnswer(2019, 1, false, answer);
+            return await Utility.SubmitAnswer(2019, 1, false, answer, send);
         }
 
-        public async Task<string> SecondHalf()
+        public async Task<string> SecondHalf(bool send)
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2019_01.txt")).ToList();
 
@@ -34,7 +34,7 @@ namespace AdventOfCode.Services
                 } while (mass > 0);
             }
 
-            return await Utility.SubmitAnswer(2019, 1, true, answer);
+            return await Utility.SubmitAnswer(2019, 1, true, answer, send);
         }
     }
 }

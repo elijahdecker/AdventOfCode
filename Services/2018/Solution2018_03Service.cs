@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2018_03Service() { }
 
-        public async Task<string> FirstHalf()
+        public async Task<string> FirstHalf(bool send)
         {
             string[] lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_03.txt"));
 
@@ -37,7 +37,7 @@ namespace AdventOfCode.Services
             return await Task.FromResult($"The number of squares with two or more claims is {duplicateSquares}.");
         }
 
-        public async Task<string> SecondHalf()
+        public async Task<string> SecondHalf(bool send)
         {
             string[] lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_03.txt"));
 

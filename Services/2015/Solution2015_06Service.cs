@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_06Service() { }
 
-        public async Task<string> FirstHalf()
+        public async Task<string> FirstHalf(bool send)
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_06.txt"));
             string[] lines = data.Split("\n");
@@ -61,7 +61,7 @@ namespace AdventOfCode.Services
             return await Task.FromResult($"There are {lightOnCount} lights turned on after the instructions.");
         }
 
-        public async Task<string> SecondHalf()
+        public async Task<string> SecondHalf(bool send)
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_06.txt"));
             string[] lines = data.Split("\n");

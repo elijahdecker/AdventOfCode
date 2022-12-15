@@ -2,7 +2,7 @@ namespace AdventOfCode.Services
 {
     public interface ISolutionDayService
     {
-        Task<string> FirstHalf();
-        Task<string> SecondHalf();
+        Task<string> FirstHalf(bool send);
+        Task<string> SecondHalf(bool send);
     }
 }

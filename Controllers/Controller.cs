@@ -18,11 +18,11 @@ namespace AdventOfCode.Controllers
         }
 
         [HttpGet("run-solution")]
-        public async Task<ActionResult<string>> GetSolution([FromQuery, BindRequired] int year = 2015, [FromQuery, BindRequired] int day = 1, bool secondHalf = false)
+        public async Task<ActionResult<string>> GetSolution([FromQuery, BindRequired] int year = 2015, [FromQuery, BindRequired] int day = 1, bool secondHalf = false, bool send = false)
         {
             try
             {
-                return await solutionService.GetSolution(year, day, secondHalf);
+                return await solutionService.GetSolution(year, day, secondHalf, send);
             }
             catch (SolutionNotFoundException e)
             {
@@ -37,7 +37,7 @@ namespace AdventOfCode.Controllers
         }
 
         [HttpPost("puzzle-helper-daily")]
-        public async Task<string> RunPuzzleHelper(int year, int day)
+        public async Task<string> RunPuzzleHelper([FromQuery, BindRequired] int year = 2015, [FromQuery, BindRequired] int day = 1)
         {
             return await puzzleHelperService.RunDaily(year, day);
         }

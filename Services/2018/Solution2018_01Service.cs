@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2018_01Service() { }
 
-        public async Task<string> FirstHalf()
+        public async Task<string> FirstHalf(bool send)
         {
             string[] data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_01.txt"));
             List<int> changes = data.Select(d => int.Parse(d)).ToList();
@@ -14,7 +14,7 @@ namespace AdventOfCode.Services
             return await Task.FromResult($"The resulting frequency is {resultingFrequency}");
         }
 
-        public async Task<string> SecondHalf()
+        public async Task<string> SecondHalf(bool send)
         {
             string[] data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_01.txt"));
             List<int> changes = data.Select(d => int.Parse(d)).ToList();

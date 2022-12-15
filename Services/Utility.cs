@@ -147,81 +147,66 @@ namespace AdventOfCode.Services
         }
 
         /// <summary>
-        /// Submits the answer to AoC
+        /// Returns the answer as a string by default
+        /// If send is set to true, submits the answer to Advent of Code and returns the response
         /// </summary>
         /// <param name="year"></param>
         /// <param name="day"></param>
         /// <param name="secondHalf"></param>
         /// <param name="answer"></param>
+        /// <param name="send"></param>
         /// <returns></returns>
-        public static async Task<string> SubmitAnswer(int year, int day, bool secondHalf, string answer)
-        {
-            return await PostAnswer(year, day, secondHalf, answer);
-        }
-
-        /// <summary>
-        /// Submits the answer to AoC
-        /// </summary>
-        /// <param name="year"></param>
-        /// <param name="day"></param>
-        /// <param name="secondHalf"></param>
-        /// <param name="answer"></param>
-        /// <returns></returns>
-        public static async Task<string> SubmitAnswer(int year, int day, bool secondHalf, long answer)
+        public static async Task<string> SubmitAnswer<T>(int year, int day, bool secondHalf, T answer, bool send = false)
         {
             return await PostAnswer(year, day, secondHalf, answer.ToString());
         }
 
-        /// <summary>
-        /// Submits the answer to AoC
-        /// </summary>
-        /// <param name="year"></param>
-        /// <param name="day"></param>
-        /// <param name="secondHalf"></param>
-        /// <param name="answer"></param>
-        /// <returns></returns>
-        public static async Task<string> SubmitAnswer(int year, int day, bool secondHalf, int answer)
+        private static async Task<string> PostAnswer(int year, int day, bool secondHalf, string answer, bool send = false)
         {
-            return await PostAnswer(year, day, secondHalf, answer.ToString());
-        }
+            string reponse = string.Empty;
 
-        private static async Task<string> PostAnswer(int year, int day, bool secondHalf, string answer)
-        {
-            Uri baseAddress = new("https://adventofcode.com");
-            using var handler = new HttpClientHandler { UseCookies = false };
-            using var client = new HttpClient(handler) { BaseAddress = baseAddress };
-
-            client.DefaultRequestHeaders.UserAgent.ParseAdd($".NET 7.0 (+via https://github.com/austin-owensby/AdventOfCode by austin_owensby@hotmail.com)");
-
-            string cookie = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "PuzzleHelper/Cookie.txt"));
-            client.DefaultRequestHeaders.Add("Cookie", cookie);
-
-            Dictionary<string, string> data = new(){
-                    { "level", secondHalf ? "2" : "1"},
-                    { "answer", answer }
-                };
-
-            HttpContent request = new FormUrlEncodedContent(data);
-
-            var result = await client.PostAsync($"/{year}/day/{day}/answer", request);
-
-            result.EnsureSuccessStatusCode();
-            string content = await result.Content.ReadAsStringAsync();
-
-            try
+            if (send)
             {
-                // Find article component
-                HtmlDocument doc = new();
-                doc.LoadHtml(content);
-                HtmlNode article = doc.DocumentNode.SelectSingleNode("//article/p");
-                content = article.InnerHtml;
+                Uri baseAddress = new("https://adventofcode.com");
+                using var handler = new HttpClientHandler { UseCookies = false };
+                using var client = new HttpClient(handler) { BaseAddress = baseAddress };
+
+                client.DefaultRequestHeaders.UserAgent.ParseAdd($".NET 7.0 (+via https://github.com/austin-owensby/AdventOfCode by austin_owensby@hotmail.com)");
+
+                string cookie = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "PuzzleHelper/Cookie.txt"));
+                client.DefaultRequestHeaders.Add("Cookie", cookie);
+
+                Dictionary<string, string> data = new(){
+                        { "level", secondHalf ? "2" : "1"},
+                        { "answer", answer }
+                    };
+
+                HttpContent request = new FormUrlEncodedContent(data);
+
+                var result = await client.PostAsync($"/{year}/day/{day}/answer", request);
+
+                result.EnsureSuccessStatusCode();
+                reponse = await result.Content.ReadAsStringAsync();
+
+                try
+                {
+                    // Find article component
+                    HtmlDocument doc = new();
+                    doc.LoadHtml(reponse);
+                    HtmlNode article = doc.DocumentNode.SelectSingleNode("//article/p");
+                    reponse = article.InnerHtml;
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Error parsing html response.");
+                }
             }
-            catch (Exception)
+            else
             {
-                Console.WriteLine("Error parsing html response.");
+                reponse = answer;
             }
 
-            return content;
+            return reponse;
         }
 
         /// <summary>
@@ -245,7 +230,8 @@ namespace AdventOfCode.Services
         /// <param name="list"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static List<T> ReverseInPlace<T>(this List<T> list) {
+        public static List<T> ReverseInPlace<T>(this List<T> list)
+        {
             list.Reverse();
 
             return list.ToList();

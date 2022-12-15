@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2022_10Service() { }
 
-        public async Task<string> FirstHalf()
+        public async Task<string> FirstHalf(bool send)
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_10.txt")).ToList();
 
@@ -12,40 +12,45 @@ namespace AdventOfCode.Services
             int x = 1;
             int cycle = 0;
 
-            List<int> signals = new(){20, 60, 100, 140, 180, 220};
+            List<int> signals = new() { 20, 60, 100, 140, 180, 220 };
 
             foreach (string line in lines)
             {
-                if (line == "noop") {
+                if (line == "noop")
+                {
                     cycle++; // Takes 1 cycle
 
-                    if (signals.Contains(cycle)) {
-                        answer += x*cycle;
+                    if (signals.Contains(cycle))
+                    {
+                        answer += x * cycle;
                     }
                 }
-                else if (line.StartsWith("addx")) {
+                else if (line.StartsWith("addx"))
+                {
                     int value = int.Parse(line.QuickRegex(@"addx (-?\d+)").First());
 
                     cycle++;
 
-                    if (signals.Contains(cycle)) {
-                        answer += x*cycle;
+                    if (signals.Contains(cycle))
+                    {
+                        answer += x * cycle;
                     }
 
                     cycle++;
 
-                    if (signals.Contains(cycle)) {
-                        answer += x*cycle;
+                    if (signals.Contains(cycle))
+                    {
+                        answer += x * cycle;
                     }
 
                     x += value;
                 }
             }
 
-            return await Utility.SubmitAnswer(2022, 10, false, answer);
+            return await Utility.SubmitAnswer(2022, 10, false, answer, send);
         }
 
-        public async Task<string> SecondHalf()
+        public async Task<string> SecondHalf(bool send)
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_10.txt")).ToList();
 
@@ -55,25 +60,28 @@ namespace AdventOfCode.Services
             string output = string.Empty;
             foreach (string line in lines)
             {
-                if (line == "noop") {
-                    output += (position % 40 == x || position % 40 == x + 1 || position % 40 == x - 1)  ? "#" : ".";
+                if (line == "noop")
+                {
+                    output += (position % 40 == x || position % 40 == x + 1 || position % 40 == x - 1) ? "#" : ".";
 
                     position++;
                 }
-                else if (line.StartsWith("addx")) {
+                else if (line.StartsWith("addx"))
+                {
                     int value = int.Parse(line.QuickRegex(@"addx (-?\d+)").First());
 
-                    output += (position % 40 == x || position % 40 == x + 1 || position % 40 == x - 1)  ? "#" : ".";
+                    output += (position % 40 == x || position % 40 == x + 1 || position % 40 == x - 1) ? "#" : ".";
                     position++;
 
-                    output += (position % 40 == x || position % 40 == x + 1 || position % 40 == x - 1)  ? "#" : ".";
+                    output += (position % 40 == x || position % 40 == x + 1 || position % 40 == x - 1) ? "#" : ".";
                     position++;
 
                     x += value;
                 }
             }
 
-            foreach (char[] outputLine in output.Chunk(40)) {
+            foreach (char[] outputLine in output.Chunk(40))
+            {
                 string value = new string(outputLine);
                 Console.WriteLine(value);
             }

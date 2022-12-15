@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_19Service() { }
 
-        public async Task<string> FirstHalf()
+        public async Task<string> FirstHalf(bool send)
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_19.txt"));
 
@@ -48,7 +48,7 @@ namespace AdventOfCode.Services
             return await Task.FromResult($"{distinctMolecules.Count} can be created from 1 replacement.");
         }
 
-        public async Task<string> SecondHalf()
+        public async Task<string> SecondHalf(bool send)
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_19.txt"));
 

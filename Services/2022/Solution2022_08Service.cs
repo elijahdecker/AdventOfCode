@@ -1,16 +1,17 @@
 namespace AdventOfCode.Services
 {
-    public class Point {
-        public int X {get; set;}
-        public int Y {get; set;}
-        public int Value {get; set;}
+    public class Point
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int Value { get; set; }
     }
 
     public class Solution2022_08Service : ISolutionDayService
     {
         public Solution2022_08Service() { }
 
-        public async Task<string> FirstHalf()
+        public async Task<string> FirstHalf(bool send)
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_08.txt")).ToList();
 
@@ -18,12 +19,15 @@ namespace AdventOfCode.Services
 
             List<List<Point>> points = new();
 
-            for (int i = 0; i < grid.Count(); i++) {
+            for (int i = 0; i < grid.Count(); i++)
+            {
                 List<int> row = grid[i];
                 List<Point> pointRow = new();
 
-                for (int j = 0; j < row.Count(); j++) {
-                    pointRow.Add(new(){
+                for (int j = 0; j < row.Count(); j++)
+                {
+                    pointRow.Add(new()
+                    {
                         X = i,
                         Y = j,
                         Value = row[j]
@@ -39,8 +43,10 @@ namespace AdventOfCode.Services
             {
                 int maxHeightSoFar = -1;
 
-                foreach (Point cell in row) {
-                    if (cell.Value > maxHeightSoFar) {
+                foreach (Point cell in row)
+                {
+                    if (cell.Value > maxHeightSoFar)
+                    {
                         visibleTrees.Add(cell);
                         maxHeightSoFar = cell.Value;
                     }
@@ -53,8 +59,10 @@ namespace AdventOfCode.Services
 
                 row.Reverse();
 
-                foreach (Point cell in row) {
-                    if (cell.Value > maxHeightSoFar) {
+                foreach (Point cell in row)
+                {
+                    if (cell.Value > maxHeightSoFar)
+                    {
                         visibleTrees.Add(cell);
                         maxHeightSoFar = cell.Value;
                     }
@@ -67,8 +75,10 @@ namespace AdventOfCode.Services
             {
                 int maxHeightSoFar = -1;
 
-                foreach (Point cell in row) {
-                    if (cell.Value > maxHeightSoFar) {
+                foreach (Point cell in row)
+                {
+                    if (cell.Value > maxHeightSoFar)
+                    {
                         visibleTrees.Add(cell);
                         maxHeightSoFar = cell.Value;
                     }
@@ -81,8 +91,10 @@ namespace AdventOfCode.Services
 
                 row.Reverse();
 
-                foreach (Point cell in row) {
-                    if (cell.Value > maxHeightSoFar) {
+                foreach (Point cell in row)
+                {
+                    if (cell.Value > maxHeightSoFar)
+                    {
                         visibleTrees.Add(cell);
                         maxHeightSoFar = cell.Value;
                     }
@@ -94,10 +106,10 @@ namespace AdventOfCode.Services
 
             int answer = visibleTrees.DistinctBy(point => $"{point.X} {point.Y}").Count();
 
-            return await Utility.SubmitAnswer(2022, 8, false, answer);
+            return await Utility.SubmitAnswer(2022, 8, false, answer, send);
         }
 
-        public async Task<string> SecondHalf()
+        public async Task<string> SecondHalf(bool send)
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_08.txt")).ToList();
 
@@ -105,12 +117,15 @@ namespace AdventOfCode.Services
 
             List<List<Point>> points = new();
 
-            for (int i = 0; i < grid.Count(); i++) {
+            for (int i = 0; i < grid.Count(); i++)
+            {
                 List<int> row = grid[i];
                 List<Point> pointRow = new();
 
-                for (int j = 0; j < row.Count(); j++) {
-                    pointRow.Add(new(){
+                for (int j = 0; j < row.Count(); j++)
+                {
+                    pointRow.Add(new()
+                    {
                         X = i,
                         Y = j,
                         Value = row[j]
@@ -122,10 +137,11 @@ namespace AdventOfCode.Services
 
             int answer = points.SelectMany(p => p).Max(point => GetScenicScore(grid, point));
 
-            return await Utility.SubmitAnswer(2022, 8, true, answer);
+            return await Utility.SubmitAnswer(2022, 8, true, answer, send);
         }
-        
-        private int GetScenicScore (List<List<int>> grid, Point point) {
+
+        private int GetScenicScore(List<List<int>> grid, Point point)
+        {
             int score = 0;
 
             List<int> listA = grid[point.X].Skip(point.Y + 1).ToList();
