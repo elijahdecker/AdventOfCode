@@ -110,7 +110,7 @@ namespace AdventOfCode.Services
                         bool endNode = possibleNode.X == end.X && possibleNode.Y == end.Y;
 
                         // We can step to the end or if there is at most a single increase in altitude
-                        bool canStep = (possibleNode.Altitude <= currentNode.Altitude + 1 && !endNode || endNode && currentNode.Altitude >= 'y') && !startNode;
+                        bool canStep = ((possibleNode.Altitude <= currentNode.Altitude + 1 && !endNode) || (endNode && currentNode.Altitude >= 'y')) && !startNode;
 
                         if (canStep)
                         {
@@ -189,7 +189,7 @@ namespace AdventOfCode.Services
                 // Due to the nature of the input, only 'a's on the first row is valid
                 char character = line[0];
 
-                if (character == 'a' || character == 'S')
+                if (character is 'a' or 'S')
                 {
                     startNodes.Add(new()
                     {
@@ -285,7 +285,7 @@ namespace AdventOfCode.Services
                             bool endNode = possibleNode.X == end.X && possibleNode.Y == end.Y;
 
                             // We can step to the end or if there is at most a single increase in altitude
-                            bool canStep = (possibleNode.Altitude <= currentNode.Altitude + 1 && !endNode || endNode && currentNode.Altitude >= 'y') && !startNode;
+                            bool canStep = ((possibleNode.Altitude <= currentNode.Altitude + 1 && !endNode) || (endNode && currentNode.Altitude >= 'y')) && !startNode;
 
                             if (canStep)
                             {

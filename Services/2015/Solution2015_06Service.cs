@@ -21,14 +21,14 @@ namespace AdventOfCode.Services
                     continue; // This is probably the newline at the end of the file
                 }
 
-                string operation = instruction[instruction.Length - 4];
-                string[] firstCoordinates = instruction[instruction.Length - 3].Split(',');
-                string[] secondCoordinates = instruction[instruction.Length - 1].Split(',');
+                string operation = instruction[^4];
+                string[] firstCoordinates = instruction[^3].Split(',');
+                string[] secondCoordinates = instruction[^1].Split(',');
 
-                int x1 = Int32.Parse(firstCoordinates[0]);
-                int y1 = Int32.Parse(firstCoordinates[1]);
-                int x2 = Int32.Parse(secondCoordinates[0]);
-                int y2 = Int32.Parse(secondCoordinates[1]);
+                int x1 = int.Parse(firstCoordinates[0]);
+                int y1 = int.Parse(firstCoordinates[1]);
+                int x2 = int.Parse(secondCoordinates[0]);
+                int y2 = int.Parse(secondCoordinates[1]);
 
                 for (int x = x1; x <= x2; x++)
                 {
@@ -78,14 +78,14 @@ namespace AdventOfCode.Services
                     continue; // This is probably the newline at the end of the file
                 }
 
-                string operation = instruction[instruction.Length - 4];
-                string[] firstCoordinates = instruction[instruction.Length - 3].Split(',');
-                string[] secondCoordinates = instruction[instruction.Length - 1].Split(',');
+                string operation = instruction[^4];
+                string[] firstCoordinates = instruction[^3].Split(',');
+                string[] secondCoordinates = instruction[^1].Split(',');
 
-                int x1 = Int32.Parse(firstCoordinates[0]);
-                int y1 = Int32.Parse(firstCoordinates[1]);
-                int x2 = Int32.Parse(secondCoordinates[0]);
-                int y2 = Int32.Parse(secondCoordinates[1]);
+                int x1 = int.Parse(firstCoordinates[0]);
+                int y1 = int.Parse(firstCoordinates[1]);
+                int x2 = int.Parse(secondCoordinates[0]);
+                int y2 = int.Parse(secondCoordinates[1]);
 
                 for (int x = x1; x <= x2; x++)
                 {

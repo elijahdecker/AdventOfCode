@@ -133,7 +133,7 @@ namespace AdventOfCode.Services
         /// <returns></returns>
         public static List<int> ToInts(this IEnumerable<string> strings)
         {
-            return strings.Select(s => int.Parse(s)).ToList();
+            return strings.Select(int.Parse).ToList();
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace AdventOfCode.Services
         /// <returns></returns>
         public static List<long> ToLongs(this IEnumerable<string> strings)
         {
-            return strings.Select(s => long.Parse(s)).ToList();
+            return strings.Select(long.Parse).ToList();
         }
 
         /// <summary>
@@ -168,8 +168,8 @@ namespace AdventOfCode.Services
             if (send)
             {
                 Uri baseAddress = new("https://adventofcode.com");
-                using var handler = new HttpClientHandler { UseCookies = false };
-                using var client = new HttpClient(handler) { BaseAddress = baseAddress };
+                using HttpClientHandler handler = new() { UseCookies = false };
+                using HttpClient client = new(handler) { BaseAddress = baseAddress };
 
                 client.DefaultRequestHeaders.UserAgent.ParseAdd($".NET 7.0 (+via https://github.com/austin-owensby/AdventOfCode by austin_owensby@hotmail.com)");
 
@@ -183,7 +183,7 @@ namespace AdventOfCode.Services
 
                 HttpContent request = new FormUrlEncodedContent(data);
 
-                var result = await client.PostAsync($"/{year}/day/{day}/answer", request);
+                HttpResponseMessage result = await client.PostAsync($"/{year}/day/{day}/answer", request);
 
                 result.EnsureSuccessStatusCode();
                 reponse = await result.Content.ReadAsStringAsync();

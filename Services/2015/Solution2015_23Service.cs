@@ -18,11 +18,10 @@ namespace AdventOfCode.Services
             {
                 string line = lines[instructionPointer];
                 string instruction = line.Split(' ')[0];
-                string register = "";
-                int offset = 0;
-
                 int jumpAmount = 1;
 
+                string register;
+                int offset;
                 switch (instruction)
                 {
                     // hlf r: sets r to half its value
@@ -81,14 +80,7 @@ namespace AdventOfCode.Services
                         break;
                     // jmp offset: continues at an offset of offset
                     case "jmp":
-                        if (int.TryParse(line.Split(' ')[1], out offset))
-                        {
-                            jumpAmount = offset;
-                        }
-                        else
-                        {
-                            throw new ArgumentException($"Couldn't parse offset: '{offset}.'");
-                        }
+                        jumpAmount = int.TryParse(line.Split(' ')[1], out offset) ? offset : throw new ArgumentException($"Couldn't parse offset: '{offset}.'");
 
                         break;
                     // jie r, offset: continues at an offset of offset if r is even
@@ -177,11 +169,10 @@ namespace AdventOfCode.Services
             {
                 string line = lines[instructionPointer];
                 string instruction = line.Split(' ')[0];
-                string register = "";
-                int offset = 0;
-
                 int jumpAmount = 1;
 
+                string register;
+                int offset;
                 switch (instruction)
                 {
                     // hlf r: sets r to half its value
@@ -240,14 +231,7 @@ namespace AdventOfCode.Services
                         break;
                     // jmp offset: continues at an offset of offset
                     case "jmp":
-                        if (int.TryParse(line.Split(' ')[1], out offset))
-                        {
-                            jumpAmount = offset;
-                        }
-                        else
-                        {
-                            throw new ArgumentException($"Couldn't parse offset: '{offset}.'");
-                        }
+                        jumpAmount = int.TryParse(line.Split(' ')[1], out offset) ? offset : throw new ArgumentException($"Couldn't parse offset: '{offset}.'");
 
                         break;
                     // jie r, offset: continues at an offset of offset if r is even

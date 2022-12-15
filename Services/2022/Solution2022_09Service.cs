@@ -59,23 +59,23 @@ namespace AdventOfCode.Services
                     int yDiff = headCoordinate.Y - tailCoordinate.Y;
                     int xDiff = headCoordinate.X - tailCoordinate.X;
 
-                    if (yDiff == 2 || yDiff == 1 && Math.Abs(xDiff) == 2)
+                    if (yDiff == 2 || (yDiff == 1 && Math.Abs(xDiff) == 2))
                     {
                         // Tail needs to move up
                         tailCoordinate.Y++;
                     }
-                    else if (yDiff == -2 || yDiff == -1 && Math.Abs(xDiff) == 2)
+                    else if (yDiff == -2 || (yDiff == -1 && Math.Abs(xDiff) == 2))
                     {
                         // Tail needs to move down
                         tailCoordinate.Y--;
                     }
 
-                    if (xDiff == 2 || xDiff == 1 && Math.Abs(yDiff) == 2)
+                    if (xDiff == 2 || (xDiff == 1 && Math.Abs(yDiff) == 2))
                     {
                         // Tail needs to move right
                         tailCoordinate.X++;
                     }
-                    else if (xDiff == -2 || xDiff == -1 && Math.Abs(yDiff) == 2)
+                    else if (xDiff == -2 || (xDiff == -1 && Math.Abs(yDiff) == 2))
                     {
                         // Tail needs to move left
                         tailCoordinate.X--;
@@ -189,23 +189,23 @@ namespace AdventOfCode.Services
                         int yDiff = head.Y - tail.Y;
                         int xDiff = head.X - tail.X;
 
-                        if (yDiff == 2 || yDiff == 1 && Math.Abs(xDiff) == 2)
+                        if (yDiff == 2 || (yDiff == 1 && Math.Abs(xDiff) == 2))
                         {
                             // Tail needs to move up
                             tail.Y++;
                         }
-                        else if (yDiff == -2 || yDiff == -1 && Math.Abs(xDiff) == 2)
+                        else if (yDiff == -2 || (yDiff == -1 && Math.Abs(xDiff) == 2))
                         {
                             // Tail needs to move down
                             tail.Y--;
                         }
 
-                        if (xDiff == 2 || xDiff == 1 && Math.Abs(yDiff) == 2)
+                        if (xDiff == 2 || (xDiff == 1 && Math.Abs(yDiff) == 2))
                         {
                             // Tail needs to move right
                             tail.X++;
                         }
-                        else if (xDiff == -2 || xDiff == -1 && Math.Abs(yDiff) == 2)
+                        else if (xDiff == -2 || (xDiff == -1 && Math.Abs(yDiff) == 2))
                         {
                             // Tail needs to move left
                             tail.X--;

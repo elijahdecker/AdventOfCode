@@ -63,7 +63,7 @@ namespace AdventOfCode.Services
 
             foreach (char letter in letters)
             {
-                string data = new string(originalData.Where(c => c != letter && c != char.ToUpper(letter)).ToArray());
+                string data = new(originalData.Where(c => c != letter && c != char.ToUpper(letter)).ToArray());
 
                 bool keepLooping = true;
 

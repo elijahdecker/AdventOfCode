@@ -20,7 +20,7 @@ namespace AdventOfCode.Services
                 }
                 else if (trackedNumber != "")
                 {
-                    sum += Int32.Parse(trackedNumber);
+                    sum += int.Parse(trackedNumber);
                     trackedNumber = "";
                 }
             }
@@ -80,14 +80,7 @@ namespace AdventOfCode.Services
                         trackedRed = "r";
                         break;
                     case 'e':
-                        if (trackedRed == "r")
-                        {
-                            trackedRed = "re";
-                        }
-                        else
-                        {
-                            trackedRed = "";
-                        }
+                        trackedRed = trackedRed == "r" ? "re" : "";
                         break;
                     case 'd':
                         if (trackedRed == "re")

@@ -22,7 +22,7 @@ namespace AdventOfCode.Controllers
                 DateTime now = DateTime.UtcNow.AddHours(-5);
                 int latestPuzzleYear = now.Year - (now.Month == 12 ? 0 : 1);
 
-                List<int> daysInDecember = Enumerable.Range(2015, (latestPuzzleYear - 2015) + 1).ToList();
+                List<int> daysInDecember = Enumerable.Range(2015, latestPuzzleYear - 2015 + 1).ToList();
                 parameter.Schema.Enum = daysInDecember.Select(d => new OpenApiString(d.ToString())).ToList<IOpenApiAny>();
             }
         }

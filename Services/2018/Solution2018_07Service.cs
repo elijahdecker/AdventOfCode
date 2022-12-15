@@ -13,7 +13,7 @@ namespace AdventOfCode.Services
 
             public Instruction(string data)
             {
-                Regex rx = new Regex(@"Step (.) must be finished before step (.) can begin\.");
+                Regex rx = new(@"Step (.) must be finished before step (.) can begin\.");
                 MatchCollection matches = rx.Matches(data);
                 Match match = matches.First();
 
@@ -58,7 +58,7 @@ namespace AdventOfCode.Services
                     {
                         // Check if the next step has all of it's requirements met
                         List<char> requiredStepsForNextStep = instructions.Where(i => i.Next == nextStep).Select(s => s.First).ToList();
-                        if (requiredStepsForNextStep.All(s => order.Contains(s)))
+                        if (requiredStepsForNextStep.All(order.Contains))
                         {
                             availableSteps.Enqueue(nextStep, nextStep);
                         }
@@ -110,7 +110,7 @@ namespace AdventOfCode.Services
                     if (worker.Step == null && availableSteps.Count > 0)
                     {
                         worker.Step = availableSteps.Dequeue();
-                        worker.TimeLeft = (int)worker.Step - (int)'A' + 1 + 60;
+                        worker.TimeLeft = (int)worker.Step - 'A' + 1 + 60;
                     }
                 }
 

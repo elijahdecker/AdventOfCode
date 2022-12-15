@@ -8,7 +8,7 @@ namespace AdventOfCode.Services
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_13.txt")).ToList();
 
-            List<List<string>> packets = lines.ChunkByExclusive(line => string.IsNullOrEmpty(line));
+            List<List<string>> packets = lines.ChunkByExclusive(string.IsNullOrEmpty);
 
             int answer = 0;
 
@@ -32,7 +32,7 @@ namespace AdventOfCode.Services
             lines.Add("[[2]]");
             lines.Add("[[6]]");
 
-            lines.Sort((a, b) => ComparePackets(a, b));
+            lines.Sort(ComparePackets);
 
             int answer = (lines.IndexOf("[[2]]") + 1) * (lines.IndexOf("[[6]]") + 1);
 
@@ -147,22 +147,11 @@ namespace AdventOfCode.Services
                 }
 
                 // One element is a number, the other is a list. Convert the number to a list
-                else if (element1IsNumber != element2IsNumber)
-                {
-                    if (element1IsNumber)
-                    {
-                        result = ComparePackets($"[{element1}]", element2);
-                    }
-                    else
-                    {
-                        result = ComparePackets(element1, $"[{element2}]");
-                    }
-                }
-
-                // Both elements are lists, compare them
                 else
                 {
-                    result = ComparePackets(element1, element2);
+                    result = element1IsNumber != element2IsNumber
+                        ? element1IsNumber ? ComparePackets($"[{element1}]", element2) : ComparePackets(element1, $"[{element2}]")
+                        : ComparePackets(element1, element2);
                 }
 
                 if (result != 0)

@@ -81,14 +81,14 @@ namespace AdventOfCode.Services
                 string word = words[2];
                 int value = int.Parse(words[3].Split(",")[0]);
 
-                if (word == "cats:" || word == "tress:")
+                if (word is "cats:" or "tress:")
                 {
                     if (mfcsam[word] >= value)
                     {
                         continue;
                     }
                 }
-                else if (word == "pomeranians:" || word == "goldfish:")
+                else if (word is "pomeranians:" or "goldfish:")
                 {
                     if (mfcsam[word] <= value)
                     {
@@ -106,14 +106,14 @@ namespace AdventOfCode.Services
                 word = words[4];
                 value = int.Parse(words[5].Split(",")[0]);
 
-                if (word == "cats:" || word == "tress:")
+                if (word is "cats:" or "tress:")
                 {
                     if (mfcsam[word] >= value)
                     {
                         continue;
                     }
                 }
-                else if (word == "pomeranians:" || word == "goldfish:")
+                else if (word is "pomeranians:" or "goldfish:")
                 {
                     if (mfcsam[word] <= value)
                     {
@@ -132,14 +132,14 @@ namespace AdventOfCode.Services
                 word = words[6];
                 value = int.Parse(words[7]);
 
-                if (word == "cats:" || word == "tress:")
+                if (word is "cats:" or "tress:")
                 {
                     if (mfcsam[word] >= value)
                     {
                         continue;
                     }
                 }
-                else if (word == "pomeranians:" || word == "goldfish:")
+                else if (word is "pomeranians:" or "goldfish:")
                 {
                     if (mfcsam[word] <= value)
                     {

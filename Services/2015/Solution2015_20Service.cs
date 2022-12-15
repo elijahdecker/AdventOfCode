@@ -23,7 +23,7 @@ namespace AdventOfCode.Services
 
                         if (currentHouse / i != i)
                         {
-                            sumOfFactors += (currentHouse / i);
+                            sumOfFactors += currentHouse / i;
                         }
                     }
                 }
@@ -76,13 +76,13 @@ namespace AdventOfCode.Services
                                 if (factors[currentHouse / i] < 50)
                                 {
                                     factors[currentHouse / i] = 1 + factors[currentHouse / i];
-                                    sumOfFactors += (currentHouse / i);
+                                    sumOfFactors += currentHouse / i;
                                 }
                             }
                             else
                             {
                                 factors[currentHouse / i] = 1;
-                                sumOfFactors += (currentHouse / i);
+                                sumOfFactors += currentHouse / i;
                             }
                         }
                     }

@@ -24,7 +24,7 @@ namespace AdventOfCode.Services
                     // Find a sequence of 3 consecuitve letters
                     for (int i = 0; i < currentPassword.Length - 2; i++)
                     {
-                        if ((int)currentPassword[i] + 1 == (int)currentPassword[i + 1] && (int)currentPassword[i] + 2 == (int)currentPassword[i + 2])
+                        if (currentPassword[i] + 1 == currentPassword[i + 1] && currentPassword[i] + 2 == currentPassword[i + 2])
                         {
                             sequenceFound = true;
                             break;
@@ -92,7 +92,7 @@ namespace AdventOfCode.Services
                     // Find a sequence of 3 consecuitve letters
                     for (int i = 0; i < currentPassword.Length - 2; i++)
                     {
-                        if ((int)currentPassword[i] + 1 == (int)currentPassword[i + 1] && (int)currentPassword[i] + 2 == (int)currentPassword[i + 2])
+                        if (currentPassword[i] + 1 == currentPassword[i + 1] && currentPassword[i] + 2 == currentPassword[i + 2])
                         {
                             sequenceFound = true;
                             break;
@@ -153,9 +153,9 @@ namespace AdventOfCode.Services
 
             for (int i = array.Length - 1; i >= 0; i--)
             {
-                if (array[i] == (int)'z')
+                if (array[i] == 'z')
                 {
-                    array[i] = (int)'a';
+                    array[i] = 'a';
                 }
                 else
                 {

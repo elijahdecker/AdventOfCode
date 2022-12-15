@@ -14,7 +14,7 @@ namespace AdventOfCode.Services
             foreach (string line in lines)
             {
                 // Get dimensions of the box
-                List<int> dimensions = line.Split('x').Select(size => Int32.Parse(size)).ToList();
+                List<int> dimensions = line.Split('x').Select(int.Parse).ToList();
 
                 int length = dimensions[0];
                 int width = dimensions[1];
@@ -24,7 +24,7 @@ namespace AdventOfCode.Services
                 int minArea = new List<int>() { length * width, length * height, width * height }.Min();
 
                 // Calculate the used surface area
-                int surfaceArea = 2 * (length * width + length * height + width * height) + minArea;
+                int surfaceArea = (2 * ((length * width) + (length * height) + (width * height))) + minArea;
 
                 total += surfaceArea;
             }
@@ -42,7 +42,7 @@ namespace AdventOfCode.Services
             foreach (string line in lines)
             {
                 // Get dimensions of the box
-                List<int> dimensions = line.Split('x').Select(size => Int32.Parse(size)).ToList();
+                List<int> dimensions = line.Split('x').Select(int.Parse).ToList();
 
                 int length = dimensions[0];
                 int width = dimensions[1];
@@ -52,7 +52,7 @@ namespace AdventOfCode.Services
                 int minPerimeter = new List<int>() { 2 * (length + width), 2 * (length + height), 2 * (width + height) }.Min();
 
                 // Calculate the used surface area
-                int surfaceArea = length * width * height + minPerimeter;
+                int surfaceArea = (length * width * height) + minPerimeter;
 
                 total += surfaceArea;
             }

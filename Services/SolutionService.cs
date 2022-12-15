@@ -9,6 +9,15 @@ namespace AdventOfCode.Services
             this.serviceProvider = serviceProvider;
         }
 
+        /// <summary>
+        /// Execute the specific solution by finding the day's solution service
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="day"></param>
+        /// <param name="secondHalf"></param>
+        /// <param name="send"></param>
+        /// <returns></returns>
+        /// <exception cref="SolutionNotFoundException"></exception>
         public async Task<string> GetSolution(int year, int day, bool secondHalf, bool send)
         {
             // Fetch the specific service
@@ -21,7 +30,7 @@ namespace AdventOfCode.Services
                 throw new SolutionNotFoundException($"No solutions found for day {day}/{year}.");
             }
 
-            // Get the specific solutino
+            // Get the specific solution
             return secondHalf ? await service.SecondHalf(send) : await service.FirstHalf(send);
         }
     }

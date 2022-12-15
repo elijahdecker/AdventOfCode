@@ -41,7 +41,7 @@ namespace AdventOfCode.Services
                         }
                     }
 
-                    distinctMolecules.Add(newMolecule);
+                    _ = distinctMolecules.Add(newMolecule);
                 }
             }
 
@@ -54,7 +54,7 @@ namespace AdventOfCode.Services
 
             string[] parsedData = data.Split("\n\n");
             string molecule = parsedData[1].Split("\n")[0];
-            Random rnd = new Random(); // There is probably a better way to do this, but this is my compromise between brute force and an actual solution
+            Random rnd = new(); // There is probably a better way to do this, but this is my compromise between brute force and an actual solution
             string[] replacements = parsedData[0].Split("\n").OrderBy(p => rnd.Next()).ToArray();
             HashSet<string> distinctMolecules = new();
 
@@ -73,7 +73,7 @@ namespace AdventOfCode.Services
 
                     if (position != -1)
                     {
-                        molecule = $"{molecule.Substring(0, position)}{source}{molecule.Substring(position + destination.Length)}";
+                        molecule = $"{molecule[..position]}{source}{molecule[(position + destination.Length)..]}";
                         matchFound = true;
                         break;
                     }

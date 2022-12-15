@@ -82,7 +82,7 @@ namespace AdventOfCode.Services
 
             foreach (char[] outputLine in output.Chunk(40))
             {
-                string value = new string(outputLine);
+                string value = new(outputLine);
                 Console.WriteLine(value);
             }
 

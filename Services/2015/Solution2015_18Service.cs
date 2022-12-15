@@ -20,7 +20,7 @@ namespace AdventOfCode.Services
                         int liveNeighbors = getNumberOfLiveNeighbors(j, k, lights);
                         if (lights[j][k] == '#')
                         {
-                            if (liveNeighbors == 2 || liveNeighbors == 3)
+                            if (liveNeighbors is 2 or 3)
                             {
                                 nextState[j] += '#';
                             }
@@ -73,13 +73,13 @@ namespace AdventOfCode.Services
             // Set corners to '#' initially
             char[] firstRow = lights[0].ToCharArray();
             firstRow[0] = '#';
-            firstRow[firstRow.Length - 1] = '#';
+            firstRow[^1] = '#';
             lights[0] = new string(firstRow);
 
-            char[] lastRow = lights[lights.Length - 1].ToCharArray();
+            char[] lastRow = lights[^1].ToCharArray();
             lastRow[0] = '#';
             lastRow[firstRow.Length - 1] = '#';
-            lights[lights.Length - 1] = new string(lastRow);
+            lights[^1] = new string(lastRow);
 
             for (int i = 0; i < numberOfStages; i++)
             {
@@ -95,7 +95,7 @@ namespace AdventOfCode.Services
                         }
                         else if (lights[j][k] == '#')
                         {
-                            if (liveNeighbors == 2 || liveNeighbors == 3)
+                            if (liveNeighbors is 2 or 3)
                             {
                                 nextState[j] += '#';
                             }

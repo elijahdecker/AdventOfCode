@@ -20,9 +20,12 @@ namespace AdventOfCode.Services
                 string calculatedString = $"{data}{addedDigit}";
                 byte[] result = md5.ComputeHash(Encoding.UTF8.GetBytes(calculatedString));
 
-                StringBuilder hex = new StringBuilder(result.Length * 2);
+                StringBuilder hex = new(result.Length * 2);
                 foreach (byte b in result)
-                    hex.AppendFormat("{0:x2}", b);
+                {
+                    _ = hex.AppendFormat("{0:x2}", b);
+                }
+
                 string hexString = hex.ToString();
 
                 // Check for 5 leading 0s in hexadecinal
@@ -54,9 +57,12 @@ namespace AdventOfCode.Services
                 string calculatedString = $"{data}{addedDigit}";
                 byte[] result = md5.ComputeHash(Encoding.UTF8.GetBytes(calculatedString));
 
-                StringBuilder hex = new StringBuilder(result.Length * 2);
+                StringBuilder hex = new(result.Length * 2);
                 foreach (byte b in result)
-                    hex.AppendFormat("{0:x2}", b);
+                {
+                    _ = hex.AppendFormat("{0:x2}", b);
+                }
+
                 string hexString = hex.ToString();
 
                 // Check for 5 leading 0s in hexadecinal

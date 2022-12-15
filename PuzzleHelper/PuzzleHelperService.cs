@@ -96,7 +96,7 @@
                 }
 
                 // Only import the file if it is available
-                if (year < latestPuzzleYear || year == latestPuzzleYear && day <= latestPuzzleDay)
+                if (year < latestPuzzleYear || (year == latestPuzzleYear && day <= latestPuzzleDay))
                 {
                     string inputFilePath = Path.Combine(Environment.CurrentDirectory, $"Inputs/{year}_{day:D2}.txt");
 
@@ -135,25 +135,6 @@
     {
         string output = string.Empty;
 
-        // Server time is UTC-5
-        DateTime now = DateTime.UtcNow.AddHours(-5);
-        int latestPuzzleYear, latestPuzzleDay;
-
-        // If we're in December, then the latest available puzzle is today
-        if (now.Month == 12)
-        {
-            latestPuzzleYear = now.Year;
-
-            // If it's December 26th-31st the latest day is the 25th
-            latestPuzzleDay = Math.Min(now.Day, 25);
-        }
-        else
-        {
-            // Otherwise the latest puzzle is from the end of the previous event
-            latestPuzzleYear = now.Year - 1;
-            latestPuzzleDay = 25;
-        }
-
         string inputFilePath = Path.Combine(Environment.CurrentDirectory, $"Inputs/{year}_{day:D2}.txt");
 
         if (!File.Exists(inputFilePath))
@@ -179,19 +160,17 @@
     private async Task<string> ImportInput(int year, int day)
     {
         Uri baseAddress = new("https://adventofcode.com");
-        using (var handler = new HttpClientHandler { UseCookies = false })
-        using (var client = new HttpClient(handler) { BaseAddress = baseAddress })
-        {
-            client.DefaultRequestHeaders.UserAgent.ParseAdd($".NET 7.0 (+via https://github.com/austin-owensby/AdventOfCode by austin_owensby@hotmail.com)");
+        using HttpClientHandler handler = new() { UseCookies = false };
+        using HttpClient client = new(handler) { BaseAddress = baseAddress };
+        client.DefaultRequestHeaders.UserAgent.ParseAdd($".NET 7.0 (+via https://github.com/austin-owensby/AdventOfCode by austin_owensby@hotmail.com)");
 
-            var message = new HttpRequestMessage(HttpMethod.Get, $"/{year}/day/{day}/input");
+        HttpRequestMessage message = new(HttpMethod.Get, $"/{year}/day/{day}/input");
 
-            string cookie = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "PuzzleHelper/Cookie.txt"));
-            message.Headers.Add("Cookie", cookie);
+        string cookie = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "PuzzleHelper/Cookie.txt"));
+        message.Headers.Add("Cookie", cookie);
 
-            var result = await client.SendAsync(message);
-            result.EnsureSuccessStatusCode();
-            return await result.Content.ReadAsStringAsync();
-        }
+        HttpResponseMessage result = await client.SendAsync(message);
+        result.EnsureSuccessStatusCode();
+        return await result.Content.ReadAsStringAsync();
     }
 }

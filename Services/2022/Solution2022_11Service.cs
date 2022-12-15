@@ -23,11 +23,12 @@ namespace AdventOfCode.Services
             List<Monkey> monkies = new();
 
             // Process monkey data
-            foreach (List<string> monkeyData in lines.ChunkByExclusive(l => string.IsNullOrWhiteSpace(l)))
+            foreach (List<string> monkeyData in lines.ChunkByExclusive(string.IsNullOrWhiteSpace))
             {
-                Monkey monkey = new();
-
-                monkey.Items = monkeyData[1].QuickRegex(@"Starting items: (.+)").First().Split(", ").ToLongs();
+                Monkey monkey = new()
+                {
+                    Items = monkeyData[1].QuickRegex(@"Starting items: (.+)").First().Split(", ").ToLongs()
+                };
 
                 if (monkeyData[2].Contains("old * old"))
                 {
@@ -73,7 +74,7 @@ namespace AdventOfCode.Services
 
                         newItem = (long)Math.Floor((double)newItem / 3);
 
-                        if (newItem % (long)monkey.divisorTest == 0)
+                        if (newItem % monkey.divisorTest == 0)
                         {
                             monkies[monkey.testPassMonkey].Items.Add(newItem);
                         }
@@ -103,11 +104,12 @@ namespace AdventOfCode.Services
             List<Monkey> monkies = new();
 
             // Process monkey data
-            foreach (List<string> monkeyData in lines.ChunkByExclusive(l => string.IsNullOrWhiteSpace(l)))
+            foreach (List<string> monkeyData in lines.ChunkByExclusive(string.IsNullOrWhiteSpace))
             {
-                Monkey monkey = new();
-
-                monkey.Items = monkeyData[1].QuickRegex(@"Starting items: (.+)").First().Split(", ").ToLongs();
+                Monkey monkey = new()
+                {
+                    Items = monkeyData[1].QuickRegex(@"Starting items: (.+)").First().Split(", ").ToLongs()
+                };
 
                 if (monkeyData[2].Contains("old * old"))
                 {
@@ -153,16 +155,16 @@ namespace AdventOfCode.Services
                             newItem = item * (long)monkey.MultiplyAmount;
                         }
 
-                        if (newItem % (long)monkey.divisorTest == 0)
+                        if (newItem % monkey.divisorTest == 0)
                         {
                             // TODO fully understand this
-                            newItem = newItem % lcm;
+                            newItem %= lcm;
                             monkies[monkey.testPassMonkey].Items.Add(newItem);
                         }
                         else
                         {
                             // TODO fully understand this
-                            newItem = newItem % lcm;
+                            newItem %= lcm;
                             monkies[monkey.testFailMonkey].Items.Add(newItem);
                         }
 
@@ -175,7 +177,7 @@ namespace AdventOfCode.Services
 
             List<int> values = monkies.Select(m => m.Inspects).OrderByDescending(x => x).Take(2).ToList();
 
-            long answer = (long)values[0] * (long)values[1];
+            long answer = values[0] * (long)values[1];
 
             return await Utility.SubmitAnswer(2022, 11, true, answer, send);
         }

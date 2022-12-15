@@ -22,7 +22,7 @@ namespace AdventOfCode.Services
                 if (instruction.Length == 3)
                 {
 
-                    if (UInt16.TryParse(instruction[0], out ushort value))
+                    if (ushort.TryParse(instruction[0], out ushort value))
                     {
                         knownRegisters.Add(instruction[2]);
                         registerValues[instruction[2]] = value;
@@ -59,7 +59,7 @@ namespace AdventOfCode.Services
                         unknownRegisters[new List<string> { instruction[1], instruction[0], instruction[2] }] = instruction[4];
 
                         // If an integer is found, add it as a register
-                        if (UInt16.TryParse(instruction[2], out ushort value))
+                        if (ushort.TryParse(instruction[2], out ushort value))
                         {
                             if (!knownRegisters.Contains(instruction[2]))
                             {
@@ -73,7 +73,7 @@ namespace AdventOfCode.Services
                         unknownRegisters[new List<string> { instruction[1], instruction[0], instruction[2] }] = instruction[4];
 
                         // If an integer is found, add it as a register
-                        if (UInt16.TryParse(instruction[2], out ushort value))
+                        if (ushort.TryParse(instruction[2], out ushort value))
                         {
                             if (!knownRegisters.Contains(instruction[2]))
                             {
@@ -135,7 +135,7 @@ namespace AdventOfCode.Services
                 if (instruction.Length == 3)
                 {
 
-                    if (UInt16.TryParse(instruction[0], out ushort value))
+                    if (ushort.TryParse(instruction[0], out ushort value))
                     {
                         knownRegisters.Add(instruction[2]);
                         registerValues[instruction[2]] = value;
@@ -172,7 +172,7 @@ namespace AdventOfCode.Services
                         unknownRegisters[new List<string> { instruction[1], instruction[0], instruction[2] }] = instruction[4];
 
                         // If an integer is found, add it as a register
-                        if (UInt16.TryParse(instruction[2], out ushort value))
+                        if (ushort.TryParse(instruction[2], out ushort value))
                         {
                             if (!knownRegisters.Contains(instruction[2]))
                             {
@@ -186,7 +186,7 @@ namespace AdventOfCode.Services
                         unknownRegisters[new List<string> { instruction[1], instruction[0], instruction[2] }] = instruction[4];
 
                         // If an integer is found, add it as a register
-                        if (UInt16.TryParse(instruction[2], out ushort value))
+                        if (ushort.TryParse(instruction[2], out ushort value))
                         {
                             if (!knownRegisters.Contains(instruction[2]))
                             {
@@ -200,9 +200,9 @@ namespace AdventOfCode.Services
 
             // Use the value from the first half and set it to b
             string[] response = (await FirstHalf(send)).Split(" ");
-            string valueString = response[response.Length - 1];
+            string valueString = response[^1];
             string valueStringNoPeriod = valueString.Remove(valueString.Length - 1, 1);
-            ushort calculatedValue = UInt16.Parse(valueStringNoPeriod);
+            ushort calculatedValue = ushort.Parse(valueStringNoPeriod);
             registerValues["b"] = calculatedValue;
 
             while (!knownRegisters.Contains("a"))

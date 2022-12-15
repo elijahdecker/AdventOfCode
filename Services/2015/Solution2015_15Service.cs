@@ -41,10 +41,10 @@ namespace AdventOfCode.Services
                     {
                         int l = 100 - i - j - k;
 
-                        int capactity = Math.Max(0, i * ingredients[0].Capacity + j * ingredients[1].Capacity + k * ingredients[2].Capacity + l * ingredients[3].Capacity);
-                        int durability = Math.Max(0, i * ingredients[0].Durability + j * ingredients[1].Durability + k * ingredients[2].Durability + l * ingredients[3].Durability);
-                        int flavor = Math.Max(0, i * ingredients[0].Flavor + j * ingredients[1].Flavor + k * ingredients[2].Flavor + l * ingredients[3].Flavor);
-                        int texture = Math.Max(0, i * ingredients[0].Texture + j * ingredients[1].Texture + k * ingredients[2].Texture + l * ingredients[3].Texture);
+                        int capactity = Math.Max(0, (i * ingredients[0].Capacity) + (j * ingredients[1].Capacity) + (k * ingredients[2].Capacity) + (l * ingredients[3].Capacity));
+                        int durability = Math.Max(0, (i * ingredients[0].Durability) + (j * ingredients[1].Durability) + (k * ingredients[2].Durability) + (l * ingredients[3].Durability));
+                        int flavor = Math.Max(0, (i * ingredients[0].Flavor) + (j * ingredients[1].Flavor) + (k * ingredients[2].Flavor) + (l * ingredients[3].Flavor));
+                        int texture = Math.Max(0, (i * ingredients[0].Texture) + (j * ingredients[1].Texture) + (k * ingredients[2].Texture) + (l * ingredients[3].Texture));
 
                         int score = capactity * durability * flavor * texture;
 
@@ -96,11 +96,11 @@ namespace AdventOfCode.Services
                     {
                         int l = 100 - i - j - k;
 
-                        int capactity = Math.Max(0, i * ingredients[0].Capacity + j * ingredients[1].Capacity + k * ingredients[2].Capacity + l * ingredients[3].Capacity);
-                        int durability = Math.Max(0, i * ingredients[0].Durability + j * ingredients[1].Durability + k * ingredients[2].Durability + l * ingredients[3].Durability);
-                        int flavor = Math.Max(0, i * ingredients[0].Flavor + j * ingredients[1].Flavor + k * ingredients[2].Flavor + l * ingredients[3].Flavor);
-                        int texture = Math.Max(0, i * ingredients[0].Texture + j * ingredients[1].Texture + k * ingredients[2].Texture + l * ingredients[3].Texture);
-                        int calories = Math.Max(0, i * ingredients[0].Calories + j * ingredients[1].Calories + k * ingredients[2].Calories + l * ingredients[3].Calories);
+                        int capactity = Math.Max(0, (i * ingredients[0].Capacity) + (j * ingredients[1].Capacity) + (k * ingredients[2].Capacity) + (l * ingredients[3].Capacity));
+                        int durability = Math.Max(0, (i * ingredients[0].Durability) + (j * ingredients[1].Durability) + (k * ingredients[2].Durability) + (l * ingredients[3].Durability));
+                        int flavor = Math.Max(0, (i * ingredients[0].Flavor) + (j * ingredients[1].Flavor) + (k * ingredients[2].Flavor) + (l * ingredients[3].Flavor));
+                        int texture = Math.Max(0, (i * ingredients[0].Texture) + (j * ingredients[1].Texture) + (k * ingredients[2].Texture) + (l * ingredients[3].Texture));
+                        int calories = Math.Max(0, (i * ingredients[0].Calories) + (j * ingredients[1].Calories) + (k * ingredients[2].Calories) + (l * ingredients[3].Calories));
 
                         int score = capactity * durability * flavor * texture;
 

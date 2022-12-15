@@ -10,7 +10,7 @@ namespace AdventOfCode.Services
 
             List<string> lines = data.Split("\n").SkipLast(1).ToList();
 
-            Dictionary<string, int> distances = lines.ToDictionary(d => d.Split(" = ")[0], d => Int32.Parse(d.Split(" = ")[1]));
+            Dictionary<string, int> distances = lines.ToDictionary(d => d.Split(" = ")[0], d => int.Parse(d.Split(" = ")[1]));
 
             List<string> towns = new();
             lines.ForEach(line =>
@@ -59,7 +59,7 @@ namespace AdventOfCode.Services
 
             List<string> lines = data.Split("\n").SkipLast(1).ToList();
 
-            Dictionary<string, int> distances = lines.ToDictionary(d => d.Split(" = ")[0], d => Int32.Parse(d.Split(" = ")[1]));
+            Dictionary<string, int> distances = lines.ToDictionary(d => d.Split(" = ")[0], d => int.Parse(d.Split(" = ")[1]));
 
             List<string> towns = new();
             lines.ForEach(line =>
@@ -102,11 +102,11 @@ namespace AdventOfCode.Services
             return await Task.FromResult($"The maximum distance between towns is {maxDistance}.");
         }
 
-        static IEnumerable<IEnumerable<string>> GetPermutations(IEnumerable<string> list, int length)
+        private static IEnumerable<IEnumerable<string>> GetPermutations(IEnumerable<string> list, int length)
         {
-            if (length == 1) return list.Select(t => new string[] { t });
-
-            return GetPermutations(list, length - 1)
+            return length == 1
+                ? list.Select(t => new string[] { t })
+                : GetPermutations(list, length - 1)
                 .SelectMany(t => list.Where(e => !t.Contains(e)),
                     (t1, t2) => t1.Concat(new string[] { t2 }));
         }

@@ -7,7 +7,7 @@ namespace AdventOfCode.Services
         public async Task<string> FirstHalf(bool send)
         {
             string[] data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_01.txt"));
-            List<int> changes = data.Select(d => int.Parse(d)).ToList();
+            List<int> changes = data.Select(int.Parse).ToList();
 
             int resultingFrequency = changes.Sum();
 
@@ -17,7 +17,7 @@ namespace AdventOfCode.Services
         public async Task<string> SecondHalf(bool send)
         {
             string[] data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_01.txt"));
-            List<int> changes = data.Select(d => int.Parse(d)).ToList();
+            List<int> changes = data.Select(int.Parse).ToList();
 
             List<int> reachedFrequencies = new();
             int currentFrequency = 0;

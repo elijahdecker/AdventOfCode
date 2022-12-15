@@ -27,7 +27,7 @@ namespace AdventOfCode.Services
                 {
                     for (int y = startY; y < startY + width; y++)
                     {
-                        usedFabric[totalSideLength * x + y]++;
+                        usedFabric[(totalSideLength * x) + y]++;
                     }
                 }
             }
@@ -60,7 +60,7 @@ namespace AdventOfCode.Services
                 {
                     for (int y = startY; y < startY + width; y++)
                     {
-                        usedFabric[totalSideLength * x + y]++;
+                        usedFabric[(totalSideLength * x) + y]++;
                     }
                 }
             }
@@ -84,7 +84,7 @@ namespace AdventOfCode.Services
                 {
                     for (int y = startY; y < startY + width; y++)
                     {
-                        noOverlap = usedFabric[totalSideLength * x + y] == 1;
+                        noOverlap = usedFabric[(totalSideLength * x) + y] == 1;
 
                         if (!noOverlap)
                         {

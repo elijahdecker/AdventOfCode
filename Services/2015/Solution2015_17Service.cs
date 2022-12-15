@@ -8,7 +8,7 @@ namespace AdventOfCode.Services
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_17.txt"));
 
-            List<int> containers = data.Split("\n").SkipLast(1).Select(d => int.Parse(d)).OrderBy(d => d).ToList();
+            List<int> containers = data.Split("\n").SkipLast(1).Select(int.Parse).OrderBy(d => d).ToList();
             int targetTotal = 150;
             int totalCombinations = 0;
 
@@ -38,7 +38,7 @@ namespace AdventOfCode.Services
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_17.txt"));
 
-            List<int> containers = data.Split("\n").SkipLast(1).Select(d => int.Parse(d)).OrderBy(d => d).ToList();
+            List<int> containers = data.Split("\n").SkipLast(1).Select(int.Parse).OrderBy(d => d).ToList();
             int targetTotal = 150;
             int totalCombinations = 0;
             int minRequiredContainers = int.MaxValue;

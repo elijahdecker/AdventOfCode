@@ -18,7 +18,7 @@ namespace AdventOfCode.Services
                 string firstPerson = words[0];
                 string loseGain = words[2];
                 string amountString = words[3];
-                string secondPerson = words[words.Length - 1].Split(".")[0];
+                string secondPerson = words[^1].Split(".")[0];
 
                 int amount = (loseGain == "lose" ? -1 : 1) * int.Parse(amountString);
 
@@ -59,7 +59,7 @@ namespace AdventOfCode.Services
 
                     if (i == 0)
                     {
-                        person2 = option[option.Count - 1];
+                        person2 = option[^1];
                         netValue += values[person1][person2] + values[person2][person1];
                     }
                 }
@@ -87,7 +87,7 @@ namespace AdventOfCode.Services
                 string firstPerson = words[0];
                 string loseGain = words[2];
                 string amountString = words[3];
-                string secondPerson = words[words.Length - 1].Split(".")[0];
+                string secondPerson = words[^1].Split(".")[0];
 
                 int amount = (loseGain == "lose" ? -1 : 1) * int.Parse(amountString);
 
@@ -134,7 +134,7 @@ namespace AdventOfCode.Services
 
                     if (i == 0)
                     {
-                        person2 = option[option.Count - 1];
+                        person2 = option[^1];
 
                         if (person1 != "Me" && person2 != "Me")
                         {
@@ -152,11 +152,11 @@ namespace AdventOfCode.Services
             return await Task.FromResult($"The max happiness from an optimal seating arrangement including yourself is {maxHappiness}.");
         }
 
-        static IEnumerable<IEnumerable<string>> GetPermutations(IEnumerable<string> list, int length)
+        private static IEnumerable<IEnumerable<string>> GetPermutations(IEnumerable<string> list, int length)
         {
-            if (length == 1) return list.Select(t => new string[] { t });
-
-            return GetPermutations(list, length - 1)
+            return length == 1
+                ? list.Select(t => new string[] { t })
+                : GetPermutations(list, length - 1)
                 .SelectMany(t => list.Where(e => !t.Contains(e)),
                     (t1, t2) => t1.Concat(new string[] { t2 }));
         }
