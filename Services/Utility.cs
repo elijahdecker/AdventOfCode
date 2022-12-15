@@ -158,7 +158,7 @@ namespace AdventOfCode.Services
         /// <returns></returns>
         public static async Task<string> SubmitAnswer<T>(int year, int day, bool secondHalf, T answer, bool send = false)
         {
-            return await PostAnswer(year, day, secondHalf, answer.ToString());
+            return await PostAnswer(year, day, secondHalf, answer.ToString(), send);
         }
 
         private static async Task<string> PostAnswer(int year, int day, bool secondHalf, string answer, bool send = false)
