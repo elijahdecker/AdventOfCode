@@ -15,7 +15,7 @@ namespace AdventOfCode.Services
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_08.txt")).ToList();
 
-            List<List<int>> grid = lines.Select(l => l.Select(c => int.Parse(c.ToString())).ToList()).ToList();
+            List<List<int>> grid = lines.Select(l => l.ToInts()).ToList();
 
             List<List<Point>> points = new();
 
@@ -113,7 +113,7 @@ namespace AdventOfCode.Services
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_08.txt")).ToList();
 
-            List<List<int>> grid = lines.Select(l => l.Select(c => int.Parse(c.ToString())).ToList()).ToList();
+            List<List<int>> grid = lines.Select(l => l.ToInts()).ToList();
 
             List<List<Point>> points = new();
 

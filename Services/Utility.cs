@@ -147,6 +147,25 @@ namespace AdventOfCode.Services
         }
 
         /// <summary>
+        /// Parses a list of list of strings into a list of list of ints
+        /// </summary>
+        /// <param name="strings"></param>
+        /// <returns></returns>
+        public static List<List<int>> ToInts(this IEnumerable<IEnumerable<string>> strings)
+        {
+            return strings.Select(ToInts).ToList();
+        }
+
+        /// <summary>
+        /// Parses a string to a list of ints where each char becomes an int
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static List<int> ToInts(this string input) {
+            return input.Select(i => i.ToString()).ToInts();
+        }
+
+        /// <summary>
         /// Parses a list of strings into a list of longs
         /// </summary>
         /// <param name="strings"></param>
