@@ -29,6 +29,16 @@ namespace AdventOfCode.Services
         }
 
         /// <summary>
+        /// Splits a string by a given substring
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="split"></param>
+        /// <returns></returns>
+        public static List<string> SplitSubstring(this string input, string split) {
+            return input.Split(split).Where(l => l != split).ToList();
+        }
+
+        /// <summary>
         /// Chunks a list based on a predicate. The element that matches the predicate is not included in a chunk 
         /// </summary>
         /// <typeparam name="T"></typeparam>

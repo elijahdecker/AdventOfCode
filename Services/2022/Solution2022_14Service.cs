@@ -8,10 +8,10 @@ namespace AdventOfCode.Services
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_14.txt")).ToList();
 
-            List<List<Point>> rockLines = lines.Select(line => line.Split(" -> ").Where(l => l != " -> ").Select(l => new Point()
+            List<List<Point>> rockLines = lines.Select(line => line.SplitSubstring(" -> ").QuickRegex(@"(\d+),(\d+)").Select(l => new Point()
             {
-                X = int.Parse(l.Split(",")[0]),
-                Y = int.Parse(l.Split(",")[1])
+                X = int.Parse(l[0]),
+                Y = int.Parse(l[1])
             }).ToList()).ToList();
 
             int maxX = rockLines.SelectMany(r => r.Select(r => r.X)).Max();
@@ -139,10 +139,10 @@ namespace AdventOfCode.Services
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_14.txt")).ToList();
 
-            List<List<Point>> rockLines = lines.Select(line => line.Split(" -> ").Where(l => l != " -> ").Select(l => new Point()
+            List<List<Point>> rockLines = lines.Select(line => line.SplitSubstring(" -> ").QuickRegex(@"(\d+),(\d+)").Select(l => new Point()
             {
-                X = int.Parse(l.Split(",")[0]),
-                Y = int.Parse(l.Split(",")[1])
+                X = int.Parse(l[0]),
+                Y = int.Parse(l[1])
             }).ToList()).ToList();
 
             int maxX = rockLines.SelectMany(r => r.Select(r => r.X)).Max();
