@@ -154,7 +154,7 @@
             latestPuzzleDay = 25;
         }
 
-        if (latestPuzzleYear > year || latestPuzzleYear <= year && latestPuzzleDay > day) {
+        if (latestPuzzleYear < year || latestPuzzleYear == year && latestPuzzleDay < day) {
             Console.WriteLine("No updates applied.");
             output += "No updates applied.";
         }
