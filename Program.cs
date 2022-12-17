@@ -27,7 +27,7 @@ IEnumerable<Type> solutionDayServiceTypes = assemblyTypes.Where(x => !x.IsInterf
 // Register each Solution Day Service class
 foreach (Type solutionDayServiceType in solutionDayServiceTypes)
 {
-    builder.Services.AddSingleton(solutionDayServiceType.GetInterface(nameof(ISolutionDayService)), solutionDayServiceType);
+    builder.Services.AddScoped(solutionDayServiceType.GetInterface(nameof(ISolutionDayService)), solutionDayServiceType);
 }
 #endregion
 
