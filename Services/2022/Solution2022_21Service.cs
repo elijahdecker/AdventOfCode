@@ -160,8 +160,6 @@ namespace AdventOfCode.Services
         
             long answer = (long)riddles.First(r => r.Name == "humn").Answer;
 
-            // Wrong 3951
-
             return await Utility.SubmitAnswer(2022, 21, true, answer, send);
         }
     }
