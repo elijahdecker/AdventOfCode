@@ -266,5 +266,33 @@ namespace AdventOfCode.Services
 
             return list.ToList();
         }
+
+        /// <summary>
+        /// Mathematical mod (As opposed to C#'s remainder operator '%')
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static int Mod(int num, int mod) {
+            if (num >= 0) {
+                return num % mod;
+            }
+            else {
+                return num + (int)Math.Ceiling((double)Math.Abs(num) / mod) * mod;
+            }
+        }
+
+        /// <summary>
+        /// Mathematical mod (As opposed to C#'s remainder operator '%')
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static long Mod(long num, long mod) {
+            if (num >= 0) {
+                return num % mod;
+            }
+            else {
+                return num + (long)Math.Ceiling((double)Math.Abs(num) / mod) * mod;
+            }
+        }
     }
 }
