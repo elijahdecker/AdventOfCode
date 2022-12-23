@@ -8,7 +8,7 @@
 ![](https://img.shields.io/badge/2018-13%20stars-87521c)
 ![](https://img.shields.io/badge/2017-0%20stars-ef0f14)
 ![](https://img.shields.io/badge/2016-0%20stars-ef0f14)
-![](https://img.shields.io/badge/2015-44%20stars-308b22)
+![](https://img.shields.io/badge/2015-46%20stars-2b8e22)
 <!-- end-year-badge -->
 This repository serves to hold my own solutions to the [Advent of Code](https://adventofcode.com/).
 Feel free to copy this template and generate your own solutions
