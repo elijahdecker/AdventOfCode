@@ -1,7 +1,7 @@
 # Advent Of Code
 <!--Generated via https://github.com/alexandru-dinu/advent-of-code/blob/main/.scripts/gen_badges.py-->
 <!-- begin-year-badge -->
-![](https://img.shields.io/badge/2022-46%20stars-2b8e22)
+![](https://img.shields.io/badge/2022-48%20stars-279023)
 ![](https://img.shields.io/badge/2021-20%20stars-6e621d)
 ![](https://img.shields.io/badge/2020-21%20stars-6b651e)
 ![](https://img.shields.io/badge/2019-2%20stars-c62917)
