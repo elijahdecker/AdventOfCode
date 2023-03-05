@@ -7,13 +7,42 @@ namespace AdventOfCode.Services
         public async Task<string> FirstHalf(bool send)
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2019_02.txt")).ToList();
+            List<int> program = lines.First().Split(",").ToInts();
 
-            int answer = 0;
+            // Fix 1202 program alarm from puzzle
+            program[1] = 12;
+            program[2] = 2;
 
-            foreach (string line in lines)
-            {
+            int index = 0;
 
+            while(true) {
+                int opcode = program[index];
+
+                if (opcode == 99) {
+                    break;
+                }
+                else{
+                    int x = program[index + 1];
+                    int y = program[index + 2];
+                    int z = program[index + 3];
+
+                    if (opcode == 1) {
+                        // Add x + y = z
+                        program[z] = program[x] + program[y];
+                    }
+                    else if (opcode == 2) {
+                        // Devide x * y = z
+                        program[z] = program[x] * program[y];
+                    }
+                    else {
+                        throw new Exception($"Unknown opcode: {opcode}");
+                    }
+                }
+
+                index += 4;
             }
+
+            int answer = program[0];
 
             return await Utility.SubmitAnswer(2019, 2, false, answer, send);
         }
@@ -24,9 +53,52 @@ namespace AdventOfCode.Services
 
             int answer = 0;
 
-            foreach (string line in lines)
-            {
+            for (int i = 0; i <= 99; i++) {
+                for (int j = 0; j <= 99; j++) {
+                    List<int> program = lines.First().Split(",").ToInts();
+                    program[1] = i;
+                    program[2] = j;
 
+                    int index = 0;
+
+                    while(true) {
+                        int opcode = program[index];
+
+                        if (opcode == 99) {
+                            break;
+                        }
+                        else{
+                            int x = program[index + 1];
+                            int y = program[index + 2];
+                            int z = program[index + 3];
+
+                            if (opcode == 1) {
+                                // Add x + y = z
+                                program[z] = program[x] + program[y];
+                            }
+                            else if (opcode == 2) {
+                                // Devide x * y = z
+                                program[z] = program[x] * program[y];
+                            }
+                            else {
+                                throw new Exception($"Unknown opcode: {opcode}");
+                            }
+                        }
+
+                        index += 4;
+                    }
+
+                    int result = program[0];
+
+                    if (result == 19690720) {
+                        answer = i*100 + j;
+                        break;
+                    }
+                }
+
+                if (answer != 0) {
+                    break;
+                }
             }
 
             return await Utility.SubmitAnswer(2019, 2, true, answer, send);
