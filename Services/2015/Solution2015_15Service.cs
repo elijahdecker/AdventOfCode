@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_15Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_15.txt"));
 
@@ -56,10 +56,10 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The total score of the highest-scoring cookie is {highestScore}.");
+            return highestScore.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_15.txt"));
 
@@ -112,16 +112,16 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The total score of the highest-scoring cookie with exactly 500 calories is {highestScore}.");
+            return highestScore.ToString();
         }
-    }
 
-    public class Ingredient
-    {
-        public int Capacity { get; set; }
-        public int Durability { get; set; }
-        public int Flavor { get; set; }
-        public int Texture { get; set; }
-        public int Calories { get; set; }
+        private class Ingredient
+        {
+            public int Capacity { get; set; }
+            public int Durability { get; set; }
+            public int Flavor { get; set; }
+            public int Texture { get; set; }
+            public int Calories { get; set; }
+        }
     }
 }

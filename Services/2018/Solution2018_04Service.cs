@@ -6,7 +6,7 @@ namespace AdventOfCode.Services
     {
         public Solution2018_04Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_04.txt")).OrderBy(s => s).ToList();
 
@@ -66,7 +66,7 @@ namespace AdventOfCode.Services
 
                         // Update the current guard's sleep schedule since they just got woken up by the next guard
                         // Add each minute that passed to the list
-                        for (DateTime time = sleepTime.Value; time < eventTime; time = time.AddMinutes(1))
+                        for (DateTime time = sleepTime!.Value; time < eventTime; time = time.AddMinutes(1))
                         {
                             guardWakingMinutes[currentGuard.Value].Add(TimeOnly.FromDateTime(time));
                         }
@@ -96,10 +96,10 @@ namespace AdventOfCode.Services
 
             TimeOnly mostFrequentTime = mostAsleepGuard.Value.MaxBy(v => mostAsleepGuard.Value.Count(c => c == v));
 
-            return await Task.FromResult($"The most frequent guard multiplied by his most frequent minute asleep is {guardId * mostFrequentTime.Minute}.");
+            return (guardId * mostFrequentTime.Minute).ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_04.txt")).OrderBy(s => s).ToList();
 
@@ -159,7 +159,7 @@ namespace AdventOfCode.Services
 
                         // Update the current guard's sleep schedule since they just got woken up by the next guard
                         // Add each minute that passed to the list
-                        for (DateTime time = sleepTime.Value; time < eventTime; time = time.AddMinutes(1))
+                        for (DateTime time = sleepTime!.Value; time < eventTime; time = time.AddMinutes(1))
                         {
                             guardWakingMinutes[currentGuard.Value].Add(TimeOnly.FromDateTime(time));
                         }
@@ -200,7 +200,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The most frequent guard multiplied by his most frequent minute asleep is {mostFrequentGuard * mostFrequentMinute.Minute}.");
+            return (mostFrequentGuard * mostFrequentMinute.Minute).ToString();
         }
     }
 }

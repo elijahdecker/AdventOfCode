@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_06Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_06.txt"));
             string[] lines = data.Split("\n");
@@ -58,10 +58,10 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"There are {lightOnCount} lights turned on after the instructions.");
+            return lightOnCount.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_06.txt"));
             string[] lines = data.Split("\n");
@@ -112,7 +112,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"There total brightness is {totalBrightness} after the instructions.");
+            return totalBrightness.ToString();
         }
     }
 }

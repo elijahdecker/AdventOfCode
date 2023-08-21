@@ -18,7 +18,7 @@ namespace AdventOfCode.Services
         }
 
         private class State { 
-            public BlizzardPoint CurrentPoint {get; set;}
+            public BlizzardPoint CurrentPoint {get; set;} = new();
             public List<BlizzardPoint> Blizzard {get; set;} = new();
             // Tracks the unique state of the blizzard to avoid checking every point in the list
             public int BlizzardIndex {get; set;} = 0;
@@ -31,7 +31,7 @@ namespace AdventOfCode.Services
             }
         }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_24.txt")).ToList();
 
@@ -220,10 +220,10 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Utility.SubmitAnswer(2022, 24, false, answer, send);
+            return answer.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_24.txt")).ToList();
 
@@ -714,7 +714,7 @@ namespace AdventOfCode.Services
 
             int answer = bestToStart + bestToFinish + bestToFinish2;
 
-            return await Utility.SubmitAnswer(2022, 24, true, answer, send);
+            return answer.ToString();
         }
     }
 }

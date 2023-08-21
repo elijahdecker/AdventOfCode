@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_11Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_11.txt"));
 
@@ -14,7 +14,7 @@ namespace AdventOfCode.Services
 
             while (true)
             {
-                currentPassword = incrementPassword(currentPassword);
+                currentPassword = IncrementPassword(currentPassword);
 
                 // Cannot contain the letters 'i', 'o', or 'l'
                 if (!currentPassword.Intersect(invalidLetters).Any())
@@ -67,10 +67,10 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"Santa's next password should be \"{currentPassword}\".");
+            return currentPassword;
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_11.txt"));
 
@@ -82,7 +82,7 @@ namespace AdventOfCode.Services
 
             while (true)
             {
-                currentPassword = incrementPassword(currentPassword);
+                currentPassword = IncrementPassword(currentPassword);
 
                 // Cannot contain the letters 'i', 'o', or 'l'
                 if (!currentPassword.Intersect(invalidLetters).Any())
@@ -143,11 +143,11 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"Santa's next password should be \"{currentPassword}\".");
+            return currentPassword;
         }
 
 
-        private string incrementPassword(string input)
+        private string IncrementPassword(string input)
         {
             int[] array = input.ToCharArray().Select(c => (int)c).ToArray();
 

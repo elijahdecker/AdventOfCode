@@ -1,18 +1,18 @@
 namespace AdventOfCode.Services
 {
-    public class Blueprint {
-        public int Id {get; set;}
-        public int OreCost {get; set;}
-        public int ClayOreCost {get; set;}
-        public int ObsidianOreCost {get; set;}
-        public int ObsidianClayCost {get; set;}
-        public int GeodeOreCost {get; set;}
-        public int GeodeObsidianCost {get; set;}
-    }
-
     public class Solution2022_19Service : ISolutionDayService
     {
         public Solution2022_19Service() { }
+
+        private class Blueprint {
+            public int Id {get; set;}
+            public int OreCost {get; set;}
+            public int ClayOreCost {get; set;}
+            public int ObsidianOreCost {get; set;}
+            public int ObsidianClayCost {get; set;}
+            public int GeodeOreCost {get; set;}
+            public int GeodeObsidianCost {get; set;}
+        }
 
         private int GetGeodesProduced(Blueprint blueprint, int time, int ore = 0, int clay = 0, int obsidian = 0, int geodes = 0, int oreRobots = 1, int clayRobots = 0, int obsidianRobots = 0, int geodeRobots = 0) {
             // Calculate resources produced this turn
@@ -80,7 +80,7 @@ namespace AdventOfCode.Services
             return newGeodes;
         }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_19.txt")).ToList();
 
@@ -98,10 +98,10 @@ namespace AdventOfCode.Services
 
             int answer = blueprints.Sum(blueprint => blueprint.Id * GetGeodesProduced(blueprint, 24));
 
-            return await Utility.SubmitAnswer(2022, 19, false, answer, send);
+            return answer.ToString();
         } 
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_19.txt")).ToList();
 
@@ -123,7 +123,7 @@ namespace AdventOfCode.Services
                 answer *= GetGeodesProduced(blueprint, 32);
             }
 
-            return await Utility.SubmitAnswer(2022, 19, true, answer, send);
+            return answer.ToString();
         }
     }
 }

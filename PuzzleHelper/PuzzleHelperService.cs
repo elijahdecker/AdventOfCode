@@ -1,9 +1,13 @@
-﻿public class PuzzleHelperService : IPuzzleHelperService
+﻿public class PuzzleHelperService
 {
-    public PuzzleHelperService() { }
+    private readonly AdventOfCodeGateway adventOfCodeGateway;
+
+    public PuzzleHelperService(AdventOfCodeGateway adventOfCodeGateway) {
+        this.adventOfCodeGateway = adventOfCodeGateway;
+    }
 
     /// <summary>
-    /// Generates solution files and imports year input files
+    /// Generates solution files and imports year input files.
     /// </summary>
     /// <returns></returns>
     public async Task<string> Run()
@@ -20,19 +24,19 @@
             latestPuzzleYear = now.Year;
 
             // If it's December 26th-31st the latest day is the 25th
-            latestPuzzleDay = Math.Min(now.Day, 25);
+            latestPuzzleDay = Math.Min(now.Day, Globals.CRISTMAS_DATE);
         }
         else
         {
             // Otherwise the latest puzzle is from the end of the previous event
             latestPuzzleYear = now.Year - 1;
-            latestPuzzleDay = 25;
+            latestPuzzleDay = Globals.CRISTMAS_DATE;
         }
 
         bool update = false;
 
         // Create a folder for each year that is missing one
-        for (int year = 2015; year <= now.Year; year++)
+        for (int year = Globals.START_YEAR; year <= now.Year; year++)
         {
             string yearFolderPath = Path.Combine(Environment.CurrentDirectory, $"Services/{year}");
 
@@ -40,12 +44,12 @@
             {
                 Directory.CreateDirectory(yearFolderPath);
                 Console.WriteLine($"Created folder for {year}.");
-                output += $"Created folder for {year}.";
+                output += $"Created folder for {year}.\n";
                 update = true;
             }
 
             // Create/update files for each day that is missing one
-            for (int day = 1; day <= 25; day++)
+            for (int day = 1; day <= Globals.CRISTMAS_DATE; day++)
             {
                 string dayFilePath = Path.Combine(yearFolderPath, $"Solution{year}_{day:D2}Service.cs");
 
@@ -61,7 +65,7 @@
             {
                 public Solution{{year}}_{{day:D2}}Service() { }
 
-                public async Task<string> FirstHalf(bool send)
+                public string FirstHalf()
                 {
                     List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "{{year}}_{{day:D2}}.txt")).ToList();
 
@@ -71,27 +75,35 @@
 
                     }
 
-                    return await Utility.SubmitAnswer({{year}}, {{day}}, false, answer, send);
+                    return answer.ToString();
                 }
 
-                public async Task<string> SecondHalf(bool send)
+                public string SecondHalf()
                 {
-                    List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "{{year}}_{{day:D2}}.txt")).ToList();
+                    {{(
+                        day == Globals.CRISTMAS_DATE ?
+                        """
+                        return "There is no problem for Day 25 part 2, solve all other problems to get the last star.";
+                        """ :
+                        $$"""
+                        List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "{{year}}_{{day:D2}}.txt")).ToList();
 
-                    int answer = 0;
+                                    int answer = 0;
 
-                    foreach (string line in lines) {
+                                    foreach (string line in lines) {
 
-                    }
+                                    }
 
-                    return await Utility.SubmitAnswer({{year}}, {{day}}, true, answer, send);
+                                    return answer.ToString();
+                        """
+                    )}}
                 }
             }
         }
         """);
 
                     Console.WriteLine($"Created solution file for Year: {year}, Day: {day}.");
-                    output += $"Created solution file for Year: {year}, Day: {day}.";
+                    output += $"Created solution file for Year: {year}, Day: {day}.\n";
                     update = true;
                 }
 
@@ -104,12 +116,20 @@
                     {
                         using StreamWriter inputFile = new(inputFilePath);
 
-                        string response = await ImportInput(year, day);
+                        string response;
+                        try
+                        {
+                            response = await adventOfCodeGateway.ImportInput(year, day);
+                        }
+                        catch (Exception) {
+                            Console.WriteLine("An error occured while getting the puzzle input from Advent of Code");
+                            throw;
+                        }
 
                         await inputFile.WriteAsync(response);
 
                         Console.WriteLine($"Created input file for Year: {year}, Day: {day}.");
-                        output += $"Created input file for Year: {year}, Day: {day}.";
+                        output += $"Created input file for Year: {year}, Day: {day}.\n";
                         update = true;
                     }
                 }
@@ -119,14 +139,14 @@
         if (!update)
         {
             Console.WriteLine("No updates applied.");
-            output += "No updates applied.";
+            output += "No updates applied.\n";
         }
 
         return output;
     }
-
+    
     /// <summary>
-    /// A streamlined version of the puzzle helper that imports just the days file
+    /// A streamlined version of the puzzle helper that imports just the day's input file.
     /// </summary>
     /// <param name="year"></param>
     /// <param name="day"></param>
@@ -145,25 +165,33 @@
             latestPuzzleYear = now.Year;
 
             // If it's December 26th-31st the latest day is the 25th
-            latestPuzzleDay = Math.Min(now.Day, 25);
+            latestPuzzleDay = Math.Min(now.Day, Globals.CRISTMAS_DATE);
         }
         else
         {
             // Otherwise the latest puzzle is from the end of the previous event
             latestPuzzleYear = now.Year - 1;
-            latestPuzzleDay = 25;
+            latestPuzzleDay = Globals.CRISTMAS_DATE;
         }
 
         if (latestPuzzleYear < year || latestPuzzleYear == year && latestPuzzleDay < day) {
             Console.WriteLine("No updates applied.");
-            output += "No updates applied.";
+            output += "No updates applied.\n";
         }
         else {
             string inputFilePath = Path.Combine(Environment.CurrentDirectory, $"Inputs/{year}_{day:D2}.txt");
 
             if (!File.Exists(inputFilePath))
             {
-                string response = await ImportInput(year, day);
+                string response;
+                try
+                {
+                    response = await adventOfCodeGateway.ImportInput(year, day);
+                }
+                catch (Exception) {
+                    Console.WriteLine("An error occured while getting the puzzle input from Advent of Code");
+                    throw;
+                }
 
                 using StreamWriter inputFile = new(inputFilePath);
 
@@ -175,29 +203,10 @@
             else
             {
                 Console.WriteLine("No updates applied.");
-                output += "No updates applied.";
+                output += "No updates applied.\n ";
             }
         }
 
         return output;
-    }
-
-    private async Task<string> ImportInput(int year, int day)
-    {
-        Uri baseAddress = new("https://adventofcode.com");
-        using HttpClientHandler handler = new() { UseCookies = false };
-        using HttpClient client = new(handler) { BaseAddress = baseAddress };
-
-        // Don't modify this User Agent, it should match the repo making the request and not the user making the request
-        client.DefaultRequestHeaders.UserAgent.ParseAdd($".NET 7.0 (+via https://github.com/austin-owensby/AdventOfCode by austin_owensby@hotmail.com)");
-
-        HttpRequestMessage message = new(HttpMethod.Get, $"/{year}/day/{day}/input");
-
-        string cookie = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "PuzzleHelper/Cookie.txt"));
-        message.Headers.Add("Cookie", cookie);
-
-        HttpResponseMessage result = await client.SendAsync(message);
-        result.EnsureSuccessStatusCode();
-        return await result.Content.ReadAsStringAsync();
     }
 }

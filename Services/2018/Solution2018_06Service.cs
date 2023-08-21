@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2018_06Service() { }
 
-        public class Point
+        private class Point
         {
             public int X { get; set; }
             public int Y { get; set; }
@@ -19,7 +19,7 @@ namespace AdventOfCode.Services
             }
         }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_06.txt")).ToList();
 
@@ -59,10 +59,10 @@ namespace AdventOfCode.Services
             List<char> filteredChars = allCells.Where(c => !edgeChars.Contains(c) && c != '.').ToList();
             int largestArea = filteredChars.Distinct().Max(c => filteredChars.Count(a => a == c));
 
-            return await Task.FromResult($"The largest area is {largestArea}");
+            return largestArea.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_06.txt")).ToList();
 
@@ -104,7 +104,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The size of the region within a distance of 10,000 of the points is {regionSize}");
+            return regionSize.ToString();
         }
 
         private char GetClosestPoint(Point point, List<Point> origins)

@@ -1,22 +1,22 @@
 namespace AdventOfCode.Services
 {
-    public class Monkey
-    {
-        public List<long> Items { get; set; } = new();
-        public int? AddAmount { get; set; }
-        public int? MultiplyAmount { get; set; }
-        public bool Square { get; set; }
-        public int divisorTest { get; set; }
-        public int testPassMonkey { get; set; }
-        public int testFailMonkey { get; set; }
-        public int Inspects { get; set; }
-    }
-
     public class Solution2022_11Service : ISolutionDayService
     {
         public Solution2022_11Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        private class Monkey
+        {
+            public List<long> Items { get; set; } = new();
+            public int? AddAmount { get; set; }
+            public int? MultiplyAmount { get; set; }
+            public bool Square { get; set; }
+            public int divisorTest { get; set; }
+            public int testPassMonkey { get; set; }
+            public int testFailMonkey { get; set; }
+            public int Inspects { get; set; }
+        }
+
+        public string FirstHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_11.txt")).ToList();
 
@@ -94,10 +94,10 @@ namespace AdventOfCode.Services
 
             int answer = values[0] * values[1];
 
-            return await Utility.SubmitAnswer(2022, 11, false, answer, send);
+            return answer.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_11.txt")).ToList();
 
@@ -179,7 +179,7 @@ namespace AdventOfCode.Services
 
             long answer = values[0] * (long)values[1];
 
-            return await Utility.SubmitAnswer(2022, 11, true, answer, send);
+            return answer.ToString();
         }
     }
 }

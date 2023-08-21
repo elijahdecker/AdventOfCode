@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_14Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_14.txt"));
 
@@ -59,10 +59,10 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The max distance a reindeer flew after {raceLength} seconds was {maxDistance}.");
+            return maxDistance.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_14.txt"));
 
@@ -138,7 +138,7 @@ namespace AdventOfCode.Services
 
             int maxPoints = points.Max();
 
-            return await Task.FromResult($"The max points a reindeer gained after {raceLength} seconds was {maxPoints}.");
+            return maxPoints.ToString();
         }
     }
 }

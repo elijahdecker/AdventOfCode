@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2018_02Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             string[] lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_02.txt"));
 
@@ -47,10 +47,10 @@ namespace AdventOfCode.Services
 
             int checksum = twiceCount * thriceCount;
 
-            return await Task.FromResult($"The checksum is {checksum}");
+            return checksum.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             string[] lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_02.txt"));
 
@@ -102,7 +102,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"Common letters between 2 correct box IDs are {string.Join("", commonLetters)}");
+            return string.Join("", commonLetters);
         }
     }
 }

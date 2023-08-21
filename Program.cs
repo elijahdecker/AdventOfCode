@@ -12,14 +12,20 @@ builder.Services.AddSwaggerGen(c =>
     c.ParameterFilter<ParameterFilter>();
 });
 
-builder.Services.AddScoped<ISolutionService, SolutionService>();
-builder.Services.AddScoped<IPuzzleHelperService, PuzzleHelperService>();
+// Add the gateway as singleton since almost all API calls use it and it sets up a client that we'd like to keep configured
+builder.Services.AddSingleton<AdventOfCodeGateway>();
+
+// Adding all services as Transient because on each request, we should only call the service once.
+// We could use Singleton for preformance improvement on succesive calls,
+//    but because we want to avoid spamming the AoC server, we'll assume that this performance is negligible.
+builder.Services.AddTransient<SolutionService>();
+builder.Services.AddTransient<PuzzleHelperService>();
 
 // This is a collapsable region so that I can hide my shameful, unintuitive, lazy, "clever", and unreadable code :'(
 #region Here be dragons!
 // Here be dragons! ( Especially lazy dragons ;) )
 // Get a list of assembly types for the whole app
-Type[] assemblyTypes = Assembly.GetAssembly(typeof(Program)).GetTypes();
+Type[] assemblyTypes = Assembly.GetAssembly(typeof(Program))?.GetTypes() ?? new Type[]{};
 
 // Get only the types for the classes that inherit from the ISolutionDayService
 IEnumerable<Type> solutionDayServiceTypes = assemblyTypes.Where(x => !x.IsInterface && x.GetInterface(nameof(ISolutionDayService)) != null);
@@ -27,7 +33,10 @@ IEnumerable<Type> solutionDayServiceTypes = assemblyTypes.Where(x => !x.IsInterf
 // Register each Solution Day Service class
 foreach (Type solutionDayServiceType in solutionDayServiceTypes)
 {
-    builder.Services.AddScoped(solutionDayServiceType.GetInterface(nameof(ISolutionDayService)), solutionDayServiceType);
+    // This is not null because of the filter a few lines above
+    Type interfaceType = solutionDayServiceType.GetInterface(nameof(ISolutionDayService))!;
+    
+    builder.Services.AddTransient(interfaceType, solutionDayServiceType);
 }
 #endregion
 

@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2022_10Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_10.txt")).ToList();
 
@@ -47,10 +47,10 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Utility.SubmitAnswer(2022, 10, false, answer, send);
+            return answer.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_10.txt")).ToList();
 
@@ -87,7 +87,7 @@ namespace AdventOfCode.Services
             }
 
             // Can't automatically report the answer for this one without detecting letters
-            return await Task.FromResult(output);
+            return output.ToString();
         }
     }
 }

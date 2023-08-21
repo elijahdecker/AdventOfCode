@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_23Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_23.txt"));
             List<string> lines = data.Split('\n').ToList();
@@ -152,10 +152,10 @@ namespace AdventOfCode.Services
                 instructionPointer += jumpAmount;
             }
 
-            return await Task.FromResult($"The value of regB after the program stops is {regB}.");
+            return regB.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_23.txt"));
             List<string> lines = data.Split('\n').ToList();
@@ -303,7 +303,7 @@ namespace AdventOfCode.Services
                 instructionPointer += jumpAmount;
             }
 
-            return await Task.FromResult($"The value of regB after the program stops is {regB} if a starts at 1.");
+            return regB.ToString();
         }
     }
 }

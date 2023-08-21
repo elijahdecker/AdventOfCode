@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_17Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_17.txt"));
 
@@ -31,10 +31,10 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"{totalCombinations} combinations of continers can fit {targetTotal} liters.");
+            return totalCombinations.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_17.txt"));
 
@@ -72,7 +72,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"{totalCombinations} combinations of continers can fit {targetTotal} liters with the least amount of containers needed.");
+            return totalCombinations.ToString();
         }
     }
 }

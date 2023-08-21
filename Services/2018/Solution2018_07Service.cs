@@ -6,7 +6,7 @@ namespace AdventOfCode.Services
     {
         public Solution2018_07Service() { }
 
-        public class Instruction
+        private class Instruction
         {
             public char First { get; set; }
             public char Next { get; set; }
@@ -22,13 +22,13 @@ namespace AdventOfCode.Services
             }
         }
 
-        public class Worker
+        private class Worker
         {
             public char? Step { get; set; }
             public int TimeLeft { get; set; }
         }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_07.txt")).ToList();
 
@@ -66,10 +66,10 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The order of the steps is {order}");
+            return order.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_07.txt")).ToList();
 
@@ -125,7 +125,7 @@ namespace AdventOfCode.Services
                 */
             }
 
-            return await Task.FromResult($"With 5 workers, it will take {timeSpent} seconds to complete all of the steps.");
+            return timeSpent.ToString();
         }
     }
 }

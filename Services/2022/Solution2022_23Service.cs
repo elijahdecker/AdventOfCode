@@ -1,15 +1,15 @@
 namespace AdventOfCode.Services
 {
-    public class Elf {
-        public int X {get; set;}
-        public int Y {get; set;}
-        public int? SuggestedX {get; set;}
-        public int? SuggestedY {get; set;}
-    }
-
     public class Solution2022_23Service : ISolutionDayService
     {
         public Solution2022_23Service() { }
+    
+        private class Elf {
+            public int X {get; set;}
+            public int Y {get; set;}
+            public int? SuggestedX {get; set;}
+            public int? SuggestedY {get; set;}
+        }
 
         private enum Direction {
             North,
@@ -18,7 +18,7 @@ namespace AdventOfCode.Services
             East
         }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_23.txt")).ToList();
 
@@ -138,8 +138,8 @@ namespace AdventOfCode.Services
                 List<Elf> moveableElves = elves.Where(e => e.SuggestedX != null && e.SuggestedY != null && !elves.Any(elf => !(e.X == elf.X && e.Y == elf.Y) && e.SuggestedX == elf.SuggestedX && e.SuggestedY == elf.SuggestedY)).ToList();
 
                 foreach (Elf elf in moveableElves) {
-                    elf.X = (int)elf.SuggestedX;
-                    elf.Y = (int)elf.SuggestedY;
+                    elf.X = (int)elf.SuggestedX!;
+                    elf.Y = (int)elf.SuggestedY!;
                 }
 
                 // Update priority direction
@@ -154,10 +154,10 @@ namespace AdventOfCode.Services
             // Get the number of empty spaces in the bounding rectangle
             int answer = (maxX - minX + 1)*(maxY - minY + 1) - elves.Count;
 
-            return await Utility.SubmitAnswer(2022, 23, false, answer, send);
+            return answer.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_23.txt")).ToList();
 
@@ -286,15 +286,15 @@ namespace AdventOfCode.Services
                 }
 
                 foreach (Elf elf in moveableElves) {
-                    elf.X = (int)elf.SuggestedX;
-                    elf.Y = (int)elf.SuggestedY;
+                    elf.X = (int)elf.SuggestedX!;
+                    elf.Y = (int)elf.SuggestedY!;
                 }
 
                 // Update priority direction
                 direction = (Direction)Utility.Mod((int)direction + 1, 4);
             }
 
-            return await Utility.SubmitAnswer(2022, 23, true, answer, send);
+            return answer.ToString();
         }
     }
 }

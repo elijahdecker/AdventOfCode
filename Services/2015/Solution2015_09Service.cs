@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_09Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_09.txt"));
 
@@ -22,7 +22,7 @@ namespace AdventOfCode.Services
 
             IEnumerable<string> townsDistinct = towns.Distinct();
 
-            IEnumerable<IEnumerable<string>> permutations = GetPermutations(townsDistinct, townsDistinct.Count());
+            IEnumerable<IEnumerable<string>> permutations = townsDistinct.GetPermutations(townsDistinct.Count());
 
             int minDistance = int.MaxValue;
             foreach (IEnumerable<string> permutation in permutations)
@@ -50,10 +50,10 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The minimum distance between towns is {minDistance}.");
+            return minDistance.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_09.txt"));
 
@@ -71,7 +71,7 @@ namespace AdventOfCode.Services
 
             IEnumerable<string> townsDistinct = towns.Distinct();
 
-            IEnumerable<IEnumerable<string>> permutations = GetPermutations(townsDistinct, townsDistinct.Count());
+            IEnumerable<IEnumerable<string>> permutations = townsDistinct.GetPermutations(townsDistinct.Count());
 
             int maxDistance = 0;
             foreach (IEnumerable<string> permutation in permutations)
@@ -99,16 +99,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The maximum distance between towns is {maxDistance}.");
-        }
-
-        private static IEnumerable<IEnumerable<string>> GetPermutations(IEnumerable<string> list, int length)
-        {
-            return length == 1
-                ? list.Select(t => new string[] { t })
-                : GetPermutations(list, length - 1)
-                .SelectMany(t => list.Where(e => !t.Contains(e)),
-                    (t1, t2) => t1.Concat(new string[] { t2 }));
+            return maxDistance.ToString();
         }
     }
 }

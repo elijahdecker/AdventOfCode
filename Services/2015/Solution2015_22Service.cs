@@ -97,7 +97,7 @@ namespace AdventOfCode.Services
             return options.Any() ? options.Min() : (int.MaxValue / 2);
         } 
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015_22.txt")).ToList();
 
@@ -109,10 +109,10 @@ namespace AdventOfCode.Services
 
             int answer = GetMinManaUsed(playerHitPoints, bossHitPoints, bossDamage, 0, playerMana, 0, 0, 0, true);
 
-            return await Utility.SubmitAnswer(2015, 22, false, answer, send);
+            return answer.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015_22.txt")).ToList();
 
@@ -124,7 +124,7 @@ namespace AdventOfCode.Services
 
             int answer = GetMinManaUsed(playerHitPoints, bossHitPoints, bossDamage, 0, playerMana, 0, 0, 0, true, true);
 
-            return await Utility.SubmitAnswer(2015, 22, false, answer, send);
+            return answer.ToString();
         }
     }
 }

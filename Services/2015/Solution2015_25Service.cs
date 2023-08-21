@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_25Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015_25.txt")).ToList();
 
@@ -27,13 +27,10 @@ namespace AdventOfCode.Services
                 answer = answer * (long)252533 % (long)33554393;
             }
 
-            // Too high 18367913, 18361853, 17370278
-            
-
-            return await Utility.SubmitAnswer(2015, 25, false, answer, send);
+            return answer.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015_25.txt")).ToList();
 
@@ -44,7 +41,7 @@ namespace AdventOfCode.Services
 
             }
 
-            return await Utility.SubmitAnswer(2015, 25, true, answer, send);
+            return answer.ToString();
         }
     }
 }

@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_07Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_07.txt"));
             string[] lines = data.Split("\n");
@@ -114,10 +114,10 @@ namespace AdventOfCode.Services
                 unknownRegisters = unknownRegisters.Where(r => !knownRegisters.Contains(r.Value)).ToDictionary(r => r.Key, r => r.Value);
             }
 
-            return await Task.FromResult($"Wire a's value is {registerValues["a"]}.");
+            return registerValues["a"].ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_07.txt"));
             string[] lines = data.Split("\n");
@@ -199,7 +199,7 @@ namespace AdventOfCode.Services
             }
 
             // Use the value from the first half and set it to b
-            string[] response = (await FirstHalf(send)).Split(" ");
+            string[] response = FirstHalf().Split(" ");
             string valueString = response[^1];
             string valueStringNoPeriod = valueString.Remove(valueString.Length - 1, 1);
             ushort calculatedValue = ushort.Parse(valueStringNoPeriod);
@@ -234,7 +234,7 @@ namespace AdventOfCode.Services
                 unknownRegisters = unknownRegisters.Where(r => !knownRegisters.Contains(r.Value)).ToDictionary(r => r.Key, r => r.Value);
             }
 
-            return await Task.FromResult($"Wire a's value is {registerValues["a"]} after setting b to a's value from part 1.");
+            return registerValues["a"].ToString();
         }
     }
 }

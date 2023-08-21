@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2022_14Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_14.txt")).ToList();
 
@@ -19,7 +19,7 @@ namespace AdventOfCode.Services
 
             List<List<int>> grid = Enumerable.Repeat(0, maxY + 1).Select(x => Enumerable.Repeat(0, maxX + 1).ToList()).ToList();
 
-            Point prevPoint = null;
+            Point? prevPoint = null;
 
             foreach (List<Point> rockLine in rockLines)
             {
@@ -132,10 +132,10 @@ namespace AdventOfCode.Services
                 output += "\n";
             }
 
-            return await Utility.SubmitAnswer(2022, 14, false, answer, send);
+            return answer.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_14.txt")).ToList();
 
@@ -153,7 +153,7 @@ namespace AdventOfCode.Services
             // Add floor
             grid.Add(Enumerable.Repeat(1, maxX + maxY).ToList());
 
-            Point prevPoint = null;
+            Point? prevPoint = null;
 
             foreach (List<Point> rockLine in rockLines)
             {
@@ -266,7 +266,7 @@ namespace AdventOfCode.Services
                 output += "\n";
             }
 
-            return await Utility.SubmitAnswer(2022, 14, true, answer, send);
+            return answer.ToString();
         }
     }
 }

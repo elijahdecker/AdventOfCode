@@ -1,15 +1,15 @@
 namespace AdventOfCode.Services
 {
-    public class FileValue {
-        public long Value {get; set;}
-        public int OriginalIndex {get; set;}
-    }
-
     public class Solution2022_20Service : ISolutionDayService
     {
         public Solution2022_20Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        private class FileValue {
+            public long Value {get; set;}
+            public int OriginalIndex {get; set;}
+        }
+
+        public string FirstHalf()
         {
             List<int> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_20.txt")).ToInts();
 
@@ -44,10 +44,10 @@ namespace AdventOfCode.Services
             answer += copy[(zeroIndex + 2000) % copy.Count].Value;
             answer += copy[(zeroIndex + 3000) % copy.Count].Value;
 
-            return await Utility.SubmitAnswer(2022, 20, false, answer, send);
+            return answer.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             List<long> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_20.txt")).ToLongs();
 
@@ -84,7 +84,7 @@ namespace AdventOfCode.Services
             answer += copy[(zeroIndex + 2000) % copy.Count].Value;
             answer += copy[(zeroIndex + 3000) % copy.Count].Value;
 
-            return await Utility.SubmitAnswer(2022, 20, true, answer, send);
+            return answer.ToString();
         }
     }
 }

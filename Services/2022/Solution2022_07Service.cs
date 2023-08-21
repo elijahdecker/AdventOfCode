@@ -1,24 +1,24 @@
 namespace AdventOfCode.Services
 {
-    public class Directory
-    {
-        public long Size { get; set; }
-        public string Name { get; set; }
-        public List<DirFile> Files { get; set; } = new();
-        public string ParentName { get; set; }
-    }
-
-    public class DirFile
-    {
-        public string Name { get; set; }
-        public long Size { get; set; }
-    }
-
     public class Solution2022_07Service : ISolutionDayService
     {
         public Solution2022_07Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        private class Directory
+        {
+            public long Size { get; set; }
+            public string Name { get; set; } = string.Empty;
+            public List<DirFile> Files { get; set; } = new();
+            public string ParentName { get; set; } = string.Empty;
+        }
+
+        private class DirFile
+        {
+            public string Name { get; set; } = string.Empty;
+            public long Size { get; set; }
+        }
+
+        public string FirstHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_07.txt")).ToList();
 
@@ -106,7 +106,7 @@ namespace AdventOfCode.Services
                                 });
 
                                 // Increase the parent's size
-                                Directory parent = directories.Single(d => d.Name == currentDirectory.Name);
+                                Directory? parent = directories.Single(d => d.Name == currentDirectory.Name);
 
                                 while (parent != null)
                                 {
@@ -133,10 +133,10 @@ namespace AdventOfCode.Services
 
             answer = directories.Sum(d => d.Size <= 100000 ? d.Size : 0);
 
-            return await Utility.SubmitAnswer(2022, 7, false, answer, send);
+            return answer.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_07.txt")).ToList();
 
@@ -224,7 +224,7 @@ namespace AdventOfCode.Services
                                 });
 
                                 // Increase the parent's size
-                                Directory parent = directories.Single(d => d.Name == currentDirectory.Name);
+                                Directory? parent = directories.Single(d => d.Name == currentDirectory.Name);
 
                                 while (parent != null)
                                 {
@@ -259,7 +259,7 @@ namespace AdventOfCode.Services
 
             answer = directories.Where(d => d.Size >= minDirSizeToDelete).Select(d => d.Size).OrderBy(d => d).First();
 
-            return await Utility.SubmitAnswer(2022, 7, true, answer, send);
+            return answer.ToString();
         }
     }
 }

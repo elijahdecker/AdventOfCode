@@ -1,18 +1,18 @@
 namespace AdventOfCode.Services
 {
-    public class Node
-    {
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int Altitude { get; set; }
-        public int DistanceTraveled { get; set; }
-    }
-
     public class Solution2022_12Service : ISolutionDayService
     {
         public Solution2022_12Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        private class Node
+        {
+            public int X { get; set; }
+            public int Y { get; set; }
+            public int Altitude { get; set; }
+            public int DistanceTraveled { get; set; }
+        }
+
+        public string FirstHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_12.txt")).ToList();
 
@@ -51,7 +51,7 @@ namespace AdventOfCode.Services
 
                 // Get all paths that have this next node as their last node
                 // There should only be 1 match because all other paths would be equal or greater distance and should have been removed
-                List<Node> pathWithNextNode = paths.FirstOrDefault(p => p.Last().X == currentNode.X && p.Last().Y == currentNode.Y);
+                List<Node>? pathWithNextNode = paths.FirstOrDefault(p => p.Last().X == currentNode.X && p.Last().Y == currentNode.Y);
 
                 if (pathWithNextNode != null)
                 {
@@ -163,10 +163,10 @@ namespace AdventOfCode.Services
             // Subtract 1 for the initial step
             int answer = paths.Where(path => path.Last().X == end.X && path.Last().Y == end.Y).Min(path => path.Count) - 1;
 
-            return await Utility.SubmitAnswer(2022, 12, false, answer, send);
+            return answer.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
 
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_12.txt")).ToList();
@@ -226,7 +226,7 @@ namespace AdventOfCode.Services
 
                     // Get all paths that have this next node as their last node
                     // There should only be 1 match because all other paths would be equal or greater distance and should have been removed
-                    List<Node> pathWithNextNode = paths.FirstOrDefault(p => p.Last().X == currentNode.X && p.Last().Y == currentNode.Y);
+                    List<Node>? pathWithNextNode = paths.FirstOrDefault(p => p.Last().X == currentNode.X && p.Last().Y == currentNode.Y);
 
                     if (pathWithNextNode != null)
                     {
@@ -341,7 +341,7 @@ namespace AdventOfCode.Services
                 answer = Math.Min(loopAnswer, answer);
             }
 
-            return await Utility.SubmitAnswer(2022, 12, true, answer, send);
+            return answer.ToString();
         }
     }
 }

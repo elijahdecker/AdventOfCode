@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_19Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_19.txt"));
 
@@ -45,10 +45,10 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"{distinctMolecules.Count} can be created from 1 replacement.");
+            return distinctMolecules.Count.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_19.txt"));
 
@@ -81,13 +81,13 @@ namespace AdventOfCode.Services
 
                 if (!matchFound)
                 {
-                    return await Task.FromResult("Nothing found, try again.");
+                    throw new Exception("Nothing found, try again.");
                 }
 
                 replacementCount++;
             }
 
-            return await Task.FromResult($"The molecule can be created with {replacementCount} replacements.");
+            return replacementCount.ToString();
         }
     }
 }

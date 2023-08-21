@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2018_05Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_05.txt"));
             data = data.Replace("\n", "").Replace("\r", "");
@@ -49,10 +49,10 @@ namespace AdventOfCode.Services
                 data = filteredData;
             }
 
-            return await Task.FromResult($"Length of fully scanned polymer {data.Length}");
+            return data.Length.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             string originalData = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_05.txt"));
             originalData = originalData.Replace("\n", "").Replace("\r", "");
@@ -111,7 +111,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The length of the shortest produced polymer is {minValue}");
+            return minValue.ToString();
         }
     }
 }

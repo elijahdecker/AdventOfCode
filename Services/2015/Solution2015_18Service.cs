@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_18Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_18.txt"));
             string[] lights = data.Split("\n").SkipLast(1).ToArray();
@@ -17,7 +17,7 @@ namespace AdventOfCode.Services
                 {
                     for (int k = 0; k < lights[j].Length; k++)
                     {
-                        int liveNeighbors = getNumberOfLiveNeighbors(j, k, lights);
+                        int liveNeighbors = GetNumberOfLiveNeighbors(j, k, lights);
                         if (lights[j][k] == '#')
                         {
                             if (liveNeighbors is 2 or 3)
@@ -60,10 +60,10 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The number of total lights after {numberOfStages} iterations is {totalLights}");
+            return totalLights.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_18.txt"));
             string[] lights = data.Split("\n").SkipLast(1).ToArray();
@@ -87,7 +87,7 @@ namespace AdventOfCode.Services
                 {
                     for (int k = 0; k < lights[j].Length; k++)
                     {
-                        int liveNeighbors = getNumberOfLiveNeighbors(j, k, lights);
+                        int liveNeighbors = GetNumberOfLiveNeighbors(j, k, lights);
 
                         if ((j == 0 || j == lights.Length - 1) && (k == 0 || k == lights[j].Length - 1))
                         {
@@ -135,10 +135,10 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The number of total lights after {numberOfStages} iterations is {totalLights}");
+            return totalLights.ToString();
         }
 
-        private int getNumberOfLiveNeighbors(int j, int k, string[] board)
+        private int GetNumberOfLiveNeighbors(int j, int k, string[] board)
         {
             // Check each of the possible neighbors without going out of the limits of the board
             int neighbors = 0;

@@ -8,17 +8,17 @@ namespace AdventOfCode.Controllers
     [Route("api")]
     public class Controller : ControllerBase
     {
-        private readonly ISolutionService solutionService;
-        private readonly IPuzzleHelperService puzzleHelperService;
+        private readonly SolutionService solutionService;
+        private readonly PuzzleHelperService puzzleHelperService;
 
-        public Controller(ISolutionService solutionService, IPuzzleHelperService puzzleHelperService)
+        public Controller(SolutionService solutionService, PuzzleHelperService puzzleHelperService)
         {
             this.solutionService = solutionService;
             this.puzzleHelperService = puzzleHelperService;
         }
 
         [HttpGet("run-solution")]
-        public async Task<ActionResult<string>> GetSolution([FromQuery, BindRequired] int year = 2015, [FromQuery, BindRequired] int day = 1, bool secondHalf = false, bool send = false)
+        public async Task<ActionResult<string>> GetSolution([FromQuery, BindRequired] int year = Globals.START_YEAR, [FromQuery, BindRequired] int day = 1, bool secondHalf = false, bool send = false)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace AdventOfCode.Controllers
         }
 
         [HttpPost("puzzle-helper-daily")]
-        public async Task<string> RunPuzzleHelper([FromQuery, BindRequired] int year = 2015, [FromQuery, BindRequired] int day = 1)
+        public async Task<string> RunPuzzleHelper([FromQuery, BindRequired] int year = Globals.START_YEAR, [FromQuery, BindRequired] int day = 1)
         {
             return await puzzleHelperService.RunDaily(year, day);
         }

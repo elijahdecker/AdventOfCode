@@ -1,18 +1,18 @@
 namespace AdventOfCode.Services
 {
-    public class MonkeyRiddle {
-        public long? Answer {get; set;}
-        public string Name {get; set;}
-        public string Op {get; set;}
-        public string Var1 {get; set;}
-        public string Var2 { get; set;}
-    }
-
     public class Solution2022_21Service : ISolutionDayService
     {
         public Solution2022_21Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        private class MonkeyRiddle {
+            public long? Answer {get; set;}
+            public string Name {get; set;} = string.Empty;
+            public string Op {get; set;} = string.Empty;
+            public string Var1 {get; set;} = string.Empty;
+            public string Var2 { get; set;} = string.Empty;
+        }
+
+        public string FirstHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_21.txt")).ToList();
 
@@ -45,8 +45,8 @@ namespace AdventOfCode.Services
                 List<MonkeyRiddle> availableRiddles = riddles.Where(riddle => riddle.Answer == null && solvedRiddles.Any(r => r.Name == riddle.Var1) && solvedRiddles.Any(r => r.Name == riddle.Var2)).ToList();
 
                 foreach (MonkeyRiddle riddle in availableRiddles) {
-                    long value1 = (long)solvedRiddles.First(r => r.Name == riddle.Var1).Answer;
-                    long value2 = (long)solvedRiddles.First(r => r.Name == riddle.Var2).Answer;
+                    long value1 = (long)solvedRiddles.First(r => r.Name == riddle.Var1).Answer!;
+                    long value2 = (long)solvedRiddles.First(r => r.Name == riddle.Var2).Answer!;
 
                     riddle.Answer = riddle.Op switch {
                         "+" => value1 + value2,
@@ -58,12 +58,12 @@ namespace AdventOfCode.Services
                 }
             }
         
-            long answer = (long)riddles.First(r => r.Name == "root").Answer;
+            long answer = (long)riddles.First(r => r.Name == "root").Answer!;
 
-            return await Utility.SubmitAnswer(2022, 21, false, answer, send);
+            return answer.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_21.txt")).ToList();
 
@@ -104,8 +104,8 @@ namespace AdventOfCode.Services
                 }
 
                 foreach (MonkeyRiddle riddle in availableRiddles) {
-                    long value1 = (long)solvedRiddles.First(r => r.Name == riddle.Var1).Answer;
-                    long value2 = (long)solvedRiddles.First(r => r.Name == riddle.Var2).Answer;
+                    long value1 = (long)solvedRiddles.First(r => r.Name == riddle.Var1).Answer!;
+                    long value2 = (long)solvedRiddles.First(r => r.Name == riddle.Var2).Answer!;
 
                     riddle.Answer = riddle.Op switch {
                         "+" => value1 + value2,
@@ -158,9 +158,9 @@ namespace AdventOfCode.Services
                 }
             }
         
-            long answer = (long)riddles.First(r => r.Name == "humn").Answer;
+            long answer = (long)riddles.First(r => r.Name == "humn").Answer!;
 
-            return await Utility.SubmitAnswer(2022, 21, true, answer, send);
+            return answer.ToString();
         }
     }
 }

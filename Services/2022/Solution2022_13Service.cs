@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2022_13Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_13.txt")).ToList();
 
@@ -22,10 +22,10 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Utility.SubmitAnswer(2022, 13, false, answer, send);
+            return answer.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_13.txt")).ToList();
             lines = lines.Where(line => !string.IsNullOrEmpty(line)).ToList();
@@ -36,7 +36,7 @@ namespace AdventOfCode.Services
 
             int answer = (lines.IndexOf("[[2]]") + 1) * (lines.IndexOf("[[6]]") + 1);
 
-            return await Utility.SubmitAnswer(2022, 13, true, answer, send);
+            return answer.ToString();
         }
 
         private int ComparePackets(string packet1, string packet2)

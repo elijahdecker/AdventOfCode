@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_21Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_21.txt"));
 
@@ -92,10 +92,10 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The minimum cost to beat the boss is {minCost}");
+            return minCost.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_21.txt"));
 
@@ -183,21 +183,22 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The max cost to not beat the boss is {maxCost}");
+            return maxCost.ToString();
         }
-    }
-
-    public class Item
-    {
-        public int Cost { get; set; }
-        public int Damage { get; set; }
-        public int Armor { get; set; }
-
-        public Item(int cost, int damage, int armor)
+        
+        private class Item
         {
-            Cost = cost;
-            Damage = damage;
-            Armor = armor;
+            public int Cost { get; set; }
+            public int Damage { get; set; }
+            public int Armor { get; set; }
+
+            public Item(int cost, int damage, int armor)
+            {
+                Cost = cost;
+                Damage = damage;
+                Armor = armor;
+            }
         }
     }
+
 }

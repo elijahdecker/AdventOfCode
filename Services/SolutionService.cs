@@ -1,16 +1,18 @@
 namespace AdventOfCode.Services
 {
-    public class SolutionService : ISolutionService
+    public class SolutionService
     {
         private readonly IServiceProvider serviceProvider;
+        private readonly AdventOfCodeGateway adventOfCodeGateway;
 
-        public SolutionService(IServiceProvider serviceProvider)
+        public SolutionService(IServiceProvider serviceProvider, AdventOfCodeGateway adventOfCodeGateway)
         {
             this.serviceProvider = serviceProvider;
+            this.adventOfCodeGateway = adventOfCodeGateway;
         }
 
         /// <summary>
-        /// Execute the specific solution by finding the day's solution service
+        /// Execute the specific solution based on the passed in parameters
         /// </summary>
         /// <param name="year"></param>
         /// <param name="day"></param>
@@ -20,9 +22,37 @@ namespace AdventOfCode.Services
         /// <exception cref="SolutionNotFoundException"></exception>
         public async Task<string> GetSolution(int year, int day, bool secondHalf, bool send)
         {
-            // Fetch the specific service
+            ISolutionDayService service = FindSolutionService(year, day);
+
+            // Run the specific solution
+            string answer = secondHalf ? service.SecondHalf() : service.FirstHalf();
+
+            // Optionally submit the answer to AoC
+            if (send) {
+                try {
+                    await adventOfCodeGateway.SubmitAnswer(year, day, secondHalf, answer);
+                }
+                catch (Exception) {
+                    Console.WriteLine("An error occured while submitting the answer to Advent of Code");
+                    throw;
+                }
+            }
+
+            return answer;
+        }
+
+        /// <summary>
+        /// Fetch the specific service for the specified year and day
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="day"></param>
+        /// <returns></returns>
+        private ISolutionDayService FindSolutionService(int year, int day) {
             IEnumerable<ISolutionDayService> services = serviceProvider.GetServices<ISolutionDayService>();
-            ISolutionDayService service = services.FirstOrDefault(s => s.GetType().ToString() == $"AdventOfCode.Services.Solution{year}_{day:D2}Service");
+
+            // Use ':D2' to front pad 0s to single digit days to match the formatting
+            string serviceName = $"AdventOfCode.Services.Solution{year}_{day:D2}Service";
+            ISolutionDayService? service = services.FirstOrDefault(s => s.GetType().ToString() == serviceName);
 
             // If the service was not found, throw an exception
             if (service == null)
@@ -30,8 +60,7 @@ namespace AdventOfCode.Services
                 throw new SolutionNotFoundException($"No solutions found for day {day}/{year}.");
             }
 
-            // Get the specific solution
-            return secondHalf ? await service.SecondHalf(send) : await service.FirstHalf(send);
+            return service;
         }
     }
 }

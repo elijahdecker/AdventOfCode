@@ -11,7 +11,7 @@ namespace AdventOfCode.Services
 
         public Solution2022_22Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_22.txt")).ToList();
 
@@ -133,10 +133,10 @@ namespace AdventOfCode.Services
 
             int answer = 1000 * row + 4 * column + (int)facing;
 
-            return await Utility.SubmitAnswer(2022, 22, false, answer, send);
+            return answer.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_22.txt")).ToList();
 
@@ -423,7 +423,7 @@ namespace AdventOfCode.Services
             // Too low 54269
             // Too Low 93304
 
-            return await Utility.SubmitAnswer(2022, 22, true, answer, send);
+            return answer.ToString();
         }
     }
 }

@@ -1,18 +1,18 @@
 namespace AdventOfCode.Services
 {
-    public class SensorBeaconPair {
-        public int SensorX {get; set;}
-        public int SensorY {get; set;}
-        public int BeaconX {get; set;}
-        public int BeaconY {get; set;}
-        public int Distance {get; set;}
-    }
-
     public class Solution2022_15Service : ISolutionDayService
     {
         public Solution2022_15Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        private class SensorBeaconPair {
+            public int SensorX {get; set;}
+            public int SensorY {get; set;}
+            public int BeaconX {get; set;}
+            public int BeaconY {get; set;}
+            public int Distance {get; set;}
+        }
+
+        public string FirstHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_15.txt")).ToList();
             List<SensorBeaconPair> sensors = lines.QuickRegex(@"Sensor at x=(-?\d+), y=(-?\d+): closest beacon is at x=(-?\d+), y=(-?\d+)").ToInts().Select(sensorBeaconPair => new SensorBeaconPair(){
@@ -50,10 +50,10 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Utility.SubmitAnswer(2022, 15, false, answer, send);
+            return answer.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_15.txt")).ToList();
             List<SensorBeaconPair> sensors = lines.QuickRegex(@"Sensor at x=(-?\d+), y=(-?\d+): closest beacon is at x=(-?\d+), y=(-?\d+)").ToInts().Select(sensorBeaconPair => new SensorBeaconPair(){
@@ -101,7 +101,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Utility.SubmitAnswer(2022, 15, true, answer, send);
+            return answer.ToString();
         }
     }
 }

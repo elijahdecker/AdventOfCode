@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_13Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_13.txt"));
             string[] lines = data.Split("\n");
@@ -34,7 +34,7 @@ namespace AdventOfCode.Services
             // If the 1st option was not fiexed we would get repeated permutations since we're in a ciruclar table
             string[] keys = values.Keys.Skip(1).ToArray();
 
-            IEnumerable<IEnumerable<string>> permutations = GetPermutations(keys, keys.Length);
+            IEnumerable<IEnumerable<string>> permutations = keys.GetPermutations(keys.Length);
 
             List<List<string>> options = new();
             foreach (IEnumerable<string> permutation in permutations)
@@ -70,10 +70,10 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The max happiness from an optimal seating arrangement is {maxHappiness}.");
+            return maxHappiness.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_13.txt"));
             string[] lines = data.Split("\n");
@@ -105,7 +105,7 @@ namespace AdventOfCode.Services
 
             keys = keys.Append("Me").ToArray();
 
-            IEnumerable<IEnumerable<string>> permutations = GetPermutations(keys, keys.Length);
+            IEnumerable<IEnumerable<string>> permutations = keys.GetPermutations(keys.Length);
 
             List<List<string>> options = new();
             foreach (IEnumerable<string> permutation in permutations)
@@ -149,16 +149,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The max happiness from an optimal seating arrangement including yourself is {maxHappiness}.");
-        }
-
-        private static IEnumerable<IEnumerable<string>> GetPermutations(IEnumerable<string> list, int length)
-        {
-            return length == 1
-                ? list.Select(t => new string[] { t })
-                : GetPermutations(list, length - 1)
-                .SelectMany(t => list.Where(e => !t.Contains(e)),
-                    (t1, t2) => t1.Concat(new string[] { t2 }));
+            return maxHappiness.ToString();
         }
     }
 }

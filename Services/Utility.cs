@@ -1,17 +1,28 @@
-using HtmlAgilityPack;
 using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Services
 {
-    // Reminders of useful LINQ functions
-    // Chunk(n) splits list into list of lists of length n
-    // Except returns the list of values from the first not in the second
-    // Intersect returns the list of values in both lists
-    // Union returns a list of distinct elements between 2 lists
-    // Zip combine each element of 2 lists 
-    // Enumerable.Range(a, b) starting at a, increments with each element b times
-    // Enumerable.Repeat(a, b) repeats a, b times
+    #region Usefull Classes
+    public class Point
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int Value { get; set; }
+    }
+    #endregion
 
+    // Reminders of useful LINQ functions
+    //    * Chunk(n) splits list into list of lists of length n
+    //    * Except returns the list of values from the first not in the second
+    //    * Intersect returns the list of values in both lists
+    //    * Union returns a list of distinct elements between 2 lists
+    //    * Zip combine each element of 2 lists 
+    //    * Enumerable.Range(a, b) starting at a, increments with each element b times
+    //    * Enumerable.Repeat(a, b) repeats a, b times
+
+    /// <summary>
+    /// This class holds a handful of custom helper functions to make solving these problems easier
+    /// </summary>
     public static class Utility
     {
         /// <summary>
@@ -176,70 +187,6 @@ namespace AdventOfCode.Services
         }
 
         /// <summary>
-        /// Returns the answer as a string by default
-        /// If send is set to true, submits the answer to Advent of Code and returns the response
-        /// </summary>
-        /// <param name="year"></param>
-        /// <param name="day"></param>
-        /// <param name="secondHalf"></param>
-        /// <param name="answer"></param>
-        /// <param name="send"></param>
-        /// <returns></returns>
-        public static async Task<string> SubmitAnswer<T>(int year, int day, bool secondHalf, T answer, bool send = false)
-        {
-            return await PostAnswer(year, day, secondHalf, answer.ToString(), send);
-        }
-
-        private static async Task<string> PostAnswer(int year, int day, bool secondHalf, string answer, bool send = false)
-        {
-            string reponse = string.Empty;
-
-            if (send)
-            {
-                Uri baseAddress = new("https://adventofcode.com");
-                using HttpClientHandler handler = new() { UseCookies = false };
-                using HttpClient client = new(handler) { BaseAddress = baseAddress };
-                
-                // Don't modify this User Agent, it should match the repo making the request and not the user making the request
-                client.DefaultRequestHeaders.UserAgent.ParseAdd($".NET 7.0 (+via https://github.com/austin-owensby/AdventOfCode by austin_owensby@hotmail.com)");
-
-                string cookie = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "PuzzleHelper/Cookie.txt"));
-                client.DefaultRequestHeaders.Add("Cookie", cookie);
-
-                Dictionary<string, string> data = new(){
-                        { "level", secondHalf ? "2" : "1"},
-                        { "answer", answer }
-                    };
-
-                HttpContent request = new FormUrlEncodedContent(data);
-
-                HttpResponseMessage result = await client.PostAsync($"/{year}/day/{day}/answer", request);
-
-                result.EnsureSuccessStatusCode();
-                reponse = await result.Content.ReadAsStringAsync();
-
-                try
-                {
-                    // Find article component
-                    HtmlDocument doc = new();
-                    doc.LoadHtml(reponse);
-                    HtmlNode article = doc.DocumentNode.SelectSingleNode("//article/p");
-                    reponse = article.InnerHtml;
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Error parsing html response.");
-                }
-            }
-            else
-            {
-                reponse = answer;
-            }
-
-            return reponse;
-        }
-
-        /// <summary>
         /// Pivot's a 2D list
         /// </summary>
         /// <param name="list"></param>
@@ -293,6 +240,15 @@ namespace AdventOfCode.Services
             else {
                 return num + (long)Math.Ceiling((double)Math.Abs(num) / mod) * mod;
             }
+        }
+
+        public static IEnumerable<IEnumerable<string>> GetPermutations(this IEnumerable<string> list, int length)
+        {
+            return length == 1
+                ? list.Select(t => new string[] { t })
+                : list.GetPermutations(length - 1)
+                .SelectMany(t => list.Where(e => !t.Contains(e)),
+                    (t1, t2) => t1.Concat(new string[] { t2 }));
         }
     }
 }

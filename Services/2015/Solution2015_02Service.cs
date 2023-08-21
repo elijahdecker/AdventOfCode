@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_02Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             int total = 0;
 
@@ -29,10 +29,10 @@ namespace AdventOfCode.Services
                 total += surfaceArea;
             }
 
-            return await Task.FromResult($"Total area of wrapping paper needed: {total} ft^2.");
+            return total.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             int total = 0;
 
@@ -57,7 +57,7 @@ namespace AdventOfCode.Services
                 total += surfaceArea;
             }
 
-            return await Task.FromResult($"Total area of ribbon needed: {total} ft^2.");
+            return total.ToString();
         }
     }
 }

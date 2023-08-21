@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_03Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_03.txt"));
 
@@ -27,10 +27,10 @@ namespace AdventOfCode.Services
                 locationsVisited[currentLocation] = locationsVisited.ContainsKey(currentLocation) ? locationsVisited[currentLocation] + 1 : 1;
             }
 
-            return await Task.FromResult($"Number of houses that received at least 1 present {locationsVisited.Count}.");
+            return locationsVisited.Count.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_03.txt"));
 
@@ -76,7 +76,7 @@ namespace AdventOfCode.Services
                 robotSantasTurn = !robotSantasTurn;
             }
 
-            return await Task.FromResult($"Number of houses that received at least 1 present {locationsVisited.Count}.");
+            return locationsVisited.Count.ToString();
         }
     }
 }

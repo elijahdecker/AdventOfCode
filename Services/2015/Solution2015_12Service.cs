@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_12Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_12.txt"));
 
@@ -25,10 +25,10 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The sum of all the numbers in the document is {sum}.");
+            return sum.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_12.txt"));
 
@@ -100,14 +100,14 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The sum of all the numbers in the document after fixing the red double count is {currentObject.Sum}.");
+            return currentObject.Sum.ToString();
         }
-    }
 
-    public class ParsedData
-    {
-        public bool IsArray { get; set; }
-        public int Sum { get; set; }
-        public bool HasRed { get; set; }
+        private class ParsedData
+        {
+            public bool IsArray { get; set; }
+            public int Sum { get; set; }
+            public bool HasRed { get; set; }
+        }
     }
 }

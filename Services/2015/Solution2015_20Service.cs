@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2015_20Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_20.txt"));
 
@@ -35,10 +35,10 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The lowest house number of the house to get at least {goalNumber} presents is {foundHouse}.");
+            return foundHouse.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_20.txt"));
 
@@ -95,7 +95,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The lowest house number of the house to get at least {goalNumber} presents is {foundHouse}.");
+            return foundHouse.ToString();
         }
     }
 }

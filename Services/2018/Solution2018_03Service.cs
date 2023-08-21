@@ -4,7 +4,7 @@ namespace AdventOfCode.Services
     {
         public Solution2018_03Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             string[] lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_03.txt"));
 
@@ -34,10 +34,10 @@ namespace AdventOfCode.Services
 
             int duplicateSquares = usedFabric.Count(f => f > 1);
 
-            return await Task.FromResult($"The number of squares with two or more claims is {duplicateSquares}.");
+            return duplicateSquares.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             string[] lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_03.txt"));
 
@@ -105,7 +105,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The only ID without overlap is {idWithNoOverlap}");
+            return idWithNoOverlap.ToString();
         }
     }
 }

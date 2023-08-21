@@ -4,17 +4,17 @@ namespace AdventOfCode.Services
     {
         public Solution2018_01Service() { }
 
-        public async Task<string> FirstHalf(bool send)
+        public string FirstHalf()
         {
             string[] data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_01.txt"));
             List<int> changes = data.Select(int.Parse).ToList();
 
             int resultingFrequency = changes.Sum();
 
-            return await Task.FromResult($"The resulting frequency is {resultingFrequency}");
+            return resultingFrequency.ToString();
         }
 
-        public async Task<string> SecondHalf(bool send)
+        public string SecondHalf()
         {
             string[] data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_01.txt"));
             List<int> changes = data.Select(int.Parse).ToList();
@@ -39,7 +39,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            return await Task.FromResult($"The first frequency that is reached twice is {currentFrequency}");
+            return currentFrequency.ToString();
         }
     }
 }
