@@ -41,5 +41,11 @@ namespace AdventOfCode.Controllers
         {
             return await puzzleHelperService.RunDaily(year, day);
         }
+
+        [HttpPost("init")]
+        public async Task InitializeRepo()
+        {
+            await puzzleHelperService.InitializeRepo();
+        }
     }
 }
