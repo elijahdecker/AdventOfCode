@@ -14,28 +14,14 @@
     {
         string output = string.Empty;
 
-        // Server time is UTC-5
-        DateTime now = DateTime.UtcNow.AddHours(-5);
-        int latestPuzzleYear, latestPuzzleDay;
-
-        // If we're in December, then the latest available puzzle is today
-        if (now.Month == 12)
-        {
-            latestPuzzleYear = now.Year;
-
-            // If it's December 26th-31st the latest day is the 25th
-            latestPuzzleDay = Math.Min(now.Day, Globals.CRISTMAS_DATE);
-        }
-        else
-        {
-            // Otherwise the latest puzzle is from the end of the previous event
-            latestPuzzleYear = now.Year - 1;
-            latestPuzzleDay = Globals.CRISTMAS_DATE;
-        }
+        Tuple<int, int> latestResults = GetLatestYearAndDate();
+        int latestPuzzleYear = latestResults.Item1;
+        int latestPuzzleDay = latestResults.Item2;
 
         bool update = false;
 
         // Create a folder for each year that is missing one
+        DateTime now = DateTime.UtcNow.AddHours(Globals.SERVER_UTC_OFFSET);
         for (int year = Globals.START_YEAR; year <= now.Year; year++)
         {
             string yearFolderPath = Path.Combine(Environment.CurrentDirectory, $"Services/{year}");
@@ -110,27 +96,10 @@
                 // Only import the file if it is available
                 if (year < latestPuzzleYear || (year == latestPuzzleYear && day <= latestPuzzleDay))
                 {
-                    string inputFilePath = Path.Combine(Environment.CurrentDirectory, $"Inputs/{year}_{day:D2}.txt");
+                    update |= await WriteInputFile(year, day);
 
-                    if (!File.Exists(inputFilePath))
-                    {
-                        using StreamWriter inputFile = new(inputFilePath);
-
-                        string response;
-                        try
-                        {
-                            response = await adventOfCodeGateway.ImportInput(year, day);
-                        }
-                        catch (Exception) {
-                            Console.WriteLine("An error occured while getting the puzzle input from Advent of Code");
-                            throw;
-                        }
-
-                        await inputFile.WriteAsync(response);
-
-                        Console.WriteLine($"Created input file for Year: {year}, Day: {day}.");
+                    if (update) {
                         output += $"Created input file for Year: {year}, Day: {day}.\n";
-                        update = true;
                     }
                 }
             }
@@ -155,12 +124,74 @@
     {
         string output = string.Empty;
 
-        // Server time is UTC-5
-        DateTime now = DateTime.UtcNow.AddHours(-5);
+        Tuple<int, int> latestResults = GetLatestYearAndDate();
+        int latestPuzzleYear = latestResults.Item1;
+        int latestPuzzleDay = latestResults.Item2;
+
+        if (latestPuzzleYear < year || latestPuzzleYear == year && latestPuzzleDay < day) {
+            Console.WriteLine("No updates applied.");
+            output += "No updates applied.\n";
+        }
+        else {
+            bool update = await WriteInputFile(year, day);
+
+            if (update) {
+                output = $"Created input file for Year: {year}, Day: {day}.";
+            }
+            else
+            {
+                Console.WriteLine("No updates applied.");
+                output += "No updates applied.\n ";
+            }
+        }
+
+        return output;
+    }
+
+    /// <summary>
+    /// Fetch and write the input file if it doesn't exist
+    /// </summary>
+    /// <param name="year"></param>
+    /// <param name="day"></param>
+    /// <returns></returns>
+    private async Task<bool> WriteInputFile(int year, int day)
+    {
+        bool update = false;
+        string inputFilePath = Path.Combine(Environment.CurrentDirectory, $"Inputs/{year}_{day:D2}.txt");
+
+        if (!File.Exists(inputFilePath))
+        {
+            using StreamWriter inputFile = new(inputFilePath);
+
+            string response;
+            try
+            {
+                response = await adventOfCodeGateway.ImportInput(year, day);
+            }
+            catch (Exception) {
+                Console.WriteLine("An error occured while getting the puzzle input from Advent of Code");
+                throw;
+            }
+
+            await inputFile.WriteAsync(response);
+
+            Console.WriteLine($"Created input file for Year: {year}, Day: {day}.");
+            update = true;
+        }
+
+        return update;
+    }
+
+    /// <summary>
+    /// Based on today's date, calculate the latest AOC year and day available
+    /// </summary>
+    /// <returns></returns>
+    private Tuple<int, int> GetLatestYearAndDate() {
+        DateTime now = DateTime.UtcNow.AddHours(Globals.SERVER_UTC_OFFSET);
         int latestPuzzleYear, latestPuzzleDay;
 
         // If we're in December, then the latest available puzzle is today
-        if (now.Month == 12)
+        if (now.Month == Globals.DECEMBER)
         {
             latestPuzzleYear = now.Year;
 
@@ -174,39 +205,6 @@
             latestPuzzleDay = Globals.CRISTMAS_DATE;
         }
 
-        if (latestPuzzleYear < year || latestPuzzleYear == year && latestPuzzleDay < day) {
-            Console.WriteLine("No updates applied.");
-            output += "No updates applied.\n";
-        }
-        else {
-            string inputFilePath = Path.Combine(Environment.CurrentDirectory, $"Inputs/{year}_{day:D2}.txt");
-
-            if (!File.Exists(inputFilePath))
-            {
-                string response;
-                try
-                {
-                    response = await adventOfCodeGateway.ImportInput(year, day);
-                }
-                catch (Exception) {
-                    Console.WriteLine("An error occured while getting the puzzle input from Advent of Code");
-                    throw;
-                }
-
-                using StreamWriter inputFile = new(inputFilePath);
-
-                await inputFile.WriteAsync(response);
-
-                Console.WriteLine($"Created input file for Year: {year}, Day: {day}.");
-                output = $"Created input file for Year: {year}, Day: {day}.";
-            }
-            else
-            {
-                Console.WriteLine("No updates applied.");
-                output += "No updates applied.\n ";
-            }
-        }
-
-        return output;
+        return Tuple.Create(latestPuzzleYear, latestPuzzleDay);
     }
 }

@@ -67,6 +67,7 @@ Imports the input from Advent of Code for a specific day. Useful when you want a
 
 ## TODO
 - Add an easy way to switch between the example and real input
+- Structure input files into folders
 - Add reset API
 - Add Utility to decode printed text in a grid
 - Find a way to limit the API

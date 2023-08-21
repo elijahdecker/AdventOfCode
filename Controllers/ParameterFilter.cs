@@ -21,9 +21,8 @@ namespace AdventOfCode.Controllers
             // Ensure that the input year is a valid value (2015-Latest year with an active event)
             if (parameter.Name.Equals("year", StringComparison.InvariantCultureIgnoreCase))
             {
-                // Server time is UTC-5
-                DateTime now = DateTime.UtcNow.AddHours(-5);
-                int latestPuzzleYear = now.Year - (now.Month == 12 ? 0 : 1);
+                DateTime now = DateTime.UtcNow.AddHours(Globals.SERVER_UTC_OFFSET);
+                int latestPuzzleYear = now.Year - (now.Month == Globals.DECEMBER ? 0 : 1);
 
                 List<int> daysInDecember = Enumerable.Range(Globals.START_YEAR, latestPuzzleYear - Globals.START_YEAR + 1).ToList();
                 parameter.Schema.Enum = daysInDecember.Select(d => new OpenApiString(d.ToString())).ToList<IOpenApiAny>();
