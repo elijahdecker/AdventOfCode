@@ -8,7 +8,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_08.txt"));
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "08.txt"));
 
             int charDifference = 0;
 
@@ -21,7 +21,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_08.txt"));
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "08.txt"));
 
             int charDifference = 0;
 

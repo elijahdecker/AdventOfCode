@@ -6,7 +6,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_08.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "08.txt")).ToList();
 
             List<List<int>> grid = lines.Select(l => l.ToInts()).ToList();
 
@@ -104,7 +104,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_08.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "08.txt")).ToList();
 
             List<List<int>> grid = lines.Select(l => l.ToInts()).ToList();
 

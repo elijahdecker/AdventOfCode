@@ -6,7 +6,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_13.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "13.txt")).ToList();
 
             List<List<string>> packets = lines.ChunkByExclusive(string.IsNullOrEmpty);
 
@@ -27,7 +27,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_13.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "13.txt")).ToList();
             lines = lines.Where(line => !string.IsNullOrEmpty(line)).ToList();
             lines.Add("[[2]]");
             lines.Add("[[6]]");

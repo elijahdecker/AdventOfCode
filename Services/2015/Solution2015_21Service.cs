@@ -6,7 +6,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_21.txt"));
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "21.txt"));
 
             string[] lines = data.Split("\n");
             int bossStartHealth = int.Parse(lines[0].Split(" ")[2]);
@@ -97,7 +97,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_21.txt"));
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "21.txt"));
 
             string[] lines = data.Split("\n");
             int bossStartHealth = int.Parse(lines[0].Split(" ")[2]);

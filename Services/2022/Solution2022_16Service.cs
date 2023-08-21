@@ -146,7 +146,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_16.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "16.txt")).ToList();
 
             // Parse the file into a list of valves
             Valves = lines.QuickRegex(@"Valve (.+) has flow rate=(\d+); tunnels? leads? to valves? (.+)").Select(valve => new Valve(){
@@ -179,7 +179,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_16.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "16.txt")).ToList();
 
             // Parse the file into a list of valves
             Valves = lines.QuickRegex(@"Valve (.+) has flow rate=(\d+); tunnels? leads? to valves? (.+)").Select(valve => new Valve(){

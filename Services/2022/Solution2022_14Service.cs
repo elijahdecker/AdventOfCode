@@ -6,7 +6,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_14.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "14.txt")).ToList();
 
             List<List<Point>> rockLines = lines.Select(line => line.SplitSubstring(" -> ").QuickRegex(@"(\d+),(\d+)").ToInts().Select(l => new Point()
             {
@@ -137,7 +137,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_14.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "14.txt")).ToList();
 
             List<List<Point>> rockLines = lines.Select(line => line.SplitSubstring(" -> ").QuickRegex(@"(\d+),(\d+)").ToInts().Select(l => new Point()
             {

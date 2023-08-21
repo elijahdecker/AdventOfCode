@@ -6,7 +6,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_04.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "04.txt")).ToList();
 
             int matches = lines.Select(line => line.QuickRegex(@"(\d+)-(\d+),(\d+)-(\d+)").ToInts()).Sum(digits =>
             {
@@ -30,7 +30,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_04.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "04.txt")).ToList();
 
             int matches = lines.Select(line => line.QuickRegex(@"(\d+)-(\d+),(\d+)-(\d+)").ToInts()).Sum(digits =>
             {

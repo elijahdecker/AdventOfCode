@@ -6,7 +6,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_06.txt"));
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "06.txt"));
             string[] lines = data.Split("\n");
 
             bool[,] lightArray = new bool[1000, 1000];
@@ -63,7 +63,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_06.txt"));
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "06.txt"));
             string[] lines = data.Split("\n");
 
             int[,] lightArray = new int[1000, 1000];

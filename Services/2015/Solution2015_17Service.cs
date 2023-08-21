@@ -6,7 +6,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_17.txt"));
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "17.txt"));
 
             List<int> containers = data.Split("\n").SkipLast(1).Select(int.Parse).OrderBy(d => d).ToList();
             int targetTotal = 150;
@@ -36,7 +36,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_17.txt"));
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "17.txt"));
 
             List<int> containers = data.Split("\n").SkipLast(1).Select(int.Parse).OrderBy(d => d).ToList();
             int targetTotal = 150;

@@ -9,7 +9,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_04.txt"));
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "04.txt"));
             data = data.Remove(data.Length - 1, 1); // Remove the newline character
 
             int addedDigit = 1;
@@ -46,7 +46,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_04.txt"));
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "04.txt"));
             data = data.Remove(data.Length - 1, 1); // Remove the newline character
 
             int addedDigit = 1;

@@ -6,7 +6,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_05.txt"));
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2018", "05.txt"));
             data = data.Replace("\n", "").Replace("\r", "");
 
             bool keepLooping = true;
@@ -54,7 +54,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            string originalData = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_05.txt"));
+            string originalData = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2018", "05.txt"));
             originalData = originalData.Replace("\n", "").Replace("\r", "");
 
             string letters = "abcdefghijklmnopqrstuvwxyz";

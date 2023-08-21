@@ -3,24 +3,10 @@ using HtmlAgilityPack;
 public class AdventOfCodeGateway
 {
     private readonly HttpClient client;
+    private readonly int throttleInMinutes = 3;
+    private DateTimeOffset? lastCall = null;
 
-    public AdventOfCodeGateway() {
-        // Setup the HttpClient for making API calls
-        Uri baseAddress = new("https://adventofcode.com");
-        using HttpClientHandler handler = new() { UseCookies = false };
-        using HttpClient client = new(handler) { BaseAddress = baseAddress };
-
-        // Don't modify this User Agent, it should match the repo making the request and not the user making the request
-        client.DefaultRequestHeaders.UserAgent.ParseAdd($".NET 7.0 (+via https://github.com/austin-owensby/AdventOfCode by austin_owensby@hotmail.com)");
-
-        try {
-            string cookie = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "PuzzleHelper/Cookie.txt"));
-            client.DefaultRequestHeaders.Add("Cookie", cookie);
-        }
-        catch (Exception) {
-            throw new Exception("Unable to read Cookie.txt. Make sure that it exists in the PuzzleHelper folder. See the ReadMe for more.");
-        }
-        
+    public AdventOfCodeGateway(HttpClient client) {
         this.client = client;
     }
 
@@ -32,10 +18,13 @@ public class AdventOfCodeGateway
     /// <returns></returns>
     public async Task<string> ImportInput(int year, int day)
     {
+        ThrottleCall();
+
         HttpRequestMessage message = new(HttpMethod.Get, $"/{year}/day/{day}/input");
 
         HttpResponseMessage result = await client.SendAsync(message);
         string response = await GetSuccessfulResponseContent(result);
+
         return response;
     }
 
@@ -50,6 +39,8 @@ public class AdventOfCodeGateway
     /// <returns></returns>
     public async Task<string> SubmitAnswer(int year, int day, bool secondHalf, string answer)
     {
+        ThrottleCall();
+
         Dictionary<string, string> data = new()
         {
             { "level", secondHalf ? "2" : "1"},
@@ -86,5 +77,18 @@ public class AdventOfCodeGateway
     private async Task<string> GetSuccessfulResponseContent(HttpResponseMessage result) {
         result.EnsureSuccessStatusCode();
         return await result.Content.ReadAsStringAsync();
+    }
+
+    /// <summary>
+    /// Tracks the last API call and prevents another call from being made until after the configured limit
+    /// </summary>
+    private void ThrottleCall() {
+        // If someone is running the project for the first time that's 400 calls
+        if (lastCall != null && (DateTimeOffset.Now < lastCall.Value.AddMinutes(throttleInMinutes))) {
+            throw new Exception($"Unable to make another API call to AOC Server to grab your input because we are attempting to throttle calls according to their specifications (See more in the ReadMe). Please try again after {lastCall.Value.AddMinutes(throttleInMinutes)}.");
+        }
+        else {
+            lastCall = DateTimeOffset.Now;
+        }
     }
 }

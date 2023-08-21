@@ -21,7 +21,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_06.txt")).ToList();
+            List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2018", "06.txt")).ToList();
 
             List<Point> origins = data.Select(d => new Point(d)).ToList();
 
@@ -64,7 +64,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_06.txt")).ToList();
+            List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2018", "06.txt")).ToList();
 
             List<Point> origins = data.Select(d => new Point(d)).ToList();
 

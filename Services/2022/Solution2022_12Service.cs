@@ -14,7 +14,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_12.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "12.txt")).ToList();
 
             string startLine = lines.First(line => line.Contains("S"));
             string endLine = lines.First(line => line.Contains("E"));
@@ -169,7 +169,7 @@ namespace AdventOfCode.Services
         public string SecondHalf()
         {
 
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_12.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "12.txt")).ToList();
 
             string endLine = lines.First(line => line.Contains("E"));
 

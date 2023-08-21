@@ -37,6 +37,15 @@ If you would like to use this project's template for you own solution and inputs
 
 The program is idempotent (You can run this multiple times as it will only add files if they are needed.)
 
+### Automation
+The Puzzle Helper does follow the automation guidelines on the [/r/adventofcode community wiki](https://www.reddit.com/r/adventofcode/wiki/faqs/automation).
+
+Specifically:
+* Outbound calls are throttled to every 3 minutes in the AdventOfCodeGateway's `ThrottleCall()` function
+* Once inputs are downloaded, they are cached locally (PuzzleHelper's `WriteInputFile(int year, int day)` function) through either the `api/puzzle-helper` or `api/puzzle-helper-daily` endpoints described below.
+* If you suspect your input is corrupted, you can get a fresh copy by deleting the old file and re-running the `api/puzzle-helper-daily` endpoint.
+* The User-Agent header in the Program.cs's gateway configuration is set to me since I maintain this tool :)
+
 ## API
 
 ### GET `api/run-solution`
@@ -51,7 +60,8 @@ Runs a specific day's solution, posts the answer to Advent of Code, and returns 
 
 ### POST `api/puzzle-helper`
 
-Imports all missing inputs from Advent of Code as well as creating missing solution files.
+Imports all missing inputs from Advent of Code as well as creating missing service files.
+This can be run before the event starts to pre-emptively populate the service files for the upcoming advent as well as importing the past advent inputs.
 
 ### POST `api/puzzle-helper-daily`
 - Query parameters
@@ -67,7 +77,5 @@ Imports the input from Advent of Code for a specific day. Useful when you want a
 
 ## TODO
 - Add an easy way to switch between the example and real input
-- Structure input files into folders
 - Add reset API
 - Add Utility to decode printed text in a grid
-- Find a way to limit the API

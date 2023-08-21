@@ -11,7 +11,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            List<int> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_20.txt")).ToInts();
+            List<int> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "20.txt")).ToInts();
 
             List<FileValue> fileValues = new();
 
@@ -49,7 +49,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            List<long> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_20.txt")).ToLongs();
+            List<long> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "20.txt")).ToLongs();
 
             List<FileValue> fileValues = new();
 

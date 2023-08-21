@@ -6,7 +6,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            string[] data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_01.txt"));
+            string[] data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2018", "01.txt"));
             List<int> changes = data.Select(int.Parse).ToList();
 
             int resultingFrequency = changes.Sum();
@@ -16,7 +16,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            string[] data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_01.txt"));
+            string[] data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2018", "01.txt"));
             List<int> changes = data.Select(int.Parse).ToList();
 
             List<int> reachedFrequencies = new();

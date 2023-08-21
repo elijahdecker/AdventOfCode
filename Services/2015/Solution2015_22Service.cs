@@ -99,7 +99,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015_22.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "22.txt")).ToList();
 
             int bossHitPoints = lines.First().QuickRegex(@"Hit Points: (\d+)").ToInts().First();
             int bossDamage = lines.Last().QuickRegex(@"Damage: (\d+)").ToInts().First();
@@ -114,7 +114,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015_22.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "22.txt")).ToList();
 
             int bossHitPoints = lines.First().QuickRegex(@"Hit Points: (\d+)").ToInts().First();
             int bossDamage = lines.Last().QuickRegex(@"Damage: (\d+)").ToInts().First();

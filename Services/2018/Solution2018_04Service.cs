@@ -8,7 +8,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_04.txt")).OrderBy(s => s).ToList();
+            List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2018", "04.txt")).OrderBy(s => s).ToList();
 
             Dictionary<int, List<TimeOnly>> guardWakingMinutes = new();
 
@@ -101,7 +101,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2018_04.txt")).OrderBy(s => s).ToList();
+            List<string> data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2018", "04.txt")).OrderBy(s => s).ToList();
 
             Dictionary<int, List<TimeOnly>> guardWakingMinutes = new();
 

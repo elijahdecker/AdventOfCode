@@ -13,7 +13,20 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // Add the gateway as singleton since almost all API calls use it and it sets up a client that we'd like to keep configured
-builder.Services.AddSingleton<AdventOfCodeGateway>();
+builder.Services.AddSingleton<AdventOfCodeGateway>()
+    .AddHttpClient(string.Empty, c => {
+        c.BaseAddress = new Uri("https://adventofcode.com");
+        // Don't modify this User Agent, it should match the repo making the request and not the user making the request
+        c.DefaultRequestHeaders.UserAgent.ParseAdd($".NET 7.0 (+via https://github.com/austin-owensby/AdventOfCode by austin_owensby@hotmail.com)");
+        
+        try {
+            string cookie = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "PuzzleHelper/Cookie.txt"));
+            c.DefaultRequestHeaders.Add("Cookie", cookie);
+        }
+        catch (Exception) {
+            throw new Exception("Unable to read Cookie.txt. Make sure that it exists in the PuzzleHelper folder. See the ReadMe for more.");
+        }
+    });
 
 // Adding all services as Transient because on each request, we should only call the service once.
 // We could use Singleton for preformance improvement on succesive calls,

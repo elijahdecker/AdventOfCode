@@ -6,7 +6,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_05.txt"));
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "05.txt"));
             string[] lines = data.Split("\n");
             char[] vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
             string[] invalidStrings = new string[] { "ab", "cd", "pq", "xy" };
@@ -58,7 +58,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_05.txt"));
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "05.txt"));
             string[] lines = data.Split("\n");
 
             int niceCount = 0;

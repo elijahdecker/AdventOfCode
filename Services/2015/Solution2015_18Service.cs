@@ -6,7 +6,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_18.txt"));
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "18.txt"));
             string[] lights = data.Split("\n").SkipLast(1).ToArray();
             string[] nextState = new string[100];
             int numberOfStages = 100;
@@ -65,7 +65,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_18.txt"));
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "18.txt"));
             string[] lights = data.Split("\n").SkipLast(1).ToArray();
             string[] nextState = new string[100];
             int numberOfStages = 100;

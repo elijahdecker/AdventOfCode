@@ -53,7 +53,7 @@
 
                 public string FirstHalf()
                 {
-                    List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "{{year}}_{{day:D2}}.txt")).ToList();
+                    List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "{{year}}", "{{day:D2}}.txt")).ToList();
 
                     int answer = 0;
 
@@ -72,7 +72,7 @@
                         return "There is no problem for Day 25 part 2, solve all other problems to get the last star.";
                         """ :
                         $$"""
-                        List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "{{year}}_{{day:D2}}.txt")).ToList();
+                        List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "{{year}}", "{{day:D2}}.txt")).ToList();
 
                                     int answer = 0;
 
@@ -157,12 +157,18 @@
     private async Task<bool> WriteInputFile(int year, int day)
     {
         bool update = false;
-        string inputFilePath = Path.Combine(Environment.CurrentDirectory, $"Inputs/{year}_{day:D2}.txt");
+        
+        string yearFolderPath = Path.Combine(Environment.CurrentDirectory, $"Inputs/{year}");
+
+        if (!Directory.Exists(yearFolderPath))
+        {
+            Directory.CreateDirectory(yearFolderPath);
+        }
+
+        string inputFilePath = Path.Combine(Environment.CurrentDirectory, $"Inputs/{year}/{day:D2}.txt");
 
         if (!File.Exists(inputFilePath))
         {
-            using StreamWriter inputFile = new(inputFilePath);
-
             string response;
             try
             {
@@ -173,6 +179,7 @@
                 throw;
             }
 
+            using StreamWriter inputFile = new(inputFilePath);
             await inputFile.WriteAsync(response);
 
             Console.WriteLine($"Created input file for Year: {year}, Day: {day}.");

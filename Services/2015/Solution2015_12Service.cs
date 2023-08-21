@@ -6,7 +6,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_12.txt"));
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "12.txt"));
 
             int sum = 0;
             List<char> validNumberCharacters = new() { '-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
@@ -30,7 +30,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_12.txt"));
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "12.txt"));
 
             Stack<ParsedData> stack = new();
             ParsedData currentObject = new();

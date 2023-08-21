@@ -13,7 +13,7 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_22.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "22.txt")).ToList();
 
             List<List<char>> grid = lines.SkipLast(2).Select(line => line.ToList()).ToList();
             string unparsedInstruction = lines.Last();
@@ -138,7 +138,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022_22.txt")).ToList();
+            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "22.txt")).ToList();
 
             List<List<char>> grid = lines.SkipLast(2).Select(line => line.ToList()).ToList();
             string unparsedInstruction = lines.Last();

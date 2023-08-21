@@ -9,7 +9,7 @@ namespace AdventOfCode.Services
             int total = 0;
 
             // Read file contents
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_02.txt"));
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "02.txt"));
             string[] lines = data.Split("\n");
             foreach (string line in lines)
             {
@@ -37,7 +37,7 @@ namespace AdventOfCode.Services
             int total = 0;
 
             // Read file contents
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"Inputs", "2015_02.txt"));
+            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "02.txt"));
             string[] lines = data.Split("\n");
             foreach (string line in lines)
             {
