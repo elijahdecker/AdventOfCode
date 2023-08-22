@@ -30,7 +30,8 @@ namespace AdventOfCode.Services
             // Optionally submit the answer to AoC
             if (send) {
                 try {
-                    await adventOfCodeGateway.SubmitAnswer(year, day, secondHalf, answer);
+                    string response = await adventOfCodeGateway.SubmitAnswer(year, day, secondHalf, answer);
+                    answer = $"Submitted answer: {answer}.\nAdvent of Code response: {response}";
                 }
                 catch (Exception) {
                     Console.WriteLine("An error occured while submitting the answer to Advent of Code");

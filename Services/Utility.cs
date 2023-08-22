@@ -257,14 +257,68 @@ namespace AdventOfCode.Services
                     (t1, t2) => t1.Concat(new T[] { t2 }));
         }
         
+        /// <summary>
+        /// Simplified ToString for char array
+        /// </summary>
+        /// <param name="chars"></param>
+        /// <returns></returns>
         public static string CharsToString(this char[] chars) {
             return new string(chars);
         }
 
-        public static string CharsToString(this List<char> chars) {
+        /// <summary>
+        /// Simplified ToString for char list
+        /// </summary>
+        /// <param name="chars"></param>
+        /// <returns></returns>
+        public static string CharsToString(this IEnumerable<char> chars) {
             return new string(chars.ToArray());
         }
 
+        /// <summary>
+        /// Returns a list of indexes in a list based on a condition
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="predicate"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static List<int> FindIndexes<T>(this IEnumerable<T> list, Func<T, bool> predicate) {
+            List<int> indexes = new();
+
+            for (int i = 0; i < list.Count(); i++)
+            {
+                T item = list.ElementAt(i);
+
+                if (predicate(item))
+                {
+                    indexes.Add(i);
+                }
+            }
+
+            return indexes;
+        }
+
+        /// <summary>
+        /// Given a string and desired height, print the ASCII and map it to a readable string
+        /// </summary>
+        /// <param name="characters"></param>
+        /// <param name="height"></param>
+        /// <param name="emptyChar"></param>
+        /// <param name="textChar"></param>
+        /// <returns></returns>
+        public static string ParseASCIILetters(IEnumerable<char> characters, int height, char emptyChar = '.', char textChar = '#') {
+            string text = string.Join(string.Empty, characters);
+            return ParseASCIILetters(text, height, emptyChar, textChar);
+        }
+
+        /// <summary>
+        /// Given a string and desired height, print the ASCII and map it to a readable string
+        /// </summary>
+        /// <param name="characters"></param>
+        /// <param name="height"></param>
+        /// <param name="emptyChar"></param>
+        /// <param name="textChar"></param>
+        /// <returns></returns>
         public static string ParseASCIILetters(string characters, int height, char emptyChar = '.', char textChar = '#') {
             List<int> availableHeights = new(){6, 10};
             if (!availableHeights.Contains(height)) {
