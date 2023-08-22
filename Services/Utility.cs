@@ -242,13 +242,495 @@ namespace AdventOfCode.Services
             }
         }
 
-        public static IEnumerable<IEnumerable<string>> GetPermutations(this IEnumerable<string> list, int length)
+        /// <summary>
+        /// Get all permutations for the list
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static IEnumerable<IEnumerable<T>> GetPermutations<T>(this IEnumerable<T> list, int length)
         {
             return length == 1
-                ? list.Select(t => new string[] { t })
+                ? list.Select(t => new T[] { t })
                 : list.GetPermutations(length - 1)
                 .SelectMany(t => list.Where(e => !t.Contains(e)),
-                    (t1, t2) => t1.Concat(new string[] { t2 }));
+                    (t1, t2) => t1.Concat(new T[] { t2 }));
         }
+        
+        public static string CharsToString(this char[] chars) {
+            return new string(chars);
+        }
+
+        public static string CharsToString(this List<char> chars) {
+            return new string(chars.ToArray());
+        }
+
+        public static string ParseASCIILetters(string characters, int height, char emptyChar = '.', char textChar = '#') {
+            List<int> availableHeights = new(){6, 10};
+            if (!availableHeights.Contains(height)) {
+                throw new Exception($"There is no mapping for height: {height}, only {string.Join(", ", availableHeights)}.");
+            }
+
+            string formattedOutput = characters.Replace(emptyChar, '.').Replace(textChar, '#');
+            IEnumerable<char[]> outputRows = formattedOutput.Chunk(characters.Length/height);
+
+            foreach (char[] outputLine in outputRows)
+            {
+                string value = new(outputLine);
+                Console.WriteLine(value.Replace('#', '█').Replace('.', ' '));
+            }
+
+            IEnumerable<string> pivotedOutput = outputRows.Pivot().Select(r => r.CharsToString());
+            List<List<string>> rotatedLetters = pivotedOutput.ChunkByExclusive(x => x == new string('.', height));
+            List<List<string>> letters = rotatedLetters.Select(x => x.Pivot().Select(y => y.CharsToString()).ToList()).ToList();
+
+            string parsedOutput = "";
+
+            Dictionary<string, char> mapping = height == 6 ? ASCIIMap6 : ASCIIMap10;
+
+            foreach (List<string> letter in letters) {
+                string key = string.Join(string.Empty, letter);
+
+                if (mapping.ContainsKey(key)) {
+                    parsedOutput += mapping[key];
+                }
+                else {
+                    parsedOutput += '?';
+                }
+            }
+
+            return parsedOutput;
+        }
+
+        // ABCEFGHIJKLOPRSUYZ
+        private static readonly Dictionary<string, char> ASCIIMap6 = new(){
+            {
+                """
+                .##.
+                #..#
+                #..#
+                ####
+                #..#
+                #..#
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'A'
+            },
+            {
+                """
+                ###.
+                #..#
+                ###.
+                #..#
+                #..#
+                ###.
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'B'
+            },
+            {
+                """
+                .##.
+                #..#
+                #...
+                #...
+                #..#
+                .##.
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'C'
+            },
+            {
+                """
+                ####
+                #...
+                ###.
+                #...
+                #...
+                ####
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'E'
+            },
+            {
+                """
+                ####
+                #...
+                ###.
+                #...
+                #...
+                #...
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'F'
+            },
+            {
+                """
+                .##.
+                #..#
+                #...
+                #.##
+                #..#
+                .###
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'G'
+            },
+            {
+                """
+                #..#
+                #..#
+                ####
+                #..#
+                #..#
+                #..#
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'H'
+            },
+            {
+                """
+                ###
+                .#.
+                .#.
+                .#.
+                .#.
+                ###
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'I'
+            },
+            {
+                """
+                ..##
+                ...#
+                ...#
+                ...#
+                #..#
+                .##.
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'J'
+            },
+            {
+                """
+                #..#
+                #.#.
+                ##..
+                #.#.
+                #.#.
+                #..#
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'K'
+            },
+            {
+                """
+                #...
+                #...
+                #...
+                #...
+                #...
+                ####
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'L'
+            },
+            {
+                """
+                .##.
+                #..#
+                #..#
+                #..#
+                #..#
+                .##.
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'O'
+            },
+            {
+                """
+                ###.
+                #..#
+                #..#
+                ###.
+                #...
+                #...
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'P'
+            },
+            {
+                """
+                ###.
+                #..#
+                #..#
+                ###.
+                #.#.
+                #..#
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'R'
+            },
+            {
+                """
+                .###
+                #...
+                #...
+                .##.
+                ...#
+                ###.
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'S'
+            },
+            {
+                """
+                #..#
+                #..#
+                #..#
+                #..#
+                #..#
+                .##.
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'U'
+            },
+            {
+                """
+                #...#
+                #...#
+                .#.#.
+                ..#..
+                ..#..
+                ..#..
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'Y'
+            },
+            {
+                """
+                ####
+                ...#
+                ..#.
+                .#..
+                #...
+                ####
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'Z'
+            }
+        };
+    
+        // ABCEFGHJKLNPRXZ
+        private static readonly Dictionary<string, char> ASCIIMap10 = new(){
+            {
+                """
+                ..##..
+                .#..#.
+                #....#
+                #....#
+                #....#
+                ######
+                #....#
+                #....#
+                #....#
+                #....#
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'A'
+            },
+            {
+                """
+                #####.
+                #....#
+                #....#
+                #....#
+                #####.
+                #....#
+                #....#
+                #....#
+                #....#
+                #####.
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'B'
+            },
+            {
+                """
+                .####.
+                #....#
+                #.....
+                #.....
+                #.....
+                #.....
+                #.....
+                #.....
+                #....#
+                .####.
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'C'
+            },
+            {
+                """
+                ######
+                #.....
+                #.....
+                #.....
+                #####.
+                #.....
+                #.....
+                #.....
+                #.....
+                ######
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'E'
+            },
+            {
+                """
+                ######
+                #.....
+                #.....
+                #.....
+                #####.
+                #.....
+                #.....
+                #.....
+                #.....
+                #.....
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'F'
+            },
+            {
+                """
+                .####.
+                #....#
+                #.....
+                #.....
+                #.....
+                #..###
+                #....#
+                #....#
+                #...##
+                .###.#
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'G'
+            },
+            {
+                """
+                #....#
+                #....#
+                #....#
+                #....#
+                ######
+                #....#
+                #....#
+                #....#
+                #....#
+                #....#
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'H'
+            },
+            {
+                """
+                ...###
+                ....#.
+                ....#.
+                ....#.
+                ....#.
+                ....#.
+                ....#.
+                #...#.
+                #...#.
+                .###..
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'J'
+            },
+            {
+                """
+                #....#
+                #...#.
+                #..#..
+                #.#...
+                ##....
+                ##....
+                #.#...
+                #..#..
+                #...#.
+                #....#
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'K'
+            },
+            {
+                """
+                #.....
+                #.....
+                #.....
+                #.....
+                #.....
+                #.....
+                #.....
+                #.....
+                #.....
+                ######
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'L'
+            },
+            {
+                """
+                #....#
+                ##...#
+                ##...#
+                #.#..#
+                #.#..#
+                #..#.#
+                #..#.#
+                #...##
+                #...##
+                #....#
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'N'
+            },
+            {
+                """
+                #####.
+                #....#
+                #....#
+                #....#
+                #####.
+                #.....
+                #.....
+                #.....
+                #.....
+                #.....
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'P'
+            },
+            {
+                """
+                #####.
+                #....#
+                #....#
+                #....#
+                #####.
+                #..#..
+                #...#.
+                #...#.
+                #....#
+                #....#
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'R'
+            },
+            {
+                """
+                #....#
+                #....#
+                .#..#.
+                .#..#.
+                ..##..
+                ..##..
+                .#..#.
+                .#..#.
+                #....#
+                #....#
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'X'
+            },
+            {
+                """
+                ######
+                .....#
+                .....#
+                ....#.
+                ...#..
+                ..#...
+                .#....
+                #.....
+                #.....
+                ######
+                """.Replace("\r", string.Empty).Replace("\n", string.Empty)
+                ,'Z'
+            }
+        };
     }
 }

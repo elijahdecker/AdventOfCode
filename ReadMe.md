@@ -82,4 +82,3 @@ This only needs to be run once for a new user.
 
 ## TODO
 - Add an easy way to switch between the example and real input
-- Add Utility to decode printed text in a grid

@@ -80,14 +80,7 @@ namespace AdventOfCode.Services
                 }
             }
 
-            foreach (char[] outputLine in output.Chunk(40))
-            {
-                string value = new(outputLine);
-                Console.WriteLine(value);
-            }
-
-            // Can't automatically report the answer for this one without detecting letters
-            return output.ToString();
+            return Utility.ParseASCIILetters(output, 6);
         }
     }
 }
