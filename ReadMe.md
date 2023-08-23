@@ -42,6 +42,7 @@ Specifically:
 * The User-Agent header in the Program.cs's gateway configuration is set to me since I maintain this tool :)
 
 ## API
+If using the Swagger web page, it will also come with its own documentation.
 
 ### GET `api/run-solution`
 - Query parameters
@@ -70,11 +71,6 @@ The program is idempotent (You can run this multiple times as it will only add f
 Imports the input from Advent of Code for a specific day. Useful when you want a streamlined version of the above call to only check for a specific day.
 
 The program is idempotent (You can run this multiple times as it will only add files if they are needed.)
-
-### POST `api/init`
-
-Clears existing input files and services files and finally runs the `api/puzzle-helper` function to get fresh inputs and service files.
-This only needs to be run once for a new user.
 
 ## Extra Notes
 - The admin of Advent of Code have requested that puzzle inputs be cached (To reduce load on the system) and not be made publically available (To make it harder to completely copy the site)
