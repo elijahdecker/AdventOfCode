@@ -6,73 +6,28 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "17.txt"));
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "17.txt")).ToList();
 
-            List<int> containers = data.Split("\n").SkipLast(1).Select(int.Parse).OrderBy(d => d).ToList();
-            int targetTotal = 150;
-            int totalCombinations = 0;
+            int answer = 0;
 
-            for (int i = 0; i < Math.Pow(2, 20); i++)
-            {
-                int continerSum = 0;
+            foreach (string line in lines) {
 
-                for (int j = 0; j < containers.Count; j++)
-                {
-                    int binaryPower = (int)Math.Pow(2, j);
-                    if ((i & binaryPower) == binaryPower)
-                    {
-                        continerSum += containers[j];
-                    }
-                }
-
-                if (continerSum == targetTotal)
-                {
-                    totalCombinations++;
-                }
             }
 
-            return totalCombinations.ToString();
+            return answer.ToString();
         }
 
         public string SecondHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "17.txt"));
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "17.txt")).ToList();
 
-            List<int> containers = data.Split("\n").SkipLast(1).Select(int.Parse).OrderBy(d => d).ToList();
-            int targetTotal = 150;
-            int totalCombinations = 0;
-            int minRequiredContainers = int.MaxValue;
+            int answer = 0;
 
-            for (int i = 0; i < Math.Pow(2, 20); i++)
-            {
-                int continerSum = 0;
-                int containersUsed = 0;
+            foreach (string line in lines) {
 
-                for (int j = 0; j < containers.Count; j++)
-                {
-                    int binaryPower = (int)Math.Pow(2, j);
-                    if ((i & binaryPower) == binaryPower)
-                    {
-                        continerSum += containers[j];
-                        containersUsed++;
-                    }
-                }
-
-                if (continerSum == targetTotal)
-                {
-                    if (containersUsed < minRequiredContainers)
-                    {
-                        minRequiredContainers = containersUsed;
-                        totalCombinations = 1;
-                    }
-                    else if (containersUsed == minRequiredContainers)
-                    {
-                        totalCombinations++;
-                    }
-                }
             }
 
-            return totalCombinations.ToString();
+            return answer.ToString();
         }
     }
 }

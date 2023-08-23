@@ -6,88 +6,28 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "10.txt"));
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "10.txt")).ToList();
 
-            List<int> currentList = data.Split("\n")[0].Select(s => (int)char.GetNumericValue(s)).ToList();
-            List<int> newList = new();
-            int numberOfLoops = 40;
+            int answer = 0;
 
-            for (int i = 0; i < numberOfLoops; i++)
-            {
-                int currentNumber = currentList[0];
-                int currentLength = 0;
+            foreach (string line in lines) {
 
-                for (int j = 0; j < currentList.Count; j++)
-                {
-                    int number = currentList[j];
-
-                    if (currentNumber != number)
-                    {
-                        newList.Add(currentLength);
-                        newList.Add(currentNumber);
-                        currentNumber = number;
-                        currentLength = 1;
-                    }
-                    else
-                    {
-                        currentLength++;
-                    }
-
-                    if (j == currentList.Count - 1)
-                    {
-                        newList.Add(currentLength);
-                        newList.Add(number);
-                    }
-                }
-
-                currentList = newList;
-                newList = new();
             }
 
-            return currentList.Count.ToString();
+            return answer.ToString();
         }
 
         public string SecondHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "10.txt"));
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "10.txt")).ToList();
 
-            List<int> currentList = data.Split("\n")[0].Select(s => (int)char.GetNumericValue(s)).ToList();
-            List<int> newList = new();
-            int numberOfLoops = 50;
+            int answer = 0;
 
-            for (int i = 0; i < numberOfLoops; i++)
-            {
-                int currentNumber = currentList[0];
-                int currentLength = 0;
+            foreach (string line in lines) {
 
-                for (int j = 0; j < currentList.Count; j++)
-                {
-                    int number = currentList[j];
-
-                    if (currentNumber != number)
-                    {
-                        newList.Add(currentLength);
-                        newList.Add(currentNumber);
-                        currentNumber = number;
-                        currentLength = 1;
-                    }
-                    else
-                    {
-                        currentLength++;
-                    }
-
-                    if (j == currentList.Count - 1)
-                    {
-                        newList.Add(currentLength);
-                        newList.Add(number);
-                    }
-                }
-
-                currentList = newList;
-                newList = new();
             }
 
-            return currentList.Count.ToString();
+            return answer.ToString();
         }
     }
 }

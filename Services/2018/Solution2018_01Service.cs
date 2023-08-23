@@ -6,40 +6,28 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            string[] data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2018", "01.txt"));
-            List<int> changes = data.Select(int.Parse).ToList();
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2018", "01.txt")).ToList();
 
-            int resultingFrequency = changes.Sum();
+            int answer = 0;
 
-            return resultingFrequency.ToString();
+            foreach (string line in lines) {
+
+            }
+
+            return answer.ToString();
         }
 
         public string SecondHalf()
         {
-            string[] data = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2018", "01.txt"));
-            List<int> changes = data.Select(int.Parse).ToList();
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2018", "01.txt")).ToList();
 
-            List<int> reachedFrequencies = new();
-            int currentFrequency = 0;
-            bool duplicateFrequencyFound = false;
+            int answer = 0;
 
-            while (!duplicateFrequencyFound)
-            {
-                foreach (int change in changes)
-                {
-                    if (reachedFrequencies.Contains(currentFrequency))
-                    {
-                        duplicateFrequencyFound = true;
-                        break;
-                    }
+            foreach (string line in lines) {
 
-                    reachedFrequencies.Add(currentFrequency);
-
-                    currentFrequency += change;
-                }
             }
 
-            return currentFrequency.ToString();
+            return answer.ToString();
         }
     }
 }

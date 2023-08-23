@@ -6,112 +6,28 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2018", "05.txt"));
-            data = data.Replace("\n", "").Replace("\r", "");
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2018", "05.txt")).ToList();
 
-            bool keepLooping = true;
+            int answer = 0;
 
-            while (keepLooping)
-            {
-                string filteredData = string.Empty;
-                bool matchFound = false;
-                bool matchRecentlyFound = false;
+            foreach (string line in lines) {
 
-                char previousChar = char.MaxValue;
-
-                foreach (char currentChar in data)
-                {
-                    // Check if we should eliminate a pair
-                    if (previousChar != currentChar && char.ToLower(previousChar) == char.ToLower(currentChar))
-                    {
-                        matchFound = true;
-                        matchRecentlyFound = true;
-
-                        previousChar = char.MaxValue;
-                        filteredData = filteredData.Remove(filteredData.Length - 1); // Remove the previous char
-                    }
-                    else if (matchRecentlyFound)
-                    {
-                        matchRecentlyFound = false;
-                        previousChar = currentChar;
-                        filteredData += currentChar;
-                    }
-                    else
-                    {
-                        previousChar = currentChar;
-                        filteredData += currentChar;
-                    }
-                }
-
-                // If there was no match found, stop looping
-                keepLooping = matchFound;
-
-                data = filteredData;
             }
 
-            return data.Length.ToString();
+            return answer.ToString();
         }
 
         public string SecondHalf()
         {
-            string originalData = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2018", "05.txt"));
-            originalData = originalData.Replace("\n", "").Replace("\r", "");
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2018", "05.txt")).ToList();
 
-            string letters = "abcdefghijklmnopqrstuvwxyz";
+            int answer = 0;
 
-            int minValue = int.MaxValue;
+            foreach (string line in lines) {
 
-            foreach (char letter in letters)
-            {
-                string data = new(originalData.Where(c => c != letter && c != char.ToUpper(letter)).ToArray());
-
-                bool keepLooping = true;
-
-                while (keepLooping)
-                {
-                    string filteredData = string.Empty;
-                    bool matchFound = false;
-                    bool matchRecentlyFound = false;
-
-                    char previousChar = char.MaxValue;
-
-                    foreach (char currentChar in data)
-                    {
-                        // Check if we should eliminate a pair
-                        if (previousChar != currentChar && char.ToLower(previousChar) == char.ToLower(currentChar))
-                        {
-                            matchFound = true;
-                            matchRecentlyFound = true;
-
-                            previousChar = char.MaxValue;
-                            filteredData = filteredData.Remove(filteredData.Length - 1); // Remove the previous char
-                        }
-                        else if (matchRecentlyFound)
-                        {
-                            matchRecentlyFound = false;
-                            previousChar = currentChar;
-                            filteredData += currentChar;
-                        }
-                        else
-                        {
-                            previousChar = currentChar;
-                            filteredData += currentChar;
-                        }
-                    }
-
-                    // If there was no match found, stop looping
-                    keepLooping = matchFound;
-
-                    data = filteredData;
-                }
-
-                if (data.Length < minValue)
-                {
-                    minValue = data.Length;
-                }
             }
 
-            return minValue.ToString();
+            return answer.ToString();
         }
     }
 }

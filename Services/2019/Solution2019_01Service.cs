@@ -6,32 +6,25 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2019", "01.txt")).ToList();
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2019", "01.txt")).ToList();
 
-            int answer = lines.ToInts().Sum(l => (int)Math.Floor((double)l / 3) - 2);
+            int answer = 0;
+
+            foreach (string line in lines) {
+
+            }
 
             return answer.ToString();
         }
 
         public string SecondHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2019", "01.txt")).ToList();
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2019", "01.txt")).ToList();
 
             int answer = 0;
 
-            foreach (int line in lines.ToInts())
-            {
-                int mass = line;
+            foreach (string line in lines) {
 
-                do
-                {
-                    mass = (int)Math.Floor((double)mass / 3) - 2;
-
-                    if (mass > 0)
-                    {
-                        answer += mass;
-                    }
-                } while (mass > 0);
             }
 
             return answer.ToString();

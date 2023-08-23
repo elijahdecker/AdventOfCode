@@ -1,6 +1,3 @@
-using System.Security.Cryptography;
-using System.Text;
-
 namespace AdventOfCode.Services
 {
     public class Solution2015_04Service : ISolutionDayService
@@ -9,77 +6,28 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "04.txt"));
-            data = data.Remove(data.Length - 1, 1); // Remove the newline character
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "04.txt")).ToList();
 
-            int addedDigit = 1;
-            MD5 md5 = MD5.Create();
+            int answer = 0;
 
-            while (true)
-            {
-                string calculatedString = $"{data}{addedDigit}";
-                byte[] result = md5.ComputeHash(Encoding.UTF8.GetBytes(calculatedString));
+            foreach (string line in lines) {
 
-                StringBuilder hex = new(result.Length * 2);
-                foreach (byte b in result)
-                {
-                    _ = hex.AppendFormat("{0:x2}", b);
-                }
-
-                string hexString = hex.ToString();
-
-                // Check for 5 leading 0s in hexadecinal
-                if (hexString[0] == '0' &&
-                hexString[1] == '0' &&
-                hexString[2] == '0' &&
-                hexString[3] == '0' &&
-                hexString[4] == '0')
-                {
-                    break;
-                }
-
-                addedDigit++;
             }
 
-            return data;
+            return answer.ToString();
         }
 
         public string SecondHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "04.txt"));
-            data = data.Remove(data.Length - 1, 1); // Remove the newline character
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "04.txt")).ToList();
 
-            int addedDigit = 1;
-            MD5 md5 = MD5.Create();
+            int answer = 0;
 
-            while (true)
-            {
-                string calculatedString = $"{data}{addedDigit}";
-                byte[] result = md5.ComputeHash(Encoding.UTF8.GetBytes(calculatedString));
+            foreach (string line in lines) {
 
-                StringBuilder hex = new(result.Length * 2);
-                foreach (byte b in result)
-                {
-                    _ = hex.AppendFormat("{0:x2}", b);
-                }
-
-                string hexString = hex.ToString();
-
-                // Check for 5 leading 0s in hexadecinal
-                if (hexString[0] == '0' &&
-                hexString[1] == '0' &&
-                hexString[2] == '0' &&
-                hexString[3] == '0' &&
-                hexString[4] == '0' &&
-                hexString[5] == '0')
-                {
-                    break;
-                }
-
-                addedDigit++;
             }
 
-            return data.ToString();
+            return answer.ToString();
         }
     }
 }

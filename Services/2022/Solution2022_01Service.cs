@@ -6,22 +6,28 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "01.txt")).ToList();
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "01.txt")).ToList();
 
-            int answer = lines.ChunkByExclusive(string.IsNullOrWhiteSpace).Select(elf => elf.ToInts().Sum()).Max();
+            int answer = 0;
+
+            foreach (string line in lines) {
+
+            }
 
             return answer.ToString();
         }
 
         public string SecondHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "01.txt")).ToList();
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "01.txt")).ToList();
 
-            List<int> calories = lines.ChunkByExclusive(string.IsNullOrWhiteSpace).Select(elf => elf.ToInts().Sum()).ToList();
+            int answer = 0;
 
-            int total3 = calories.OrderDescending().Take(3).Sum();
+            foreach (string line in lines) {
 
-            return total3.ToString();
+            }
+
+            return answer.ToString();
         }
     }
 }

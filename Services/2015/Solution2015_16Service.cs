@@ -6,158 +6,28 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "16.txt"));
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "16.txt")).ToList();
 
-            string[] lines = data.Split("\n").SkipLast(1).ToArray();
+            int answer = 0;
 
-            Dictionary<string, int> mfcsam = new(){
-                {"children:", 3},
-                {"cats:", 7},
-                {"samoyeds:", 2},
-                {"pomeranians:", 3},
-                {"akitas:", 0},
-                {"vizslas:", 0},
-                {"goldfish:", 5},
-                {"trees:", 3},
-                {"cars:", 2},
-                {"perfumes:", 1}
-            };
+            foreach (string line in lines) {
 
-            int correctAunt = 0;
-
-            foreach (string line in lines)
-            {
-                string[] words = line.Split(" ");
-
-                string word = words[2];
-                int value = int.Parse(words[3].Split(",")[0]);
-
-                if (mfcsam[word] == value)
-                {
-                    word = words[4];
-                    value = int.Parse(words[5].Split(",")[0]);
-
-                    if (mfcsam[word] == value)
-                    {
-                        word = words[6];
-                        value = int.Parse(words[7]);
-
-                        if (mfcsam[word] == value)
-                        {
-                            correctAunt = int.Parse(words[1].Split(":")[0]);
-                        }
-                    }
-                }
             }
 
-            return correctAunt.ToString();
+            return answer.ToString();
         }
 
         public string SecondHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "16.txt"));
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "16.txt")).ToList();
 
-            string[] lines = data.Split("\n").SkipLast(1).ToArray();
+            int answer = 0;
 
-            Dictionary<string, int> mfcsam = new(){
-                {"children:", 3},
-                {"cats:", 7},
-                {"samoyeds:", 2},
-                {"pomeranians:", 3},
-                {"akitas:", 0},
-                {"vizslas:", 0},
-                {"goldfish:", 5},
-                {"trees:", 3},
-                {"cars:", 2},
-                {"perfumes:", 1}
-            };
+            foreach (string line in lines) {
 
-            int correctAunt = 0;
-
-            foreach (string line in lines)
-            {
-                string[] words = line.Split(" ");
-
-                string word = words[2];
-                int value = int.Parse(words[3].Split(",")[0]);
-
-                if (word is "cats:" or "tress:")
-                {
-                    if (mfcsam[word] >= value)
-                    {
-                        continue;
-                    }
-                }
-                else if (word is "pomeranians:" or "goldfish:")
-                {
-                    if (mfcsam[word] <= value)
-                    {
-                        continue;
-                    }
-                }
-                else
-                {
-                    if (mfcsam[word] != value)
-                    {
-                        continue;
-                    }
-                }
-
-                word = words[4];
-                value = int.Parse(words[5].Split(",")[0]);
-
-                if (word is "cats:" or "tress:")
-                {
-                    if (mfcsam[word] >= value)
-                    {
-                        continue;
-                    }
-                }
-                else if (word is "pomeranians:" or "goldfish:")
-                {
-                    if (mfcsam[word] <= value)
-                    {
-                        continue;
-                    }
-                }
-                else
-                {
-                    if (mfcsam[word] != value)
-                    {
-                        continue;
-                    }
-                }
-
-
-                word = words[6];
-                value = int.Parse(words[7]);
-
-                if (word is "cats:" or "tress:")
-                {
-                    if (mfcsam[word] >= value)
-                    {
-                        continue;
-                    }
-                }
-                else if (word is "pomeranians:" or "goldfish:")
-                {
-                    if (mfcsam[word] <= value)
-                    {
-                        continue;
-                    }
-                }
-                else
-                {
-                    if (mfcsam[word] != value)
-                    {
-                        continue;
-                    }
-                }
-
-                correctAunt = int.Parse(words[1].Split(":")[0]);
             }
 
-            return correctAunt.ToString();
+            return answer.ToString();
         }
     }
 }

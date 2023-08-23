@@ -6,130 +6,28 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "02.txt")).ToList();
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "02.txt")).ToList();
 
-            int score = 0;
+            int answer = 0;
 
-            foreach (string line in lines)
-            {
-                char firstLetter = line[2];
-                char secondLetter = line[0];
+            foreach (string line in lines) {
 
-                if (firstLetter == 'X')
-                {
-                    score++;
-
-                    if (secondLetter == 'C')
-                    {
-                        score += 6;
-                    }
-                    else if (secondLetter == 'A')
-                    {
-                        score += 3;
-                    }
-                }
-
-                if (firstLetter == 'Y')
-                {
-                    score += 2;
-
-                    if (secondLetter == 'A')
-                    {
-                        score += 6;
-                    }
-                    else if (secondLetter == 'B')
-                    {
-                        score += 3;
-                    }
-                }
-
-                if (firstLetter == 'Z')
-                {
-                    score += 3;
-
-                    if (secondLetter == 'B')
-                    {
-                        score += 6;
-                    }
-                    else if (secondLetter == 'C')
-                    {
-                        score += 3;
-                    }
-                }
             }
 
-            return score.ToString();
+            return answer.ToString();
         }
 
         public string SecondHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "02.txt")).ToList();
-            int score = 0;
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "02.txt")).ToList();
 
-            foreach (string line in lines)
-            {
-                char firstLetter = line[0];
-                char secondLetter = line[2];
+            int answer = 0;
 
-                if (secondLetter == 'Y')
-                {
-                    score += 3;
-                }
-                else if (secondLetter == 'Z')
-                {
-                    score += 6;
-                }
+            foreach (string line in lines) {
 
-                if (firstLetter == 'A')
-                {
-                    if (secondLetter == 'Y')
-                    {
-                        score++; // Tie with rock
-                    }
-                    else if (secondLetter == 'Z')
-                    {
-                        score += 2; // Win with paper
-                    }
-                    else
-                    {
-                        score += 3; // Lose with scissors
-                    }
-                }
-
-                if (firstLetter == 'B')
-                {
-                    if (secondLetter == 'Y')
-                    {
-                        score += 2; // Tie with paper
-                    }
-                    else if (secondLetter == 'Z')
-                    {
-                        score += 3;
-                    }
-                    else
-                    {
-                        score++;
-                    }
-                }
-
-                if (firstLetter == 'C')
-                {
-                    if (secondLetter == 'Y')
-                    {
-                        score += 3; // Tie with scissors
-                    }
-                    else if (secondLetter == 'Z')
-                    {
-                        score++;
-                    }
-                    else
-                    {
-                        score += 2;
-                    }
-                }
             }
 
-            return score.ToString();
+            return answer.ToString();
         }
     }
 }

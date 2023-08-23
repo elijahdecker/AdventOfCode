@@ -6,12 +6,11 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2018", "25.txt")).ToList();
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2018", "25.txt")).ToList();
 
             int answer = 0;
 
-            foreach (string line in lines)
-            {
+            foreach (string line in lines) {
 
             }
 
@@ -20,16 +19,7 @@ namespace AdventOfCode.Services
 
         public string SecondHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2018", "25.txt")).ToList();
-
-            int answer = 0;
-
-            foreach (string line in lines)
-            {
-
-            }
-
-            return answer.ToString();
+            return "There is no problem for Day 25 part 2, solve all other problems to get the last star.";
         }
     }
 }

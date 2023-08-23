@@ -6,33 +6,28 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "03.txt")).ToList();
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "03.txt")).ToList();
 
-            int sum = lines.Sum(line =>
-            {
-                List<char> firstHalf = line.Take(line.Length / 2).ToList();
-                List<char> secondHalf = line.TakeLast(line.Length / 2).ToList();
+            int answer = 0;
 
-                char itemType = firstHalf.Intersect(secondHalf).First();
+            foreach (string line in lines) {
 
-                return itemType.GetCharValue();
-            });
+            }
 
-            return sum.ToString();
+            return answer.ToString();
         }
 
         public string SecondHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "03.txt")).ToList();
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2022", "03.txt")).ToList();
 
-            int sum = lines.Chunk(3).Sum(c =>
-            {
-                char itemType = c[0].Intersect(c[1]).Intersect(c[2]).First();
+            int answer = 0;
 
-                return itemType.GetCharValue();
-            });
+            foreach (string line in lines) {
 
-            return sum.ToString();
+            }
+
+            return answer.ToString();
         }
     }
 }

@@ -6,52 +6,28 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "01.txt"));
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "01.txt")).ToList();
 
-            int floor = 0;
+            int answer = 0;
 
-            foreach (char character in data)
-            {
-                if (character == '(')
-                {
-                    floor++;
-                }
-                else if (character == ')')
-                {
-                    floor--;
-                }
+            foreach (string line in lines) {
+
             }
 
-            return floor.ToString();
+            return answer.ToString();
         }
 
         public string SecondHalf()
         {
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "01.txt"));
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "01.txt")).ToList();
 
-            int floor = 0;
-            int position = 1;
+            int answer = 0;
 
-            foreach (char character in data)
-            {
-                if (character == '(')
-                {
-                    floor++;
-                }
-                else if (character == ')')
-                {
-                    floor--;
-                }
+            foreach (string line in lines) {
 
-                if (floor == -1)
-                {
-                    break;
-                }
-
-                position++;
             }
 
-            return position.ToString();
+            return answer.ToString();
         }
     }
 }

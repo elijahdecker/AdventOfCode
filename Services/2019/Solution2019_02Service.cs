@@ -6,99 +6,25 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2019", "02.txt")).ToList();
-            List<int> program = lines.First().Split(",").ToInts();
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2019", "02.txt")).ToList();
 
-            // Fix 1202 program alarm from puzzle
-            program[1] = 12;
-            program[2] = 2;
+            int answer = 0;
 
-            int index = 0;
+            foreach (string line in lines) {
 
-            while(true) {
-                int opcode = program[index];
-
-                if (opcode == 99) {
-                    break;
-                }
-                else{
-                    int x = program[index + 1];
-                    int y = program[index + 2];
-                    int z = program[index + 3];
-
-                    if (opcode == 1) {
-                        // Add x + y = z
-                        program[z] = program[x] + program[y];
-                    }
-                    else if (opcode == 2) {
-                        // Devide x * y = z
-                        program[z] = program[x] * program[y];
-                    }
-                    else {
-                        throw new Exception($"Unknown opcode: {opcode}");
-                    }
-                }
-
-                index += 4;
             }
-
-            int answer = program[0];
 
             return answer.ToString();
         }
 
         public string SecondHalf()
         {
-            List<string> lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2019", "02.txt")).ToList();
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2019", "02.txt")).ToList();
 
             int answer = 0;
 
-            for (int i = 0; i <= 99; i++) {
-                for (int j = 0; j <= 99; j++) {
-                    List<int> program = lines.First().Split(",").ToInts();
-                    program[1] = i;
-                    program[2] = j;
+            foreach (string line in lines) {
 
-                    int index = 0;
-
-                    while(true) {
-                        int opcode = program[index];
-
-                        if (opcode == 99) {
-                            break;
-                        }
-                        else{
-                            int x = program[index + 1];
-                            int y = program[index + 2];
-                            int z = program[index + 3];
-
-                            if (opcode == 1) {
-                                // Add x + y = z
-                                program[z] = program[x] + program[y];
-                            }
-                            else if (opcode == 2) {
-                                // Devide x * y = z
-                                program[z] = program[x] * program[y];
-                            }
-                            else {
-                                throw new Exception($"Unknown opcode: {opcode}");
-                            }
-                        }
-
-                        index += 4;
-                    }
-
-                    int result = program[0];
-
-                    if (result == 19690720) {
-                        answer = i*100 + j;
-                        break;
-                    }
-                }
-
-                if (answer != 0) {
-                    break;
-                }
             }
 
             return answer.ToString();

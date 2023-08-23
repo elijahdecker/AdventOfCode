@@ -6,58 +6,28 @@ namespace AdventOfCode.Services
 
         public string FirstHalf()
         {
-            int total = 0;
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "02.txt")).ToList();
 
-            // Read file contents
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "02.txt"));
-            string[] lines = data.Split("\n");
-            foreach (string line in lines)
-            {
-                // Get dimensions of the box
-                List<int> dimensions = line.Split('x').Select(int.Parse).ToList();
+            int answer = 0;
 
-                int length = dimensions[0];
-                int width = dimensions[1];
-                int height = dimensions[2];
+            foreach (string line in lines) {
 
-                // Find min area of side
-                int minArea = new List<int>() { length * width, length * height, width * height }.Min();
-
-                // Calculate the used surface area
-                int surfaceArea = (2 * ((length * width) + (length * height) + (width * height))) + minArea;
-
-                total += surfaceArea;
             }
 
-            return total.ToString();
+            return answer.ToString();
         }
 
         public string SecondHalf()
         {
-            int total = 0;
+            List<string> lines =  File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "02.txt")).ToList();
 
-            // Read file contents
-            string data = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Inputs", "2015", "02.txt"));
-            string[] lines = data.Split("\n");
-            foreach (string line in lines)
-            {
-                // Get dimensions of the box
-                List<int> dimensions = line.Split('x').Select(int.Parse).ToList();
+            int answer = 0;
 
-                int length = dimensions[0];
-                int width = dimensions[1];
-                int height = dimensions[2];
+            foreach (string line in lines) {
 
-                // Find min perimeter of side
-                int minPerimeter = new List<int>() { 2 * (length + width), 2 * (length + height), 2 * (width + height) }.Min();
-
-                // Calculate the used surface area
-                int surfaceArea = (length * width * height) + minPerimeter;
-
-                total += surfaceArea;
             }
 
-            return total.ToString();
+            return answer.ToString();
         }
     }
 }
