@@ -21,12 +21,10 @@
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
-            "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
-            },
             "logging": {
                 "moduleLoad": false
-            }
+            },
+            "console":"integratedTerminal"
         },
         {
             "name": "Launch (web - no browser)",
@@ -40,12 +38,10 @@
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
-            "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
-            },
             "logging": {
                 "moduleLoad": false
-            }
+            },
+            "console":"integratedTerminal"
         }
     ]
 }
