@@ -58,7 +58,7 @@ Runs a specific day's solution, and optionally posts the answer to Advent of Cod
 ### POST `api/puzzle-helper`
 
 Creates missing service files.
-This can be run before the event starts to pre-emptively populate the service files for the upcoming advent as well as importing the past advent inputs.
+This can be run before the event starts to pre-emptively populate the service files for the upcoming advent.
 
 The program is idempotent (You can run this multiple times as it will only add files if they are needed.)
 
@@ -75,3 +75,7 @@ The program is idempotent (You can run this multiple times as it will only add f
 ## Extra Notes
 - The admin of Advent of Code have requested that puzzle inputs be cached (To reduce load on the system) and not be made publically available (To make it harder to completely copy the site)
 - This puzzle helper currently does not use the leaderboard api, but if you choose to copy this template and talk to the leaderboard, make sure to throttle the and cache the calls to not overload the server
+
+## TODO
+- Update Utility documentation
+- Standardize Swagger/ReadMe comments
