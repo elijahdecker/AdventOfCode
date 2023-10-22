@@ -14,10 +14,6 @@
     {
         string output = string.Empty;
 
-        Tuple<int, int> latestResults = GetLatestYearAndDate();
-        int latestPuzzleYear = latestResults.Item1;
-        int latestPuzzleDay = latestResults.Item2;
-
         bool update = false;
 
         // Create a folder for each year that is missing one
@@ -49,8 +45,6 @@
         {
             public class Solution{{year}}_{{day:D2}}Service : ISolutionDayService
             {
-                public Solution{{year}}_{{day:D2}}Service() { }
-
                 public string FirstHalf(bool example)
                 {
                     List<string> lines = Utility.GetInputLines({{year}},{{day}}, example);
@@ -105,7 +99,7 @@
     }
     
     /// <summary>
-    /// A streamlined version of the puzzle helper that imports just the day's input file.
+    /// Imports the day's input file.
     /// </summary>
     /// <param name="year"></param>
     /// <param name="day"></param>
@@ -114,7 +108,7 @@
     {
         string output = string.Empty;
 
-        Tuple<int, int> latestResults = GetLatestYearAndDate();
+        Tuple<int, int> latestResults = PuzzleHelperService.GetLatestYearAndDate();
         int latestPuzzleYear = latestResults.Item1;
         int latestPuzzleDay = latestResults.Item2;
 
@@ -183,7 +177,7 @@
     /// Based on today's date, calculate the latest AOC year and day available
     /// </summary>
     /// <returns></returns>
-    private Tuple<int, int> GetLatestYearAndDate() {
+    private static Tuple<int, int> GetLatestYearAndDate() {
         DateTime now = DateTime.UtcNow.AddHours(Globals.SERVER_UTC_OFFSET);
         int latestPuzzleYear, latestPuzzleDay;
 
