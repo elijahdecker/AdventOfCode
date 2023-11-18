@@ -28,7 +28,7 @@ builder.Services.AddTransient<PuzzleHelperService>();
 #region Here be dragons!
 // Here be dragons! ( Especially lazy dragons ;) )
 // Get a list of assembly types for the whole app
-Type[] assemblyTypes = Assembly.GetAssembly(typeof(Program))?.GetTypes() ?? Array.Empty<Type>();
+Type[] assemblyTypes = Assembly.GetAssembly(typeof(Program))?.GetTypes() ?? [];
 
 // Get only the types for the classes that inherit from the ISolutionDayService
 IEnumerable<Type> solutionDayServiceTypes = assemblyTypes.Where(x => !x.IsInterface && x.GetInterface(nameof(ISolutionDayService)) != null);

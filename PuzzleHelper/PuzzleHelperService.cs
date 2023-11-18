@@ -1,16 +1,12 @@
-﻿public class PuzzleHelperService
+﻿public class PuzzleHelperService(AdventOfCodeGateway adventOfCodeGateway)
 {
-    private readonly AdventOfCodeGateway adventOfCodeGateway;
-
-    public PuzzleHelperService(AdventOfCodeGateway adventOfCodeGateway) {
-        this.adventOfCodeGateway = adventOfCodeGateway;
-    }
+    private readonly AdventOfCodeGateway adventOfCodeGateway = adventOfCodeGateway;
 
     /// <summary>
     /// Generates solution files.
     /// </summary>
     /// <returns></returns>
-    public async Task<string> Run()
+    public async Task<string> GenerateMissingSolutionServiceFiles()
     {
         string output = string.Empty;
 
@@ -104,7 +100,7 @@
     /// <param name="year"></param>
     /// <param name="day"></param>
     /// <returns></returns>
-    public async Task<string> RunDaily(int year, int day)
+    public async Task<string> ImportInputFile(int year, int day)
     {
         string output = string.Empty;
 

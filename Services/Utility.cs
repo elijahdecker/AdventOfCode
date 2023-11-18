@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Services
 {
-    #region Usefull Classes
+    #region Useful Classes
     public class Point
     {
         public int X { get; set; }
@@ -32,31 +32,7 @@ namespace AdventOfCode.Services
     /// </summary>
     public static class Utility
     {
-        /// <summary>
-        /// Converts 'a' to 1 and 'A' to 27
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static int GetCharValue(this char value)
-        {
-            int asciiValue = value;
-
-            int offset = char.IsLower(value) ? 'a' - 1 : 'A' - 27;
-
-            return asciiValue - offset;
-        }
-
-        /// <summary>
-        /// Splits a string by a given substring
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="split"></param>
-        /// <remarks>Ex. SplitSubstring("ABC, DEF, GHI", ", ") would return a list with ["ABC", "DEF", "GHI"]</remarks>
-        /// <returns></returns>
-        public static List<string> SplitSubstring(this string input, string split) {
-            return input.Split(split).Where(l => l != split).ToList();
-        }
-
+        #region Array Operations
         /// <summary>
         /// Chunks a list based on a predicate. The element that matches the predicate is not included in a chunk 
         /// </summary>
@@ -114,6 +90,144 @@ namespace AdventOfCode.Services
 
             return resultList.Where(x => x.Any()).ToList();
         }
+       
+        /// <summary>
+        /// Pivot's a 2D list
+        /// </summary>
+        /// <param name="list"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <remarks>Ex. [[1,2],[3,4],[5,6]].Pivot() returns [[1, 3, 5], [2, 4, 6]]</remarks>
+        /// <returns></returns>
+        public static List<List<T>> Pivot<T>(this IEnumerable<IEnumerable<T>> list)
+        {
+            return list
+                .SelectMany(inner => inner.Select((item, index) => new { item, index }))
+                .GroupBy(i => i.index, i => i.item)
+                .Select(g => g.ToList())
+                .ToList();
+        }
+
+        /// <summary>
+        /// Reverses a list in place
+        /// </summary>
+        /// <param name="list"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static List<T> ReverseInPlace<T>(this List<T> list)
+        {
+            list.Reverse();
+
+            return list.ToList();
+        }
+        /// <summary>
+        /// Get all permutations for the list
+        /// </summary>
+        /// <param name="list"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <remarks>Ex. [1, 2, 3].GetPermutations() returns  [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]</remarks>
+        /// <returns></returns>
+        public static IEnumerable<IEnumerable<T>> GetPermutations<T>(this IEnumerable<T> list)
+        {
+            return GetPermutations(list, list.Count());
+        }
+
+        /// <summary>
+        /// Get all permutations for the list with a certain length
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="length"></param>
+        /// <remarks>Ex. [1, 2, 3].GetPermutations(2) returns  [[1, 2], [1, 3], [2, 1], [2, 3], [3, 1], [3, 2]]</remarks>
+        /// <returns></returns>
+        public static IEnumerable<IEnumerable<T>> GetPermutations<T>(this IEnumerable<T> list, int length)
+        {
+            return length == 1
+                ? list.Select(t => new T[] { t })
+                : list.GetPermutations(length - 1)
+                .SelectMany(t => list.Where(e => !t.Contains(e)),
+                    (t1, t2) => t1.Concat(new T[] { t2 }));
+        }
+
+        /// <summary>
+        /// Get all combinations for the list
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="length"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <remarks>Ex. [1, 2, 3].GetCombinations(2) returns [[1, 2], [1, 3], [2, 3]]</remarks>
+        /// <returns></returns>
+        public static IEnumerable<IEnumerable<T>> GetCombinations<T>(this IEnumerable<T> list, int length) where T : IComparable
+        {
+            return length == 1
+                ?  list.Select(t => new T[] { t })
+                :  list.GetCombinations(length - 1)
+                .SelectMany(t => list.Where(o => o.CompareTo(t.Last()) > 0), 
+                    (t1, t2) => t1.Concat(new T[] { t2 }));
+        }
+        
+        /// <summary>
+        /// Returns a list of indexes in a list based on a condition
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="predicate"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <remarks>Ex. [1, 2, 3, 4, 6].FindIndexes(x => x % 2 == 0) returns [1, 3, 4]</remarks>
+        /// <returns></returns>
+        public static List<int> FindIndexes<T>(this IEnumerable<T> list, Func<T, bool> predicate) {
+            List<int> indexes = new();
+
+            for (int i = 0; i < list.Count(); i++)
+            {
+                T item = list.ElementAt(i);
+
+                if (predicate(item))
+                {
+                    indexes.Add(i);
+                }
+            }
+
+            return indexes;
+        }
+
+        /// <summary>
+        /// Removes and returns the last element of the list
+        /// </summary>
+        /// <param name="list"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static T Pop<T>(this List<T> list) {
+            T last = list.Last();
+
+            list.Remove(last);
+
+            return last;
+        }
+
+        /// <summary>
+        /// Removes and returns the first element 
+        /// </summary>
+        /// <param name="list"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static T Shift<T>(this List<T> list) {
+            T first = list.First();
+
+            list.Remove(first);
+
+            return first;
+        }
+        #endregion
+        
+        #region String Operations
+        /// <summary>
+        /// Splits a string by a given substring
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="split"></param>
+        /// <remarks>Ex. SplitSubstring("ABC, DEF, GHI", ", ") would return a list with ["ABC", "DEF", "GHI"]</remarks>
+        /// <returns></returns>
+        public static List<string> SplitSubstring(this string input, string split) {
+            return input.Split(split).Where(l => l != split).ToList();
+        }
 
         /// <summary>
         /// A quick version of regex that assumes we're receiving 1 line and only want the first match
@@ -157,7 +271,57 @@ namespace AdventOfCode.Services
         {
             return input.Select(i => i.QuickRegex(regex)).ToList();
         }
+        #endregion
 
+        #region Math
+        /// <summary>
+        /// Mathematical mod (As opposed to C#'s remainder operator '%')
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="mod"></param>
+        /// <remarks>This is only needed if you'll be dealing with negative numbers. Ex. Mod(-5, 4) returns -3 while -5 % 4 returns -1</remarks>
+        /// <returns></returns>
+        public static int Mod(int num, int mod) {
+            if (num >= 0) {
+                return num % mod;
+            }
+            else {
+                return num + (int)Math.Ceiling((double)Math.Abs(num) / mod) * mod;
+            }
+        }
+
+        /// <summary>
+        /// Mathematical mod (As opposed to C#'s remainder operator '%')
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="mod"></param>
+        /// <remarks>This is only needed if you'll be dealing with negative numbers. Ex. Mod(-5, 4) returns -3 while -5 % 4 returns -1</remarks>
+        /// <returns></returns>
+        public static long Mod(long num, long mod) {
+            if (num >= 0) {
+                return num % mod;
+            }
+            else {
+                return num + (long)Math.Ceiling((double)Math.Abs(num) / mod) * mod;
+            }
+        }
+        #endregion
+
+        #region Conversion
+        /// <summary>
+        /// Converts 'a' to 1 and 'A' to 27
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static int GetCharValue(this char value)
+        {
+            int asciiValue = value;
+
+            int offset = char.IsLower(value) ? 'a' - 1 : 'A' - 27;
+
+            return asciiValue - offset;
+        }
+        
         /// <summary>
         /// Parses a list of strings into a list of ints
         /// </summary>
@@ -209,112 +373,6 @@ namespace AdventOfCode.Services
         }
 
         /// <summary>
-        /// Pivot's a 2D list
-        /// </summary>
-        /// <param name="list"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <remarks>Ex. [[1,2],[3,4],[5,6]].Pivot() returns [[1, 3, 5], [2, 4, 6]]</remarks>
-        /// <returns></returns>
-        public static List<List<T>> Pivot<T>(this IEnumerable<IEnumerable<T>> list)
-        {
-            return list
-                .SelectMany(inner => inner.Select((item, index) => new { item, index }))
-                .GroupBy(i => i.index, i => i.item)
-                .Select(g => g.ToList())
-                .ToList();
-        }
-
-        /// <summary>
-        /// Reverses a list in place
-        /// </summary>
-        /// <param name="list"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static List<T> ReverseInPlace<T>(this List<T> list)
-        {
-            list.Reverse();
-
-            return list.ToList();
-        }
-
-        /// <summary>
-        /// Mathematical mod (As opposed to C#'s remainder operator '%')
-        /// </summary>
-        /// <param name="num"></param>
-        /// <param name="mod"></param>
-        /// <remarks>This is only needed if you'll be dealing with negative numbers. Ex. Mod(-5, 4) returns -3 while -5 % 4 returns -1</remarks>
-        /// <returns></returns>
-        public static int Mod(int num, int mod) {
-            if (num >= 0) {
-                return num % mod;
-            }
-            else {
-                return num + (int)Math.Ceiling((double)Math.Abs(num) / mod) * mod;
-            }
-        }
-
-        /// <summary>
-        /// Mathematical mod (As opposed to C#'s remainder operator '%')
-        /// </summary>
-        /// <param name="num"></param>
-        /// <param name="mod"></param>
-        /// <remarks>This is only needed if you'll be dealing with negative numbers. Ex. Mod(-5, 4) returns -3 while -5 % 4 returns -1</remarks>
-        /// <returns></returns>
-        public static long Mod(long num, long mod) {
-            if (num >= 0) {
-                return num % mod;
-            }
-            else {
-                return num + (long)Math.Ceiling((double)Math.Abs(num) / mod) * mod;
-            }
-        }
-
-        /// <summary>
-        /// Get all permutations for the list
-        /// </summary>
-        /// <param name="list"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <remarks>Ex. [1, 2, 3].GetPermutations() returns  [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]</remarks>
-        /// <returns></returns>
-        public static IEnumerable<IEnumerable<T>> GetPermutations<T>(this IEnumerable<T> list)
-        {
-            return GetPermutations(list, list.Count());
-        }
-
-        /// <summary>
-        /// Get all permutations for the list with a certain length
-        /// </summary>
-        /// <param name="list"></param>
-        /// <param name="length"></param>
-        /// <remarks>Ex. [1, 2, 3].GetPermutations(2) returns  [[1, 2], [1, 3], [2, 1], [2, 3], [3, 1], [3, 2]]</remarks>
-        /// <returns></returns>
-        public static IEnumerable<IEnumerable<T>> GetPermutations<T>(this IEnumerable<T> list, int length)
-        {
-            return length == 1
-                ? list.Select(t => new T[] { t })
-                : list.GetPermutations(length - 1)
-                .SelectMany(t => list.Where(e => !t.Contains(e)),
-                    (t1, t2) => t1.Concat(new T[] { t2 }));
-        }
-
-        /// <summary>
-        /// Get all combinations for the list
-        /// </summary>
-        /// <param name="list"></param>
-        /// <param name="length"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <remarks>Ex. [1, 2, 3].GetCombinations(2) returns [[1, 2], [1, 3], [2, 3]]</remarks>
-        /// <returns></returns>
-        public static IEnumerable<IEnumerable<T>> GetCombinations<T>(this IEnumerable<T> list, int length) where T : IComparable
-        {
-            return length == 1
-                ?  list.Select(t => new T[] { t })
-                :  list.GetCombinations(length - 1)
-                .SelectMany(t => list.Where(o => o.CompareTo(t.Last()) > 0), 
-                    (t1, t2) => t1.Concat(new T[] { t2 }));
-        }
-        
-        /// <summary>
         /// Simplified ToString for char array
         /// </summary>
         /// <param name="chars"></param>
@@ -335,29 +393,18 @@ namespace AdventOfCode.Services
         }
 
         /// <summary>
-        /// Returns a list of indexes in a list based on a condition
+        /// Converts a char to an int
         /// </summary>
-        /// <param name="list"></param>
-        /// <param name="predicate"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <remarks>Ex. [1, 2, 3, 4, 6].FindIndexes(x => x % 2 == 0) returns [1, 3, 4]</remarks>
+        /// <param name="value"></param>
+        /// <remarks> Ex. '1'.ToInt() returns 1</remarks>
         /// <returns></returns>
-        public static List<int> FindIndexes<T>(this IEnumerable<T> list, Func<T, bool> predicate) {
-            List<int> indexes = new();
-
-            for (int i = 0; i < list.Count(); i++)
-            {
-                T item = list.ElementAt(i);
-
-                if (predicate(item))
-                {
-                    indexes.Add(i);
-                }
-            }
-
-            return indexes;
+        public static int ToInt(this char value) {
+            return int.Parse(value.ToString());
         }
 
+        #endregion
+
+        #region Other
         /// <summary>
         /// Repeats a function a certain amount of times
         /// </summary>
@@ -369,35 +416,9 @@ namespace AdventOfCode.Services
                 action.Invoke();
             }
         }
+        #endregion
 
-        /// <summary>
-        /// Removes and returns the last element of the list
-        /// </summary>
-        /// <param name="list"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static T Pop<T>(this List<T> list) {
-            T last = list.Last();
-
-            list.Remove(last);
-
-            return last;
-        }
-
-        /// <summary>
-        /// Removes and returns the first element 
-        /// </summary>
-        /// <param name="list"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static T Shift<T>(this List<T> list) {
-            T first = list.First();
-
-            list.Remove(first);
-
-            return first;
-        }
-
+        # region ASCII Parsing
         /// <summary>
         /// Given a string and desired height, print the ASCII and map it to a readable string
         /// </summary>
@@ -887,7 +908,9 @@ namespace AdventOfCode.Services
                 ,'Z'
             }
         };
-    
+        #endregion
+
+        # region File Processing
         /// <summary>
         /// Get the input file line by line
         /// </summary>
@@ -899,5 +922,6 @@ namespace AdventOfCode.Services
         public static List<string> GetInputLines(int year, int day, bool example = false) {
             return File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Inputs", year.ToString(), $"{day:D2}{(example ? "_example" : string.Empty)}.txt")).ToList();
         }
+        #endregion
     }
 }

@@ -6,8 +6,6 @@ public class AdventOfCodeGateway
     private readonly int throttleInMinutes = 3;
     private DateTimeOffset? lastCall = null;
 
-    public AdventOfCodeGateway() {}
-
     /// <summary>
     /// For a given year and day, get the user's puzzle input
     /// </summary>
@@ -106,7 +104,7 @@ public class AdventOfCodeGateway
     private void ThrottleCall() {
         // If someone is running the project for the first time that's 400 calls
         if (lastCall != null && (DateTimeOffset.Now < lastCall.Value.AddMinutes(throttleInMinutes))) {
-            throw new Exception($"Unable to make another API call to AOC Server to grab your input because we are attempting to throttle calls according to their specifications (See more in the ReadMe). Please try again after {lastCall.Value.AddMinutes(throttleInMinutes)}.");
+            throw new Exception($"Unable to make another API call to AOC Server because we are attempting to throttle calls according to their specifications (See more in the ReadMe). Please try again after {lastCall.Value.AddMinutes(throttleInMinutes)}.");
         }
         else {
             lastCall = DateTimeOffset.Now;
@@ -123,7 +121,7 @@ public class AdventOfCodeGateway
             BaseAddress = new Uri("https://adventofcode.com")
         };
         
-        client.DefaultRequestHeaders.UserAgent.ParseAdd($".NET 7.0 (+via https://github.com/austin-owensby/AdventOfCode by austin_owensby@hotmail.com)");
+        client.DefaultRequestHeaders.UserAgent.ParseAdd($".NET 8.0 (+via https://github.com/austin-owensby/AdventOfCode by austin_owensby@hotmail.com)");
     
         try {
             string cookie = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "PuzzleHelper/Cookie.txt"));

@@ -1,15 +1,9 @@
 namespace AdventOfCode.Services
 {
-    public class SolutionService
+    public class SolutionService(IServiceProvider serviceProvider, AdventOfCodeGateway adventOfCodeGateway)
     {
-        private readonly IServiceProvider serviceProvider;
-        private readonly AdventOfCodeGateway adventOfCodeGateway;
-
-        public SolutionService(IServiceProvider serviceProvider, AdventOfCodeGateway adventOfCodeGateway)
-        {
-            this.serviceProvider = serviceProvider;
-            this.adventOfCodeGateway = adventOfCodeGateway;
-        }
+        private readonly IServiceProvider serviceProvider = serviceProvider;
+        private readonly AdventOfCodeGateway adventOfCodeGateway = adventOfCodeGateway;
 
         /// <summary>
         /// Execute the specific solution based on the passed in parameters

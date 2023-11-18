@@ -6,16 +6,10 @@ namespace AdventOfCode.Controllers
 {
     [ApiController]
     [Route("api")]
-    public class Controller : ControllerBase
+    public class Controller(SolutionService solutionService, PuzzleHelperService puzzleHelperService) : ControllerBase
     {
-        private readonly SolutionService solutionService;
-        private readonly PuzzleHelperService puzzleHelperService;
-
-        public Controller(SolutionService solutionService, PuzzleHelperService puzzleHelperService)
-        {
-            this.solutionService = solutionService;
-            this.puzzleHelperService = puzzleHelperService;
-        }
+        private readonly SolutionService solutionService = solutionService;
+        private readonly PuzzleHelperService puzzleHelperService = puzzleHelperService;
 
         /// <summary>
         /// Runs a specific day's solution, and optionally posts the answer to Advent of Code and returns the result.
@@ -48,32 +42,32 @@ namespace AdventOfCode.Controllers
         }
 
         /// <summary>
-        /// Creates missing service files.
+        /// Creates missing daily solution service files.
         /// </summary>
         /// <remarks>
         /// Useful when a new year has started to preemptively generate the service files for the calendar year before the advent starts.
         /// The program is idempotent (You can run this multiple times as it will only add files if they are needed.)
         /// </remarks> 
         /// <response code="200">A string describing the updated solution folders/files.</response>
-        [HttpPost("puzzle-helper")]
-        public async Task<string> RunPuzzleHelper()
+        [HttpPost("generate-service-files")]
+        public async Task<string> GenerateMissingSolutionServiceFiles()
         {
-            return await puzzleHelperService.Run();
+            return await puzzleHelperService.GenerateMissingSolutionServiceFiles();
         }
 
         /// <summary>
         /// Imports the input from Advent of Code for a specific day.
         /// </summary>
         /// <remarks>
-        /// The program is idempotent (You can run this multiple times as it will only add files if they are needed.)
+        /// The program is idempotent (You can run this multiple times as it will only add a file if it is needed.)
         /// </remarks>
         /// <param name="year"></param>
         /// <param name="day"></param>
         /// <response code="200">A message on what was updated.</response>
-        [HttpPost("puzzle-helper-daily")]
-        public async Task<string> RunPuzzleHelper([FromQuery, BindRequired] int year = Globals.START_YEAR, [FromQuery, BindRequired] int day = 1)
+        [HttpPost("import-input-file")]
+        public async Task<string> ImportInputFile([FromQuery, BindRequired] int year = Globals.START_YEAR, [FromQuery, BindRequired] int day = 1)
         {
-            return await puzzleHelperService.RunDaily(year, day);
+            return await puzzleHelperService.ImportInputFile(year, day);
         }
     }
 }
