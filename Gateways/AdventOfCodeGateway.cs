@@ -18,11 +18,14 @@ public class AdventOfCodeGateway
 
         HttpRequestMessage message = new(HttpMethod.Get, $"/{year}/day/{day}/input");
 
-        if (client == null) {
-            try {
+        if (client == null)
+        {
+            try
+            {
                 InitializeClient();
             }
-            catch {
+            catch
+            {
                 return "Unable to read Cookie.txt. Make sure that it exists in the PuzzleHelper folder. See the ReadMe for more.";
             }
         }
@@ -53,11 +56,14 @@ public class AdventOfCodeGateway
 
         HttpContent request = new FormUrlEncodedContent(data);
 
-        if (client == null) {
-            try {
+        if (client == null)
+        {
+            try
+            {
                 InitializeClient();
             }
-            catch {
+            catch
+            {
                 return "Unable to read Cookie.txt. Make sure that it exists in the PuzzleHelper folder. See the ReadMe for more.";
             }
         }
@@ -66,11 +72,13 @@ public class AdventOfCodeGateway
 
         string response = await GetSuccessfulResponseContent(result);
 
-        if (response.Contains("please identify yourself")) {
+        if (response.Contains("please identify yourself"))
+        {
             // We tried to submit an answer, but our token has expired
             response = "Your cookie has expired, view the ReadMe for instructions on how to update it.";
         }
-        else {
+        else
+        {
             try
             {
                 // Find article component
@@ -93,7 +101,8 @@ public class AdventOfCodeGateway
     /// </summary>
     /// <param name="result"></param>
     /// <returns></returns>
-    private static async Task<string> GetSuccessfulResponseContent(HttpResponseMessage result) {
+    private static async Task<string> GetSuccessfulResponseContent(HttpResponseMessage result)
+    {
         result.EnsureSuccessStatusCode();
         return await result.Content.ReadAsStringAsync();
     }
@@ -101,12 +110,15 @@ public class AdventOfCodeGateway
     /// <summary>
     /// Tracks the last API call and prevents another call from being made until after the configured limit
     /// </summary>
-    private void ThrottleCall() {
+    private void ThrottleCall()
+    {
         // If someone is running the project for the first time that's 400 calls
-        if (lastCall != null && (DateTimeOffset.Now < lastCall.Value.AddMinutes(throttleInMinutes))) {
+        if (lastCall != null && (DateTimeOffset.Now < lastCall.Value.AddMinutes(throttleInMinutes)))
+        {
             throw new Exception($"Unable to make another API call to AOC Server because we are attempting to throttle calls according to their specifications (See more in the ReadMe). Please try again after {lastCall.Value.AddMinutes(throttleInMinutes)}.");
         }
-        else {
+        else
+        {
             lastCall = DateTimeOffset.Now;
         }
     }
@@ -114,20 +126,23 @@ public class AdventOfCodeGateway
     /// <summary>
     /// Initialize the Http Client using the user's cookie
     /// </summary>
-    private void InitializeClient() {
+    private void InitializeClient()
+    {
         // We're waiting to do this until the last moment in case someone want's to use the code base without setting up the cookie
         client = new HttpClient
         {
             BaseAddress = new Uri("https://adventofcode.com")
         };
-        
+
         client.DefaultRequestHeaders.UserAgent.ParseAdd($".NET 8.0 (+via https://github.com/austin-owensby/AdventOfCode by austin_owensby@hotmail.com)");
-    
-        try {
+
+        try
+        {
             string cookie = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "PuzzleHelper/Cookie.txt"));
             client.DefaultRequestHeaders.Add("Cookie", cookie);
         }
-        catch (Exception) {
+        catch (Exception)
+        {
             throw new Exception("Unable to read Cookie.txt. Make sure that it exists in the PuzzleHelper folder. See the ReadMe for more.");
         }
     }

@@ -1,4 +1,4 @@
-﻿﻿using AdventOfCode.Services;
+﻿using AdventOfCode.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -23,11 +23,13 @@ namespace AdventOfCode.Controllers
         [HttpGet("run-solution")]
         public async Task<ActionResult<string>> GetSolution([FromQuery, BindRequired] int year = Globals.START_YEAR, [FromQuery, BindRequired] int day = 1, bool secondHalf = false, bool send = false, bool example = false)
         {
-            if (send && example) {
+            if (send && example)
+            {
                 return BadRequest("You're attempting to submit your answer to AOC while using an example input, this is likely a mistake.");
             }
 
-            if (day == 25 && secondHalf) {
+            if (day == 25 && secondHalf)
+            {
                 return NotFound("There is no problem for Day 25 part 2, solve all other problems to get the last star.");
             }
 

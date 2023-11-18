@@ -11,8 +11,8 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "AdventOfCode", Version = "v1" });
     c.ParameterFilter<ParameterFilter>();
 
-    var filePath = Path.Combine(AppContext.BaseDirectory, "AdventOfCode.xml");
-     c.IncludeXmlComments(filePath);
+    string filePath = Path.Combine(AppContext.BaseDirectory, "AdventOfCode.xml");
+    c.IncludeXmlComments(filePath);
 });
 
 // Add the gateway as singleton since almost all API calls use it and it sets up a client that we'd like to keep configured
