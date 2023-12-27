@@ -373,6 +373,128 @@ namespace AdventOfCode.Services
                 return num + (long)Math.Ceiling((double)Math.Abs(num) / mod) * mod;
             }
         }
+
+        /// <summary>
+        /// Given 2 numbers, find the Least Common Multiple between them
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        /// <remarks>Ex. Utility.LCM(24, 36) returns 72</remarks>
+        public static T LCM<T>(T a, T b) where T: notnull, INumber<T>
+        {
+            return a / GCF(a, b) * b;
+        }
+
+        /// <summary>
+        /// Given 2 numbers, find the Least Common Multiple between them
+        /// </summary>
+        /// <param name="values"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        /// <remarks>Ex. Utility.LCM([24, 36]) returns 72</remarks>
+        public static T LCM<T>(List<T> values) where T: notnull, INumber<T>
+        {
+            if (values.Count == 0) {
+                return default!;
+            }
+            else if (values.Count == 1) {
+                return values.First();
+            }
+            else {
+                T value = LCM(values[0], values[1]);
+
+                for (int i = 2; i < values.Count; i++) {
+                    value = LCM(value, values[i]);
+                }
+
+                return value;
+            }
+        }
+
+        /// <summary>
+        /// Given 2 numbers, find the Greatest Common Factor between them
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        /// <remarks>Ex. Utility.GCF(24, 36) returns 12</remarks>
+        public static T GCF<T>(T a, T b) where T: notnull, INumber<T>
+        {
+            while (b != default)
+            {
+                T temp = b;
+                b = a % b;
+                a = temp;
+            }
+            return a;
+        }
+
+        /// <summary>
+        /// Given 2 numbers, find the Greatest Common Factor between them
+        /// </summary>
+        /// <param name="values"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        /// <remarks>Ex. Utility.GCF([24, 36]) returns 12</remarks>
+        public static T GCF<T>(List<T> values) where T: notnull, INumber<T>
+        {
+            if (values.Count == 0) {
+                return default!;
+            }
+            else if (values.Count == 1) {
+                return values.First();
+            }
+            else {
+                T value = LCM(values[0], values[1]);
+
+                for (int i = 2; i < values.Count; i++) {
+                    value = LCM(value, values[i]);
+                }
+
+                return value;
+            }
+        }
+
+        /// <summary>
+        /// Given a matrix, calculate it's determinate
+        /// </summary>
+        /// <param name="matrix"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        /// <remarks>Ex. Utility.MatrixDeterminate([[4, 1], [0, 2]]) returns 8</remarks>
+        public static T MatrixDeterminate<T>(List<List<T>> matrix) where T : notnull, INumber<T> {
+            if (matrix.Count == 0) {
+                return default!;
+            }
+
+            if (!matrix.All(row => row.Count == matrix.Count)) {
+                throw new Exception("Recieved a non-square matrix");
+            }
+
+            if (matrix.Count == 2) {
+                T value = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+                return value;
+            }
+            else {
+                T answer = default!;
+                foreach (int i in matrix.Count) {
+                    T value = matrix[0][i];
+
+                    // Don't bother doing the calcs if it won't change the results
+                    if (value != default) {
+                        List<List<T>> newMatrix = matrix.Skip(1).Select(row => row.Where((x, index) => index != i).ToList()).ToList();
+                        value *= MatrixDeterminate(newMatrix);
+                        
+                        answer += i % 2 == 0 ? value : -value;
+                    }
+                }
+                return answer;
+            }
+        }
+
         #endregion
 
         #region Conversion
